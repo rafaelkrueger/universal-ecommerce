@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { React, useState, useEffect, useContext } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import Api from "./Api";
+import Products from "./Pages/Products";
+const apiip = require("apiip.net")("555e720f-072c-4174-ac6c-0a58e40933c8");
 
 function App() {
+  useEffect(() => {
+    Api.get("/empresa/6328516b9ad1ed58f92820b1")
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // apiip
+    //   .getLocation()
+    //   .then((results) => console.log(results))
+    //   .catch((error) => console.error(error));
+  }, []);
+
+  const [data, setData] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home data={data} />} />
+            <Route path="/produtos" element={<Products data={data} />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
 
