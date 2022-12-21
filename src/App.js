@@ -1,39 +1,123 @@
 import "./App.css";
-import { React, useState, useEffect, useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Api from "./Api";
-import Products from "./Pages/Products";
+import Products from "./Components/Products";
+import Details from "./Components/Details";
+import CartPage from "./Pages/CartPage";
+import Purchase from "./Pages/Purchase";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
 const apiip = require("apiip.net")("555e720f-072c-4174-ac6c-0a58e40933c8");
 
 function App() {
-  useEffect(() => {
-    Api.get("/empresa/6328516b9ad1ed58f92820b1")
-      .then((res) => {
-        setData(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // apiip
-    //   .getLocation()
-    //   .then((results) => console.log(results))
-    //   .catch((error) => console.error(error));
-  }, []);
-
+  const [filled, setFilled] = useState(false);
   const [data, setData] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [valortotal, setValorTotal] = useState(0);
+
+  const [costumer, setCostumer] = useState({
+    name: "",
+    email: "",
+    number: "",
+    identification: "",
+    cep: "",
+    state: "",
+    city: "",
+    street: "",
+    adressnumber: "",
+  });
 
   return (
     <>
-      <div>
-        <BrowserRouter>
+      <Router>
+        <div>
+          <Navbar
+            data={data}
+            cart={cart}
+            setCart={setCart}
+            costumer={costumer}
+            setCostumer={setCostumer}
+          />
           <Routes>
-            <Route path="/" element={<Home data={data} />} />
-            <Route path="/produtos" element={<Products data={data} />} />
+            <Route
+              path="/:tamarinId"
+              element={
+                <Home
+                  data={data}
+                  setData={setData}
+                  cart={cart}
+                  setCart={setCart}
+                  costumer={costumer}
+                  setCostumer={setCostumer}
+                />
+              }
+            />
+            <Route
+              path="/:tamarinId/produtos/:categoria"
+              element={
+                <Products
+                  data={data}
+                  setData={setData}
+                  cart={cart}
+                  setCart={setCart}
+                  costumer={costumer}
+                  setCostumer={setCostumer}
+                />
+              }
+            />
+            <Route
+              path="/produto/:id/:tamarinId"
+              element={
+                <Details
+                  data={data}
+                  setData={setData}
+                  cart={cart}
+                  setCart={setCart}
+                  costumer={costumer}
+                  setCostumer={setCostumer}
+                />
+              }
+            />
+            <Route
+              path="/:tamarinId/purchase"
+              element={
+                <Purchase
+                  data={data}
+                  setData={setData}
+                  cart={cart}
+                  setCart={setCart}
+                  costumer={costumer}
+                  setCostumer={setCostumer}
+                  filled={filled}
+                  setFilled={setFilled}
+                  valortotal={valortotal}
+                  setValorTotal={setValorTotal}
+                />
+              }
+            />
+            <Route
+              path="/:tamarinId/cart"
+              element={
+                <CartPage
+                  data={data}
+                  setData={setData}
+                  cart={cart}
+                  setCart={setCart}
+                  costumer={costumer}
+                  setCostumer={setCostumer}
+                  filled={filled}
+                  setFilled={setFilled}
+                  valortotal={valortotal}
+                  setValorTotal={setValorTotal}
+                />
+              }
+            />
           </Routes>
-        </BrowserRouter>
-      </div>
+          <Footer data={data} />
+        </div>
+      </Router>
     </>
   );
 }

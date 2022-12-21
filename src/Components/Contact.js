@@ -3,17 +3,20 @@ import Instagram from "../Icons/instagram.png";
 import Facebook from "../Icons/facebook.png";
 import Whatsapp from "../Icons/whatsapp.png";
 
-function Contact() {
+function Contact({ data }) {
   return (
     <>
       <div class="container-fluid" id="contact-style">
         <div class="row" id="contact-row-1">
-          <div class="col" style={{ padding: "1%", textAlign: "center" }}>
+          <div
+            class="col"
+            style={{ padding: "1%", textAlign: "center", marginTop: "10%" }}
+          >
             <h3
               style={{
                 padding: "1%",
                 textAlign: "center",
-                color: "rgb(223, 203, 137)",
+                color: "#252525",
               }}
             >
               Quer entrar em contato?
@@ -25,6 +28,7 @@ function Contact() {
             <img class="contact-icons" src={Instagram} />
           </div>
           <div class="col-lg-5" id="contact-row-2">
+            <img src={data == null ? "" : data.logo} id="contact-logo" />
             <span class="font-weight-bold">Nome</span>
             <input
               id="iptName"
