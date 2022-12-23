@@ -15,8 +15,6 @@ function Details({ data, setData, cart, setCart }) {
   let { tamarinId } = useParams();
   let { id } = useParams();
 
-  useEffect(() => {}, [id]);
-
   useEffect(() => {
     Api.get(`/empresa/${tamarinId}`)
       .then((res) => {

@@ -4,6 +4,7 @@ import CreditCard from "./Payments/CreditCard";
 import Boleto from "./Payments/Boleto";
 
 function Payment({
+  data,
   costumer,
   setCostumer,
   filled,

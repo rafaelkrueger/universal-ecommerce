@@ -15,11 +15,9 @@ function CartPage({
   setCostumer,
   filled,
   setFilled,
-  valortotal,
-  setValorTotal,
 }) {
-  const [chosen, setChosen] = useState(2);
   let { tamarinId } = useParams();
+  const [valortotal, setValorTotal] = useState(0);
 
   useEffect(() => {
     Api.get(`/empresa/${tamarinId}`)
@@ -61,6 +59,8 @@ function CartPage({
           setCostumer={setCostumer}
           filled={filled}
           setFilled={setFilled}
+          valortotal={valortotal}
+          setValorTotal={setValorTotal}
         />
       ) : (
         <User

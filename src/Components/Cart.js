@@ -16,7 +16,7 @@ function Cart({
     return 0;
   };
 
-  const valorTotal = (cart, frete = 0) => {
+  const valorTotalCart = (cart, frete = 0) => {
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
       total = total + parseFloat(cart[0].totalPrice);
@@ -38,7 +38,7 @@ function Cart({
   };
 
   useEffect(() => {
-    setValorTotal(valorTotal(cart, 0));
+    setValorTotal(valorTotalCart(cart, 0));
   });
 
   return (
@@ -151,7 +151,7 @@ function Cart({
                   <h6>Valor Total:</h6>
                 </td>
                 <td className="purchase-table-row">
-                  R${valorTotal(cart, 0).toFixed(2)}
+                  R${valorTotalCart(cart, 0).toFixed(2)}
                 </td>
                 <td className="purchase-table-row"></td>
               </tr>

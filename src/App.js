@@ -15,7 +15,6 @@ function App() {
   const [filled, setFilled] = useState(false);
   const [data, setData] = useState(null);
   const [cart, setCart] = useState([]);
-  const [valortotal, setValorTotal] = useState(0);
 
   const [costumer, setCostumer] = useState({
     name: "",
@@ -81,23 +80,6 @@ function App() {
               }
             />
             <Route
-              path="/:tamarinId/purchase"
-              element={
-                <Purchase
-                  data={data}
-                  setData={setData}
-                  cart={cart}
-                  setCart={setCart}
-                  costumer={costumer}
-                  setCostumer={setCostumer}
-                  filled={filled}
-                  setFilled={setFilled}
-                  valortotal={valortotal}
-                  setValorTotal={setValorTotal}
-                />
-              }
-            />
-            <Route
               path="/:tamarinId/cart"
               element={
                 <CartPage
@@ -109,8 +91,6 @@ function App() {
                   setCostumer={setCostumer}
                   filled={filled}
                   setFilled={setFilled}
-                  valortotal={valortotal}
-                  setValorTotal={setValorTotal}
                 />
               }
             />
