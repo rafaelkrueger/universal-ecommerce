@@ -6,9 +6,9 @@ import Api from "./Api";
 import Products from "./Components/Products";
 import Details from "./Components/Details";
 import CartPage from "./Pages/CartPage";
-import Purchase from "./Pages/Purchase";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+
 const apiip = require("apiip.net")("555e720f-072c-4174-ac6c-0a58e40933c8");
 
 function App() {

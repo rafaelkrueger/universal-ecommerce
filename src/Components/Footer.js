@@ -14,8 +14,9 @@ function Footer({ data }) {
     } else {
       setTimeout(() => {
         setFooterStyle({
-          backgroundColor: data.website.websiteNavbarFooterColor,
-          color: data.website.websiteFontFooterColor,
+          backgroundColor:
+            data !== null ? data.website.websiteNavbarFooterColor : "black",
+          color: data !== null ? data.website.websiteFontFooterColor : "white",
         });
       }, 500);
     }
@@ -36,8 +37,9 @@ function Footer({ data }) {
             <h2 class="footer-title">Mapa do Site</h2>
             <hr />
             <p className="footer-link">Home</p>
-            <p className="footer-link">Eventos</p>
-            <p className="footer-link">Criar Eventos</p>
+            <p className="footer-link">Produtos</p>
+            <p className="footer-link">Carrinho</p>
+            <p className="footer-link">Carrinho</p>
           </div>
           <div class="col">
             <h2 class="footer-title">Sobre Nós</h2>

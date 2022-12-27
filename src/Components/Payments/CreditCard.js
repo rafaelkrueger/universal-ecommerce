@@ -2,6 +2,7 @@ import React from "react";
 import Master from "../../images/payment/credito-mastercard-icon.png";
 import Hiper from "../../images/payment/credito-hipercard-icon.png";
 import Visa from "../../images/payment/visa-icon.png";
+import { CardElement } from "@stripe/react-stripe-js";
 import "../../App.css";
 
 function CreditCard() {
@@ -14,7 +15,7 @@ function CreditCard() {
       </div>
       <div className="body-component">
         <h4>Cartão de Crédito/Débito</h4>
-        <p>Pagamento pix, Clique o botão para gerar o QrCode</p>
+        <span className="header-commponent-span">Pague pelo app do banco</span>
         <button className="btn btn-large btn-success">Gerar QRcode</button>
       </div>
     </div>

@@ -7,6 +7,7 @@ function Payment({
   data,
   costumer,
   setCostumer,
+  cart,
   filled,
   setFilled,
   valortotal,
@@ -79,9 +80,17 @@ function Payment({
         </div>
         <div className="col">
           <div className="purchase-selected">
-            {chosen == 1 ? <Pix valortotal={valortotal} /> : ""}
-            {chosen == 2 ? <CreditCard /> : ""}
-            {chosen == 3 ? <Boleto /> : ""}
+            {chosen == 1 ? (
+              <Pix costumer={costumer} valortotal={valortotal} cart={cart} />
+            ) : (
+              ""
+            )}
+            {chosen == 2 ? <CreditCard valortotal={valortotal} /> : ""}
+            {chosen == 3 ? (
+              <Boleto costumer={costumer} valortotal={valortotal} cart={cart} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

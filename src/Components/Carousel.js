@@ -9,7 +9,7 @@ function Carousel({ data }) {
       );
     } else {
       setTimeout(() => {
-        setCarousel(data.website.websiteCarousel);
+        setCarousel(data !== null ? data.website.websiteCarousel : "");
       }, 500);
     }
   });

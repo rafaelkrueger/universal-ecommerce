@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-function Navbar({ data }) {
+function Navbar({ data, cart }) {
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
+  const [search, setSearch] = useState("");
   const [screen, setScreen] = useState(window.outerWidth);
   const [screen2, setScreen2] = useState(window.outerHeight);
   const [navbar, setNavbar] = useState("");
@@ -25,8 +26,9 @@ function Navbar({ data }) {
     } else {
       setTimeout(() => {
         setNavbarStyle({
-          backgroundColor: data.website.websiteNavbarFooterColor,
-          color: data.website.websiteFontFooterColor,
+          backgroundColor:
+            data !== null ? data.website.websiteNavbarFooterColor : "white",
+          color: data !== null ? data.website.websiteFontFooterColor : "black",
         });
       }, 500);
     }
@@ -42,41 +44,43 @@ function Navbar({ data }) {
           color: navbarStyle.color,
         }}
       >
-        <div class="container-fluid">
-          <Link
-            class="navbar-brand"
-            style={{ color: "white" }}
-            to={`${data == null ? "" : data._id}`}
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            {screen > 600 ? (
-              <img
-                src={data == null ? "..." : data.logo}
-                id="navbar-logo"
-                style={{
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                  width: "10%",
-                  height: "10%",
-                  borderRadius: "10px ",
-                }}
-              />
-            ) : (
-              <AiOutlineMenu
-                color={navbarStyle.color}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (navbar == "responsive") {
-                    setNavbar("");
-                  } else {
-                    setNavbar("responsive");
-                  }
-                }}
-              />
-            )}
-          </Link>
+        <div class="container-fluid" id="navbar-content">
+          <div className="menu-logo">
+            <Link
+              class="navbar-brand"
+              style={{ color: "white" }}
+              to={`${data == null ? "" : data._id}`}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              {screen > 600 ? (
+                <img
+                  src={data == null ? "..." : data.logo}
+                  id="navbar-logo"
+                  style={{
+                    borderRadius: "50%",
+                    objectFit: "contain",
+                    width: "10%",
+                    height: "10%",
+                    borderRadius: "10px ",
+                  }}
+                />
+              ) : (
+                <AiOutlineMenu
+                  color={navbarStyle.color}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (navbar == "responsive") {
+                      setNavbar("");
+                    } else {
+                      setNavbar("responsive");
+                    }
+                  }}
+                />
+              )}
+            </Link>
+          </div>
           <div class="collapse navbar-collapse" id={`navbar-content${navbar}`}>
             <div class="navbar-nav" id="nav-links">
               <Link
@@ -131,12 +135,73 @@ function Navbar({ data }) {
                       );
                     })}
               </select>
+            </div>
+          </div>
+          <div className="navbar-search">
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm">
+                <AiOutlineSearch />
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm"
+                placeholder="O que você procura?"
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+              />
+            </div>
+            <div
+              className="navbar-search-result"
+              style={{
+                backgroundColor:
+                  data !== null
+                    ? data.website.websiteNavbarFooterColor
+                    : "black",
+                color:
+                  data !== null ? data.website.websiteFontFooterColor : "white",
+              }}
+            >
+              <ul className="navbar-search-result-list">
+                {data !== null
+                  ? data.produto.filter((list, key) => {
+                      if (list.product == search) {
+                        return (
+                          <li key={list.product._id} style={{ color: "white" }}>
+                            ain
+                          </li>
+                        );
+                      }
+                    })
+                  : ""}
+              </ul>
+            </div>
+          </div>
+          <div className="col" id={`last-navbar-fields-${navbar}`}>
+            <div className="navbar-cart">
               <Link
                 to={`${data == null ? "" : data._id}/cart`}
-                id="nav-link-sobre"
+                id="nav-link-cart"
                 class="nav-link"
               >
                 <BsCart4 color={navbarStyle.color} />
+                <span
+                  className="cart-navbar-content-number"
+                  style={{
+                    backgroundColor:
+                      data !== null
+                        ? data.website.websiteNavbarFooterColor
+                        : "black",
+                    color:
+                      data !== null
+                        ? data.website.websiteFontFooterColor
+                        : "white",
+                  }}
+                >
+                  {cart.length}
+                </span>
               </Link>
             </div>
           </div>

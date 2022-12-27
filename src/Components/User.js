@@ -94,7 +94,7 @@ function User({ costumer, setCostumer, filled, setFilled }) {
                   type="text"
                   class="form-control "
                   id="floatingInputGroup2"
-                  placeholder="CPF/RG"
+                  placeholder="CPF"
                   value={costumer.identification}
                   onChange={(e) => {
                     setCostumer({
@@ -103,7 +103,7 @@ function User({ costumer, setCostumer, filled, setFilled }) {
                     });
                   }}
                 />
-                <label for="floatingInputGroup2">CPF/RG</label>
+                <label for="floatingInputGroup2">CPF</label>
               </div>
             </div>
           </div>

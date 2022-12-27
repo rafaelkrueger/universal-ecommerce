@@ -3,7 +3,7 @@ import PixImage from "../../images/payment/pix-checkout.png";
 import Api from "../../Api";
 import "../../App.css";
 
-function Pix({ valortotal }) {
+function Pix({ costumer, valortotal, cart }) {
   const [qrcode, setQrcode] = useState("");
   return (
     <>
@@ -11,11 +11,18 @@ function Pix({ valortotal }) {
         <div className="row" id="pix-component-style">
           <div className="col">
             <div className="header-commponent-image">
-              <img src={PixImage} />
+              <img className="pay-icon" src={PixImage} />
             </div>
             <div className="body-component">
-              <h3>Pix</h3>
-              <p>Pagamento pix, Clique o botão para gerar o QrCode</p>
+              <h3>
+                Pix
+                <span className="header-commponent-span">
+                  Pague pelo app do banco
+                </span>
+              </h3>
+              <p className="pix-text">
+                Pagamento pix, Clique o botão para gerar o QrCode
+              </p>
               <button
                 onClick={() => {
                   Api.get(`/pix/${valortotal.toFixed(2)}`)
