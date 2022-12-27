@@ -5,7 +5,7 @@ import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-function Navbar({ data, cart }) {
+function Navbar({ data, cart, setCart }) {
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
@@ -162,16 +162,58 @@ function Navbar({ data, cart }) {
                     : "black",
                 color:
                   data !== null ? data.website.websiteFontFooterColor : "white",
+                border: `1px ${
+                  data !== null ? data.website.websiteFontFooterColor : "white"
+                } solid `,
               }}
             >
               <ul className="navbar-search-result-list">
                 {data !== null
-                  ? data.produto.filter((list, key) => {
-                      if (list.product == search) {
+                  ? data.produto.map((list, key) => {
+                      if (list.product.includes(search) && search !== "") {
                         return (
-                          <li key={list.product._id} style={{ color: "white" }}>
-                            ain
-                          </li>
+                          <div className="navbar-list-item">
+                            <div className="row">
+                              <div className="navbar-search-image">
+                                <img
+                                  style={{
+                                    border: "white",
+                                  }}
+                                  src={list.image}
+                                  className="navbar-search-image-content"
+                                />
+                              </div>
+                              <div
+                                className="col"
+                                id="navbar-search-name-content"
+                              >
+                                <p
+                                  className="navbar-search-name-content-p"
+                                  key={key}
+                                  style={{
+                                    color: data.website.websiteFontFooterColor,
+                                  }}
+                                >
+                                  {list.product}
+                                </p>
+                              </div>
+                              <div
+                                className="col"
+                                id="navbar-search-add-content"
+                              >
+                                <button
+                                  className="btn btn-success"
+                                  id="navbar-search-name-content-button"
+                                  onClick={() => {
+                                    setCart([...cart, list]);
+                                  }}
+                                >
+                                  <BsCart4 color="white" />+
+                                </button>
+                              </div>
+                            </div>
+                            <hr />
+                          </div>
                         );
                       }
                     })
