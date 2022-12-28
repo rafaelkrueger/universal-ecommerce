@@ -3,6 +3,7 @@ import { BsFillPersonFill, BsTelephone } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
 import { GrDocumentUser } from "react-icons/gr";
 import { FaCity } from "react-icons/fa";
+import { MdPassword } from "react-icons/md";
 import Api from "../Api";
 
 function User({ costumer, setCostumer, filled, setFilled }) {
@@ -62,6 +63,25 @@ function User({ costumer, setCostumer, filled, setFilled }) {
                   }}
                 />
                 <label for="floatingInputGroup2">Email</label>
+              </div>
+            </div>
+            <br />
+            <div class="input-group has-validation">
+              <span class="input-group-text">
+                <MdPassword />
+              </span>
+              <div class="form-floating ">
+                <input
+                  type="password"
+                  class="form-control "
+                  id="floatingInputGroup2"
+                  placeholder="Sua senha"
+                  value={costumer.password}
+                  onChange={(e) => {
+                    setCostumer({ ...costumer, password: e.target.value });
+                  }}
+                />
+                <label for="floatingInputGroup2">Senha</label>
               </div>
             </div>
             <br />

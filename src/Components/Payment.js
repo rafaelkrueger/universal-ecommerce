@@ -81,13 +81,23 @@ function Payment({
         <div className="col">
           <div className="purchase-selected">
             {chosen == 1 ? (
-              <Pix costumer={costumer} valortotal={valortotal} cart={cart} />
+              <Pix
+                data={data}
+                costumer={costumer}
+                valortotal={valortotal}
+                cart={cart}
+              />
             ) : (
               ""
             )}
             {chosen == 2 ? <CreditCard valortotal={valortotal} /> : ""}
             {chosen == 3 ? (
-              <Boleto costumer={costumer} valortotal={valortotal} cart={cart} />
+              <Boleto
+                data={data}
+                costumer={costumer}
+                valortotal={valortotal}
+                cart={cart}
+              />
             ) : (
               ""
             )}

@@ -3,7 +3,7 @@ import PixImage from "../../images/payment/pix-checkout.png";
 import Api from "../../Api";
 import "../../App.css";
 
-function Pix({ costumer, valortotal, cart }) {
+function Pix({ data, costumer, valortotal, cart }) {
   const [qrcode, setQrcode] = useState("");
   return (
     <>
@@ -25,7 +25,22 @@ function Pix({ costumer, valortotal, cart }) {
               </p>
               <button
                 onClick={() => {
-                  Api.get(`/pix/${valortotal.toFixed(2)}`)
+                  Api.get(`/pix`, {
+                    empresa: data._id,
+                    name: costumer.name,
+                    email: costumer.email,
+                    cpf: costumer.identification,
+                    password: costumer.password,
+                    number: costumer.number,
+                    cep: costumer.cep,
+                    state: costumer.state,
+                    city: costumer.city,
+                    hood: costumer.hood,
+                    street: costumer.street,
+                    streetNumber: costumer.streetNumber,
+                    value: valortotal.toFixed(2),
+                    products: [cart],
+                  })
                     .then((res) => {
                       setQrcode(res.data);
                     })

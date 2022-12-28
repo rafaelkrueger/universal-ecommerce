@@ -19,6 +19,7 @@ function App() {
   const [costumer, setCostumer] = useState({
     name: "",
     email: "",
+    password: "",
     number: "",
     identification: "",
     cep: "",
