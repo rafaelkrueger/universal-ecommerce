@@ -707,10 +707,6 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
   }
-  #filter-product-style{
-    visibility: hidden;
-    display: none;
-  }
 
   #product-list {
       margin-top: 25%;
@@ -723,6 +719,11 @@ cursor: pointer;
     flex-wrap: nowrap;
     display: flex;
     flex-direction: column;
+    margin-top: 20%;
+  }
+
+  #filter-product-style{
+    margin-top: 35%;
   }
 
   .swiper-wrapper{

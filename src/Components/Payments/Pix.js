@@ -35,9 +35,8 @@ function Pix({ data, costumer, valortotal, cart }) {
                     cep: costumer.cep,
                     state: costumer.state,
                     city: costumer.city,
-                    hood: costumer.hood,
                     street: costumer.street,
-                    streetNumber: costumer.streetNumber,
+                    streetNumber: costumer.adressNumber,
                     valor: valortotal,
                     products: [cart],
                   })
