@@ -10,7 +10,6 @@ function Navbar({ data, cart, setCart }) {
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [screen, setScreen] = useState(window.outerWidth);
-  const [screen2, setScreen2] = useState(window.outerHeight);
   const [navbar, setNavbar] = useState("");
   const [navbarStyle, setNavbarStyle] = useState({
     color: "",
@@ -162,9 +161,6 @@ function Navbar({ data, cart, setCart }) {
                     : "black",
                 color:
                   data !== null ? data.website.websiteFontFooterColor : "white",
-                border: `1px ${
-                  data !== null ? data.website.websiteFontFooterColor : "white"
-                } solid `,
               }}
             >
               <ul className="navbar-search-result-list">

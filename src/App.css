@@ -117,6 +117,7 @@ body::-webkit-scrollbar-thumb {
   width: 20%;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
+  overflow-x: hidden;
 }
 
 .navbar-search-image{
@@ -137,16 +138,15 @@ body::-webkit-scrollbar-thumb {
 #navbar-search-name-content-button{
   align-self: center;
   margin-left: 15%;
-  margin-top: 10%;
+  width: 80%;
+  margin-top: -3%;
+  
 }
 .navbar-search-result-list{
   list-style: none;
 }
 
-.navbar-search-result-list{
-  scroll-behavior: smooth;
-  overflow-y: auto;
-}
+
 
 .navbar-list-item{
   margin-top: 25px;
@@ -641,6 +641,10 @@ cursor: pointer;
     font-size: small;
     margin-left: 20%
   }
+  .navbar-search{
+    margin-top:3px;
+    margin-left: 14%;
+  }
   .navbar-search-result{
     width: 50%;
     margin-top: 1%;
@@ -658,7 +662,12 @@ cursor: pointer;
   #navbar-search-add-content{
     margin-top: 20%;
   }
-
+  .navbar-search-add-content-value{
+    font-size: 10pt;
+  }
+  #navbar-search-name-content-button{
+    width: 100%;
+  }
   .cart-navbar-content-number{
     margin-left: 5%;
     margin-right: -5%;
@@ -682,12 +691,13 @@ cursor: pointer;
   }
   #select-category-modal-navbar{
     margin-left: -33.5%;
+    margin-bottom: 3%;
   }
   .navbar-search{
     align-self: center;
   }
   .navbar-cart{
-    margin-top: -25%;
+    margin-top: -5%;
   }
 
   #contact-row-2{
