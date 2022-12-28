@@ -25,7 +25,7 @@ function Pix({ data, costumer, valortotal, cart }) {
               </p>
               <button
                 onClick={() => {
-                  Api.post(`http://localhost:8080/pix`, {
+                  Api.post(`https://tamarintec.herokuapp.com/pix`, {
                     empresa: data._id,
                     name: costumer.name,
                     email: costumer.email,
