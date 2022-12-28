@@ -25,7 +25,7 @@ function Pix({ data, costumer, valortotal, cart }) {
               </p>
               <button
                 onClick={() => {
-                  Api.get(`/pix`, {
+                  Api.post(`http://localhost:8080/pix`, {
                     empresa: data._id,
                     name: costumer.name,
                     email: costumer.email,
@@ -38,7 +38,7 @@ function Pix({ data, costumer, valortotal, cart }) {
                     hood: costumer.hood,
                     street: costumer.street,
                     streetNumber: costumer.streetNumber,
-                    value: valortotal.toFixed(2),
+                    valor: valortotal,
                     products: [cart],
                   })
                     .then((res) => {
