@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
-import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -67,6 +67,7 @@ function Navbar({ data, cart, setCart }) {
                 />
               ) : (
                 <AiOutlineMenu
+                  className="menu-navbar"
                   color={navbarStyle.color}
                   onClick={(e) => {
                     e.preventDefault();
@@ -115,13 +116,24 @@ function Navbar({ data, cart, setCart }) {
                   );
                 }}
               >
-                <option>Categorias</option>
+                <option
+                  style={{
+                    color: navbarStyle.color,
+                    backgroundColor: navbarStyle.backgroundColor,
+                  }}
+                >
+                  Categorias
+                </option>
                 {data == undefined
                   ? ""
                   : data.categorias.map((list) => {
                       return (
                         <>
                           <option
+                            style={{
+                              color: navbarStyle.color,
+                              backgroundColor: navbarStyle.backgroundColor,
+                            }}
                             onClick={() => {
                               setCategory(list);
                             }}
@@ -134,6 +146,14 @@ function Navbar({ data, cart, setCart }) {
                       );
                     })}
               </select>
+              <Link
+                to={`${data == null ? "" : data._id}/profile`}
+                id="nav-link-valores"
+                class="nav-link"
+                style={{ color: navbarStyle.color }}
+              >
+                <AiOutlineUser />
+              </Link>
             </div>
           </div>
           <div className="navbar-search">

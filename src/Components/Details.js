@@ -109,9 +109,6 @@ function Details({ data, setData, cart, setCart }) {
                           price: list.price,
                         });
                         produto[0].options.id = list.type;
-                        document.getElementById(
-                          `detailed-product-card-` + list.id
-                        ).style.boxShadow = "1px 1px 10px rgba(0,0,0,0.8)";
                       }}
                     >
                       <p id="detailed-product-type">

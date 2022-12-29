@@ -37,6 +37,7 @@ function CartPage({
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
   });
+  console.log(cart);
   return (
     <>
       <Cart
