@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PixImage from "../../images/payment/pix-checkout.png";
 import Api from "../../Api";
 import "../../App.css";
 
 function Pix({ data, costumer, valortotal, cart }) {
   const [qrcode, setQrcode] = useState("");
+  const [txid, setTxId] = useState("");
+  const [status, setStatus] = useState(false);
+  useEffect(() => {
+    setInterval(() => {
+      console.log(txid);
+      Api.get(`https://tamarintec.herokuapp.com/pix-status/${txid}`).then(
+        (res) => {
+          if (res.data == "CONCLUIDA") {
+            setStatus(true);
+          }
+        }
+      );
+    }, 5000);
+  }, [txid]);
+
   return (
     <>
       <div className="pix-component">
@@ -41,7 +56,9 @@ function Pix({ data, costumer, valortotal, cart }) {
                     products: [cart],
                   })
                     .then((res) => {
-                      setQrcode(res.data);
+                      console.log(res.data);
+                      setQrcode(res.data.qrcode);
+                      setTxId(res.data.txid);
                     })
                     .catch((err) => {
                       console.log(err);
@@ -54,7 +71,22 @@ function Pix({ data, costumer, valortotal, cart }) {
             </div>
           </div>
           <div className="col">
-            <img src={qrcode} id="pix-qrcode" />
+            {status ? (
+              <img src={qrcode} id="pix-qrcode" />
+            ) : (
+              <div className="pix-payed">
+                <img src={data.logo} className="pix-payed-image" />
+                <p>
+                  O pagamento foi realizado com sucesso! {data.name} agradece
+                  pela confiança e preferência!
+                </p>
+                <p className="pix-payed-text-2">
+                  Clique no botão para mais informações sobre suas compras
+                </p>
+
+                <button className="btn btn-success">Meu Perfil</button>
+              </div>
+            )}
           </div>
         </div>
       </div>
