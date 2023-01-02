@@ -71,7 +71,7 @@ function Pix({ data, costumer, valortotal, cart }) {
             </div>
           </div>
           <div className="col">
-            {status ? (
+            {!status ? (
               <img src={qrcode} id="pix-qrcode" />
             ) : (
               <div className="pix-payed">
