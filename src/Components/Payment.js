@@ -18,6 +18,14 @@ function Payment({
     <div className="purchase">
       <div className="row" id="purchase-join-pages">
         <div className="col" id="select-payment">
+          <div
+            className="back-arrow"
+            onClick={() => {
+              setFilled(!filled);
+            }}
+          >
+            <p className="back-arrow-button">Voltar as Informações</p>
+          </div>
           <div className="purchase-options">
             <div className="purchase-options-element">
               <div

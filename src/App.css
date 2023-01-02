@@ -371,8 +371,7 @@ body::-webkit-scrollbar-thumb {
 
 #detailed-product-description{
   color: rgba(0,0,0,0.8);
-  margin: 10%;
-  text-align: justify;
+  text-align: left;
 }
 .detailed-product-evaluation{
   display: flex;
@@ -473,6 +472,22 @@ cursor: pointer;
   border-bottom-right-radius: 10px;
   padding-bottom: 25px;
   padding: 20px;
+}
+
+.back-arrow{
+  background-color: rgb(25, 136, 25);
+  width: 30%;
+  padding: 7px;
+  margin-bottom: -12%;
+  border-radius: 10px;
+}
+
+.back-arrow:hover{
+  cursor: pointer;
+}
+
+.back-arrow-button{
+  color: white;
 }
 
 .purchase{
