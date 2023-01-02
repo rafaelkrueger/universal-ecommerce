@@ -16,18 +16,20 @@ function Details({ data, setData, cart, setCart }) {
   let { id } = useParams();
 
   useEffect(() => {
-    Api.get(`/empresa/${tamarinId}`)
-      .then((res) => {
-        setData(res.data);
-        document.querySelector("title").textContent = res.data.name;
-        document.getElementsByTagName("body")[0].style.backgroundColor =
-          res.data.website.websiteColor;
-        document.getElementsByTagName("body")[0].style.color =
-          res.data.website.websiteFontColor;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (data == null) {
+      Api.get(`/empresa/${tamarinId}`)
+        .then((res) => {
+          setData(res.data);
+          document.querySelector("title").textContent = res.data.name;
+          document.getElementsByTagName("body")[0].style.backgroundColor =
+            res.data.website.websiteColor;
+          document.getElementsByTagName("body")[0].style.color =
+            res.data.website.websiteFontColor;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     // apiip
     //   .getLocation()
     //   .then((results) => console.log(results))
@@ -45,9 +47,7 @@ function Details({ data, setData, cart, setCart }) {
     if (data == null) {
       console.log(null);
     } else {
-      setInterval(() => {
-        load();
-      }, 500);
+      load();
     }
   });
   const load = () => {
@@ -104,11 +104,11 @@ function Details({ data, setData, cart, setCart }) {
                       id={`detailed-product-card-` + list.id}
                       style={{ color: "black" }}
                       onClick={(e) => {
+                        produto[0].options.id = list.type;
                         setSelected({
                           type: list.type,
                           price: list.price,
                         });
-                        produto[0].options.id = list.type;
                       }}
                     >
                       <p id="detailed-product-type">

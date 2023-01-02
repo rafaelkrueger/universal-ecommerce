@@ -96,6 +96,7 @@ function Cart({
                               onChange={(e) => {
                                 list.options.id = e.target.value;
                               }}
+                              value={list.options.id}
                             >
                               <option>Categorias</option>
                               {list == undefined
