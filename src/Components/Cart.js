@@ -45,7 +45,7 @@ function Cart({
     <>
       <div className="cart">
         <div className="purchase-table">
-          <table class="table table-light table-striped">
+          <table class="table table-light table-striped" id="cart-table">
             <thead>
               <tr>
                 <th className="purchase-table-title" scope="col">
@@ -80,7 +80,9 @@ function Cart({
                               className="purchase-table-image"
                             />
                           </td>
-                          <td className="purchase-table-row">{list.product}</td>
+                          <td className="purchase-table-row">
+                            {list.product.slice(0, 14)}...
+                          </td>
                           <td className="purchase-table-row">
                             {list.category}
                           </td>

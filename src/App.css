@@ -505,7 +505,7 @@ cursor: pointer;
 
 .purchase-table-image{
   margin: auto;
-  width: 20%;
+  width: 30%;
 }
 
 .purchase-options{
@@ -833,4 +833,34 @@ cursor: pointer;
     margin-top: 7%;
   }
 
+  .cart{
+    margin-top: 40%;
+  }
+
+  #cart-table{
+    width: 300px;
+  }
+
+  .purchase-table{
+    width: 20px;
+  }
+  .purchase-table-image{
+    width: 100%;
+  }
+  .purchase-table{
+    display: block !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    border: 0.5px rgba(0,0,0,0.2);
+  }
+  .back-arrow{
+    padding: 3px;
+    padding-top: 10px;
+    padding-left: 3px;
+
+  }
+
+  .back-arrow-button{
+    font-size: 8pt;
+  }
 }
