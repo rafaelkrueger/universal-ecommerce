@@ -208,11 +208,11 @@ function User({ costumer, setCostumer, filled, setFilled }) {
                       class="form-control "
                       id="floatingInputGroup2"
                       placeholder="Numero"
-                      value={costumer.adressnumber}
+                      value={costumer.adressNumber}
                       onChange={(e) => {
                         setCostumer({
                           ...costumer,
-                          adressnumber: e.target.value,
+                          adressNumber: e.target.value,
                         });
                       }}
                     />

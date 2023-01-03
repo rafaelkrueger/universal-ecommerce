@@ -9,7 +9,6 @@ function Pix({ data, costumer, valortotal, cart }) {
   const [status, setStatus] = useState(false);
   useEffect(() => {
     setInterval(() => {
-      console.log(txid);
       Api.get(`https://tamarintec.herokuapp.com/pix-status/${txid}`).then(
         (res) => {
           if (res.data == "CONCLUIDA") {

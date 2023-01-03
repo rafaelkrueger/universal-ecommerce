@@ -27,7 +27,7 @@ function App() {
     state: "",
     city: "",
     street: "",
-    adressnumber: "",
+    adressNumber: "",
   });
 
   return (

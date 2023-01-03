@@ -44,7 +44,7 @@ function Cart({
   const optionShowed = (list) => {
     for (let i = 0; i < list.options.length; i++) {
       if (list.options[i].selected) {
-        console.log(list.options[i].type);
+        return list.options[i].type;
       }
     }
   };
