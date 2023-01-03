@@ -32,14 +32,25 @@ function ProductSlider({ data, cart, setCart, size }) {
                         style={{ textDecoration: "none", color: "black" }}
                         to={`/produto/${list._id}/${data._id}`}
                       >
-                        <div className="card-swiper" id="card-swiper">
+                        <div
+                          className="card-swiper"
+                          id="card-swiper"
+                          style={{
+                            background: data.website.websiteCardBackgroundColor,
+                          }}
+                        >
                           <img
                             src={list.image}
                             className="card-swiper-image"
                             id="product-slider-swiper-image"
                           />
                           <div className="card-swiper-footer">
-                            <h5 className="card-swiper-title">
+                            <h5
+                              className="card-swiper-title"
+                              style={{
+                                color: data.website.websiteCardFontColor,
+                              }}
+                            >
                               {list.product}
                             </h5>
                             <hr />
@@ -47,19 +58,29 @@ function ProductSlider({ data, cart, setCart, size }) {
                               <div className="col">
                                 <h5
                                   className="card-swiper-price"
-                                  style={{ color: "red", fontSize: "20pt" }}
+                                  style={{
+                                    color: data.website.websiteDiscountColor,
+                                    fontSize: "20pt",
+                                  }}
                                 >
                                   <s>R${(list.value * off).toFixed(2)}</s>
                                 </h5>
                                 <h5
                                   className="card-swiper-price"
-                                  style={{ color: "green", fontSize: "14pt" }}
+                                  style={{
+                                    color: data.website.websiteCardFontColor,
+                                    fontSize: "14pt",
+                                  }}
                                 >
                                   R${list.value.toFixed(2)}
                                 </h5>
                               </div>
                               <div className="col">
                                 <button
+                                  style={{
+                                    color: data.website.websiteCardFontColor,
+                                    background: data.website.websiteButton,
+                                  }}
                                   onClick={(e) => {
                                     e.preventDefault();
                                     setCart([...cart, list]);

@@ -329,9 +329,6 @@ body::-webkit-scrollbar-thumb {
   font-size: 15pt;
   margin-right: 10%;
 }
-.card-swiper-price{
-  color: rgba(0, 0, 0, 0.5);
-}
 
 .card-category-text{
   border: 0.1px solid rgba(0, 0, 0, 0.7);
