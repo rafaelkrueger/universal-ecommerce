@@ -15,6 +15,7 @@ function App() {
   const [filled, setFilled] = useState(false);
   const [data, setData] = useState(null);
   const [cart, setCart] = useState([]);
+  const [logged, setLogged] = useState(false);
 
   const [costumer, setCostumer] = useState({
     name: "",
@@ -39,6 +40,8 @@ function App() {
             setCart={setCart}
             costumer={costumer}
             setCostumer={setCostumer}
+            logged={logged}
+            setLogged={setLogged}
           />
           <Routes>
             <Route

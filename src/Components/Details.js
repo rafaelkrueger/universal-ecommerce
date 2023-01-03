@@ -91,12 +91,12 @@ function Details({ data, setData, cart, setCart }) {
               />
             </div>
             <div className="detailed-product-evaluation-quantity">
-              <p>Produtos Vendidos: 0</p>
+              <p>Produtos Vendidos: 20 </p>
             </div>
           </div>
           <h6>Opções:</h6>
           <div className="detailed-product-options" style={{ color: "black" }}>
-            {produto.length > 0
+            {!data
               ? produto[0].options.map((list) => {
                   return (
                     <div

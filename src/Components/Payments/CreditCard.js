@@ -15,8 +15,10 @@ function CreditCard() {
       </div>
       <div className="body-component">
         <h4>Cartão de Crédito/Débito</h4>
-        <span className="header-commponent-span">Pague pelo app do banco</span>
-        <button className="btn btn-large btn-success">Gerar QRcode</button>
+        <span className="header-commponent-span">Pague pelo seu cartão</span>
+        <button className="btn btn-large btn-success">
+          Continuar Pagamento
+        </button>
       </div>
     </div>
   );

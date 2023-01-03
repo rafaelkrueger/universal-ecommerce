@@ -4,9 +4,19 @@ import { Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import Costumer from "./Costumer";
 
-function Navbar({ data, cart, setCart }) {
+function Navbar({
+  data,
+  cart,
+  setCart,
+  logged,
+  setLogged,
+  costumer,
+  setCostumer,
+}) {
   const navigate = useNavigate();
+  const [modal, setModal] = useState("hidden");
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [screen, setScreen] = useState(window.outerWidth);
@@ -35,6 +45,16 @@ function Navbar({ data, cart, setCart }) {
 
   return (
     <>
+      <Costumer
+        data={data}
+        cart={cart}
+        setCart={setCart}
+        modal={modal}
+        setModal={setModal}
+        navbarStyle={navbarStyle}
+        costumer={costumer}
+        setCostumer={setCostumer}
+      />
       <nav
         class="navbar navbar-expand-lg"
         id="navbar"
@@ -82,7 +102,15 @@ function Navbar({ data, cart, setCart }) {
             </Link>
           </div>
           <div class="collapse navbar-collapse" id={`navbar-content${navbar}`}>
-            <div class="navbar-nav" id="nav-links">
+            <div
+              class="navbar-nav"
+              id="nav-links"
+              style={{
+                color: navbarStyle.color,
+                backgroundColor: navbarStyle.backgroundColor,
+                border: "0px white solid",
+              }}
+            >
               <Link
                 style={{ color: navbarStyle.color }}
                 to={`${data == null ? "" : data._id}`}
@@ -147,9 +175,16 @@ function Navbar({ data, cart, setCart }) {
                     })}
               </select>
               <Link
-                to={`${data == null ? "" : data._id}/profile`}
                 id="nav-link-valores"
                 class="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (logged) {
+                    navigate(`${data == null ? "" : data._id}/profile`);
+                  } else {
+                    setModal("visible");
+                  }
+                }}
                 style={{ color: navbarStyle.color }}
               >
                 <AiOutlineUser />

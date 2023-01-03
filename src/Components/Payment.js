@@ -61,7 +61,7 @@ function Payment({
                   }}
                 />
                 <p style={{ marginTop: "2.5%", marginLeft: "2.6%" }}>
-                  Cartão de Crédito/Débito
+                  <s>Cartão de Crédito/Débito</s>
                 </p>
               </div>
             </div>

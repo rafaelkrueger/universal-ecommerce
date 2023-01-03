@@ -8,19 +8,14 @@ import Api from "../Api";
 
 function User({ costumer, setCostumer, filled, setFilled }) {
   const cep = () => {
-    Api.get(`https://viacep.com.br/ws/${costumer.cep}/json/`)
-      .then((res) => {
-        console.log(res.data.logradouro);
-        setCostumer({
-          ...costumer,
-          state: res.data.uf,
-          city: res.data.localidade,
-          street: res.data.logradouro,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    Api.get(`https://viacep.com.br/ws/${costumer.cep}/json/`).then((res) => {
+      setCostumer({
+        ...costumer,
+        state: res.data.uf,
+        city: res.data.localidade,
+        street: res.data.logradouro,
       });
+    });
   };
   return (
     <>
