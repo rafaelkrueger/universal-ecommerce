@@ -31,6 +31,8 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
   const [search, setSearch] = useState("");
   const [screen, setScreen] = useState(window.outerWidth);
   const [filterActive, setFilterActive] = useState(false);
+  const [off, setOff] = useState(1.3);
+
   return (
     <>
       <div className="poducts-style">
@@ -182,9 +184,15 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                       className={`card-element-${
                         window.outerWidth > 600 ? "product" : "responsive"
                       }`}
+                      style={{
+                        background: data.website.websiteCardBackgroundColor,
+                      }}
                     >
                       <Link
-                        style={{ textDecoration: "none", color: "black" }}
+                        style={{
+                          textDecoration: "none",
+                          color: "black",
+                        }}
                         to={`/produto/${list._id}/${data._id}`}
                       >
                         <img
@@ -194,34 +202,43 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                           alt="..."
                         />
                         <div class="card-body">
-                          <h5 id="card-title-style">{list.produto}</h5>
+                          <h6 id="card-title-style">{list.produto}</h6>
                           <p class="card-text">
                             {list.product.slice(0, 30)}...
                           </p>
                           <hr />
-
                           <div class="card-text" id="card-text-product">
                             <div className="col">
                               <p
                                 className="value-product-card"
-                                style={{ color: "red", fontSize: "18pt" }}
+                                style={{
+                                  color: data.website.websiteDiscountColor,
+                                  fontSize: "18pt",
+                                }}
                               >
-                                <s>R${list.value.toFixed(2)}</s>
+                                <s>R${(list.value * off).toFixed(2)}</s>
                               </p>
 
                               <p
                                 className="value-product-card"
-                                style={{ color: "green", fontSize: "12pt" }}
+                                style={{
+                                  color: data.website.websiteCardFontColor,
+                                  fontSize: "12pt",
+                                }}
                               >
                                 R${list.value.toFixed(2)}
                               </p>
                             </div>
                             <button
+                              style={{
+                                color: "white",
+                                background: data.website.websiteButton,
+                              }}
+                              className="btn btn-large"
                               onClick={(e) => {
                                 e.preventDefault();
                                 setCart([...cart, list]);
                               }}
-                              className="btn btn-success"
                             >
                               Adicionar
                             </button>

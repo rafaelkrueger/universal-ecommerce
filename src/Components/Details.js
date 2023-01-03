@@ -96,7 +96,7 @@ function Details({ data, setData, cart, setCart }) {
           </div>
           <h6>Opções:</h6>
           <div className="detailed-product-options" style={{ color: "black" }}>
-            {!data
+            {data !== null && produto[0] !== undefined
               ? produto[0].options.map((list) => {
                   return (
                     <div
@@ -104,7 +104,16 @@ function Details({ data, setData, cart, setCart }) {
                       id={`detailed-product-card-` + list.id}
                       style={{ color: "black" }}
                       onClick={(e) => {
-                        produto[0].options.id = list.type;
+                        for (let i = 0; i < produto[0].options.length; i++) {
+                          window.document.getElementById(
+                            `detailed-product-card-` + i
+                          ).style.boxShadow = "0px 0px 0px rgba(0,0,0,0.3)";
+                          produto[0].options[i].selected = false;
+                        }
+                        window.document.getElementById(
+                          `detailed-product-card-` + list.id
+                        ).style.boxShadow = "1px 1px 20px rgba(0,0,0,0.3)";
+                        list.selected = true;
                         setSelected({
                           type: list.type,
                           price: list.price,

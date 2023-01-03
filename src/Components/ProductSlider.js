@@ -78,7 +78,7 @@ function ProductSlider({ data, cart, setCart, size }) {
                               <div className="col">
                                 <button
                                   style={{
-                                    color: data.website.websiteCardFontColor,
+                                    color: data.website.websiteButtonColor,
                                     background: data.website.websiteButton,
                                   }}
                                   onClick={(e) => {

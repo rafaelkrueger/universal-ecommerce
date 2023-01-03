@@ -41,6 +41,14 @@ function Cart({
     setValorTotal(valorTotalCart(cart, 0));
   });
 
+  const optionShowed = (list) => {
+    for (let i = 0; i < list.options.length; i++) {
+      if (list.options[i].selected) {
+        console.log(list.options[i].type);
+      }
+    }
+  };
+
   return (
     <>
       <div className="cart">
@@ -89,16 +97,23 @@ function Cart({
                           <td className="purchase-table-row">
                             <select
                               className="select-category"
+                              id="select-options-cart"
                               style={{
                                 border: "0.3px rgba(0,0,0,0.3) solid",
                                 padding: "10px",
                               }}
                               onChange={(e) => {
-                                list.options.id = e.target.value;
+                                for (let i = 0; i < list.options.length; i++) {
+                                  list.options[i].selected = false;
+                                }
+                                for (let i = 0; i < list.options.length; i++) {
+                                  if (e.target.value == list.options[i].type) {
+                                    list.options[i].selected = true;
+                                  }
+                                }
                               }}
-                              value={list.options.id}
                             >
-                              <option>Categorias</option>
+                              <option>{optionShowed(list)}</option>
                               {list == undefined
                                 ? ""
                                 : list.options.map((val) => {
