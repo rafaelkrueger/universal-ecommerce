@@ -201,9 +201,21 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                           <hr />
 
                           <div class="card-text" id="card-text-product">
-                            <p className="value-product-card">
-                              R${list.value.toFixed(2)}
-                            </p>
+                            <div className="col">
+                              <p
+                                className="value-product-card"
+                                style={{ color: "red", fontSize: "18pt" }}
+                              >
+                                <s>R${list.value.toFixed(2)}</s>
+                              </p>
+
+                              <p
+                                className="value-product-card"
+                                style={{ color: "green", fontSize: "12pt" }}
+                              >
+                                R${list.value.toFixed(2)}
+                              </p>
+                            </div>
                             <button
                               onClick={(e) => {
                                 e.preventDefault();
