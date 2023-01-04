@@ -78,14 +78,14 @@ function ProductSlider({ data, cart, setCart, size }) {
                               <div className="col">
                                 <button
                                   style={{
-                                    color: data.website.websiteButtonColor,
+                                    color: data.website.websiteButtonFont,
                                     background: data.website.websiteButton,
                                   }}
                                   onClick={(e) => {
                                     e.preventDefault();
                                     setCart([...cart, list]);
                                   }}
-                                  className="btn btn-large btn-success"
+                                  className="btn btn-large"
                                 >
                                   Adicionar
                                 </button>

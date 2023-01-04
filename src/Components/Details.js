@@ -69,13 +69,55 @@ function Details({ data, setData, cart, setCart }) {
   return (
     <>
       <div className="detailed-product">
-        <div className="col" id="detailed-product-columns">
-          <img
-            className="detailed-product-image"
-            src={produto.length > 0 ? produto[0].image : "Loading..."}
-          />
+        <div className="col" id="detailed-product-columns-1">
+          <div className="row" id="detailed-responsive-images-row">
+            <div className="col" id="detailed-product-image-col-1">
+              <img
+                className="detailed-product-image-sub"
+                src={
+                  produto.length > 0 &&
+                  produto[0].subImages.subImage1 != undefined
+                    ? produto[0].image
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+              />
+              <img
+                className="detailed-product-image-sub"
+                src={
+                  produto.length > 0 &&
+                  produto[0].subImages.subImage2 != undefined
+                    ? produto[0].image
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+              />
+              <img
+                className="detailed-product-image-sub"
+                src={
+                  produto.length > 0 &&
+                  produto[0].subImages.subImage3 != undefined
+                    ? produto[0].image
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+              />
+              <img
+                className="detailed-product-image-sub"
+                src={
+                  produto.length > 0 &&
+                  produto[0].subImages.subImage4 != undefined
+                    ? produto[0].image
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+              />
+            </div>
+            <div className="col" id="detailed-product-image-col-2">
+              <img
+                className="detailed-product-image"
+                src={produto.length > 0 ? produto[0].image : "Loading..."}
+              />
+            </div>
+          </div>
         </div>
-        <div className="col" id="detailed-product-columns">
+        <div className="col" id="detailed-product-columns-2">
           <h3 id="detailed-product-title">
             {produto.length > 0 ? produto[0].product : "Loading..."}
           </h3>

@@ -231,7 +231,7 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                             </div>
                             <button
                               style={{
-                                color: "white",
+                                color: data.website.websiteButtonFont,
                                 background: data.website.websiteButton,
                               }}
                               className="btn btn-large"
