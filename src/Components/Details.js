@@ -10,6 +10,8 @@ import Star4 from "../images/stars/star-4.png";
 import Star5 from "../images/stars/star-5.png";
 import Star6 from "../images/stars/star-6.png";
 import Api from "../Api";
+import { AiFillHeart } from "react-icons/ai";
+import { BsCart4, BsHeartFill } from "react-icons/bs";
 
 function Details({ data, setData, cart, setCart }) {
   let { tamarinId } = useParams();
@@ -65,7 +67,6 @@ function Details({ data, setData, cart, setCart }) {
     }
     return totalPrice;
   };
-
   return (
     <>
       <div className="detailed-product">
@@ -77,7 +78,7 @@ function Details({ data, setData, cart, setCart }) {
                 src={
                   produto.length > 0 &&
                   produto[0].subImages.subImage1 != undefined
-                    ? produto[0].image
+                    ? produto[0].subImages.subImage1
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
               />
@@ -86,7 +87,7 @@ function Details({ data, setData, cart, setCart }) {
                 src={
                   produto.length > 0 &&
                   produto[0].subImages.subImage2 != undefined
-                    ? produto[0].image
+                    ? produto[0].subImages.subImage2
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
               />
@@ -95,7 +96,7 @@ function Details({ data, setData, cart, setCart }) {
                 src={
                   produto.length > 0 &&
                   produto[0].subImages.subImage3 != undefined
-                    ? produto[0].image
+                    ? produto[0].subImages.subImage3
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
               />
@@ -104,7 +105,7 @@ function Details({ data, setData, cart, setCart }) {
                 src={
                   produto.length > 0 &&
                   produto[0].subImages.subImage4 != undefined
-                    ? produto[0].image
+                    ? produto[0].subImages.subImage4
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
               />
@@ -136,7 +137,8 @@ function Details({ data, setData, cart, setCart }) {
               <p>Produtos Vendidos: 20 </p>
             </div>
           </div>
-          <h6>Opções:</h6>
+          <br />
+          <h6 id="detailed-options-title">Opções:</h6>
           <div className="detailed-product-options" style={{ color: "black" }}>
             {data !== null && produto[0] !== undefined
               ? produto[0].options.map((list) => {
@@ -185,24 +187,65 @@ function Details({ data, setData, cart, setCart }) {
               />
             </div>
             <div className="detailed-product-quantity-price">
-              <p className="detailed-product-quantity-title">Valor Total:</p>
-              <h5>
-                R$
-                {produto.length > 0 ? changePrice().toFixed(2) : "Loading..."}
-              </h5>
+              <div className="row">
+                <div className="col">
+                  <p className="detailed-product-quantity-title">
+                    Valor Original:
+                  </p>
+                  <h5 className="detailed-original-value">
+                    <s>
+                      R$
+                      {produto.length > 0
+                        ? (1.3 * changePrice()).toFixed(2)
+                        : "Loading..."}
+                    </s>
+                  </h5>
+                </div>
+                <div className="col">
+                  <p className="detailed-product-quantity-title">
+                    Valor Total:
+                  </p>
+                  <h5>
+                    R$
+                    {produto.length > 0
+                      ? changePrice().toFixed(2)
+                      : "Loading..."}
+                  </h5>
+                </div>
+                <div className="col">
+                  <p className="detailed-product-quantity-title">
+                    Add wishlist:
+                  </p>
+                  <BsHeartFill />
+                </div>
+              </div>
             </div>
           </div>
           <div className="detailed-product-button">
-            <Link
-              to={`/${data == null ? "" : data._id}/cart`}
-              onClick={async () => {
-                await setCart([...cart, produto[0]]);
-              }}
-              id="detailed-product-button-element"
-              className="btn btn-large btn-success"
-            >
-              COMPRAR
-            </Link>
+            <div className="detailed-button-row">
+              <div className="col" id="detailed-button-col-1">
+                <Link
+                  to={`/${data == null ? "" : data._id}/cart`}
+                  onClick={async () => {
+                    await setCart([...cart, produto[0]]);
+                  }}
+                  id="detailed-product-button-element"
+                  className="btn btn-large btn-success"
+                >
+                  COMPRAR
+                </Link>
+              </div>
+              <div className="col" id="detailed-button-col-2">
+                <button className="btn btn-success">
+                  <BsCart4
+                    onClick={() => {
+                      setCart([...cart, produto[0]]);
+                    }}
+                  />
+                  +
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
