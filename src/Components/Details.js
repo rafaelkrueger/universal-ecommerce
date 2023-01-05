@@ -15,7 +15,7 @@ import { BsCart4, BsHeartFill } from "react-icons/bs";
 function Details({ data, setData, cart, setCart }) {
   let { tamarinId } = useParams();
   const [screen, setScreen] = useState(window.outerWidth);
-  const [selectedImage, setSelectedImage] = useState("");
+  const [shortDescription, setShortDescription] = useState(false);
   let { id } = useParams();
 
   useEffect(() => {
@@ -39,12 +39,13 @@ function Details({ data, setData, cart, setCart }) {
     //   .catch((error) => console.error(error));
   });
 
+  const [quantity, setQuantity] = useState(1);
+  const [produto, setProduto] = useState([]);
+  const [firstLoad, setFirstLoad] = useState(true);
   const [selected, setSelected] = useState({
     type: "",
     price: 0,
   });
-  const [quantity, setQuantity] = useState(1);
-  const [produto, setProduto] = useState([]);
 
   useEffect(() => {
     if (data == null) {
@@ -59,7 +60,6 @@ function Details({ data, setData, cart, setCart }) {
     });
     setProduto(produto);
   };
-
   const changePrice = () => {
     let totalPrice = 0;
     for (let i = 0; i < quantity; i++) {
@@ -68,6 +68,41 @@ function Details({ data, setData, cart, setCart }) {
     }
     return totalPrice;
   };
+
+  const firstLoadImage = () => {
+    setTimeout(() => {
+      if (firstLoad) {
+        setSelectedImage(produto[0].image);
+        setFirstLoad(false);
+      }
+    }, 0);
+  };
+
+  const descriptionResponsive = () => {
+    console.log();
+    if (screen > 600) {
+      return produto[0].description;
+    } else {
+      return (
+        <>
+          <p
+            onClick={() => {
+              setShortDescription(!shortDescription);
+            }}
+          >
+            {produto[0].description.slice(
+              0,
+              shortDescription ? produto[0].description.length : 200
+            )}
+            {shortDescription ? " - Ver menos" : "... Ver mais"}
+          </p>
+        </>
+      );
+    }
+  };
+
+  const [selectedImage, setSelectedImage] = useState("");
+
   return (
     <>
       <div
@@ -144,7 +179,7 @@ function Details({ data, setData, cart, setCart }) {
             <div className="col" id="detailed-product-image-col-2">
               <img
                 className="detailed-product-image"
-                src={selectedImage !== "" ? selectedImage : produto[0].image}
+                src={selectedImage !== "" ? selectedImage : firstLoadImage()}
               />
             </div>
           </div>
@@ -166,9 +201,7 @@ function Details({ data, setData, cart, setCart }) {
                 data != null ? data.website.websiteDetailedDescriptionFont : "",
             }}
           >
-            {produto.length > 0
-              ? produto[0].description.split(0, 30)
-              : "Loading..."}
+            {produto.length > 0 ? descriptionResponsive() : "Loading..."}
           </p>
           <div className="detailed-product-evaluation">
             <div className="detailed-product-evaluation-image">
