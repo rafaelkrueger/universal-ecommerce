@@ -15,6 +15,7 @@ import { BsCart4, BsHeartFill } from "react-icons/bs";
 function Details({ data, setData, cart, setCart }) {
   let { tamarinId } = useParams();
   const [screen, setScreen] = useState(window.outerWidth);
+  const [selectedImage, setSelectedImage] = useState("");
   let { id } = useParams();
 
   useEffect(() => {
@@ -88,6 +89,9 @@ function Details({ data, setData, cart, setCart }) {
                     ? produto[0].subImages.subImage1
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
+                onClick={() => {
+                  setSelectedImage(produto[0].subImages.subImage1);
+                }}
               />
               <img
                 className="detailed-product-image-sub"
@@ -97,6 +101,20 @@ function Details({ data, setData, cart, setCart }) {
                     ? produto[0].subImages.subImage2
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
+                onClick={() => {
+                  setSelectedImage(produto[0].subImages.subImage2);
+                }}
+              />
+              <img
+                className="detailed-product-image-sub"
+                src={
+                  produto.length > 0 && produto[0].image != undefined
+                    ? produto[0].image
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+                onClick={() => {
+                  setSelectedImage(produto[0].image);
+                }}
               />
               <img
                 className="detailed-product-image-sub"
@@ -106,6 +124,9 @@ function Details({ data, setData, cart, setCart }) {
                     ? produto[0].subImages.subImage3
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
+                onClick={() => {
+                  setSelectedImage(produto[0].subImages.subImage3);
+                }}
               />
               <img
                 className="detailed-product-image-sub"
@@ -115,12 +136,15 @@ function Details({ data, setData, cart, setCart }) {
                     ? produto[0].subImages.subImage4
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
+                onClick={() => {
+                  setSelectedImage(produto[0].subImages.subImage4);
+                }}
               />
             </div>
             <div className="col" id="detailed-product-image-col-2">
               <img
                 className="detailed-product-image"
-                src={produto.length > 0 ? produto[0].image : "Loading..."}
+                src={selectedImage !== "" ? selectedImage : produto[0].image}
               />
             </div>
           </div>
@@ -179,7 +203,7 @@ function Details({ data, setData, cart, setCart }) {
                         }
                         window.document.getElementById(
                           `detailed-product-card-` + list.id
-                        ).style.boxShadow = `0.5px 0.5px 10px ${data.website.websiteDetailedOptionsColor}`;
+                        ).style.boxShadow = `0.1px 0.1px 10px ${data.website.websiteDetailedOptionsFont}`;
                         list.selected = true;
                         setSelected({
                           type: list.type,
@@ -196,7 +220,7 @@ function Details({ data, setData, cart, setCart }) {
               : "Loading..."}
           </div>
           <div className="detailed-product-quantity">
-            <div className="row">
+            <div className="row" id="details-sub-footers">
               <div className="col">
                 <div className="col">
                   <p
@@ -205,9 +229,9 @@ function Details({ data, setData, cart, setCart }) {
                       color: data != null ? data.websiteDetailedHeartColor : "",
                     }}
                   >
-                    Add wishlist:
+                    Wishlist:
                   </p>
-                  <BsHeartFill />
+                  <BsHeartFill style={{ marginLeft: "10%" }} />
                 </div>
               </div>
               <div className="col">
@@ -226,44 +250,37 @@ function Details({ data, setData, cart, setCart }) {
                 </div>
               </div>
             </div>
-
-            <div className="detailed-product-quantity-price">
-              <div className="row">
-                <div className="col">
-                  <p className="detailed-product-quantity-title">
-                    Valor Original:
-                  </p>
-                  <h5
-                    className="detailed-original-value"
-                    style={{
-                      color:
-                        data != null ? data.websiteDetailedDiscountColor : "",
-                    }}
-                  >
-                    <s>
-                      R$
-                      {produto.length > 0
-                        ? (1.3 * changePrice()).toFixed(2)
-                        : "Loading..."}
-                    </s>
-                  </h5>
-                </div>
-                <div className="col">
-                  <p
-                    className="detailed-product-quantity-title"
-                    style={{
-                      color: data != null ? data.websiteDetailedPriceColor : "",
-                    }}
-                  >
-                    Valor Total:
-                  </p>
-                  <h5>
+            <div className="row" id="details-sub-footers">
+              <div className="col">
+                <p className="detailed-product-quantity-title">Original:</p>
+                <h5
+                  className="detailed-original-value"
+                  style={{
+                    color:
+                      data != null ? data.websiteDetailedDiscountColor : "",
+                  }}
+                >
+                  <s>
                     R$
                     {produto.length > 0
-                      ? changePrice().toFixed(2)
+                      ? (1.3 * changePrice()).toFixed(2)
                       : "Loading..."}
-                  </h5>
-                </div>
+                  </s>
+                </h5>
+              </div>
+              <div className="col">
+                <p
+                  className="detailed-product-quantity-title"
+                  style={{
+                    color: data != null ? data.websiteDetailedPriceColor : "",
+                  }}
+                >
+                  Total:
+                </p>
+                <h5>
+                  R$
+                  {produto.length > 0 ? changePrice().toFixed(2) : "Loading..."}
+                </h5>
               </div>
             </div>
           </div>
