@@ -10,11 +10,11 @@ import Star4 from "../images/stars/star-4.png";
 import Star5 from "../images/stars/star-5.png";
 import Star6 from "../images/stars/star-6.png";
 import Api from "../Api";
-import { AiFillHeart } from "react-icons/ai";
 import { BsCart4, BsHeartFill } from "react-icons/bs";
 
 function Details({ data, setData, cart, setCart }) {
   let { tamarinId } = useParams();
+  const [screen, setScreen] = useState(window.outerWidth);
   let { id } = useParams();
 
   useEffect(() => {
@@ -69,7 +69,14 @@ function Details({ data, setData, cart, setCart }) {
   };
   return (
     <>
-      <div className="detailed-product">
+      <div
+        className="detailed-product"
+        style={{
+          background:
+            data != null ? data.website.websiteDetailedBackground : "",
+          color: data != null ? data.website.websiteDetailedFont : "",
+        }}
+      >
         <div className="col" id="detailed-product-columns-1">
           <div className="row" id="detailed-responsive-images-row">
             <div className="col" id="detailed-product-image-col-1">
@@ -119,12 +126,25 @@ function Details({ data, setData, cart, setCart }) {
           </div>
         </div>
         <div className="col" id="detailed-product-columns-2">
-          <h3 id="detailed-product-title">
+          <h3
+            id="detailed-product-title"
+            style={{
+              color: data != null ? data.website.websiteDetailedTitleFont : "",
+            }}
+          >
             {produto.length > 0 ? produto[0].product : "Loading..."}
           </h3>
           <hr />
-          <p id="detailed-product-description">
-            {produto.length > 0 ? produto[0].description : "Loading..."}
+          <p
+            id="detailed-product-description"
+            style={{
+              color:
+                data != null ? data.website.websiteDetailedDescriptionFont : "",
+            }}
+          >
+            {produto.length > 0
+              ? produto[0].description.split(0, 30)
+              : "Loading..."}
           </p>
           <div className="detailed-product-evaluation">
             <div className="detailed-product-evaluation-image">
@@ -146,7 +166,10 @@ function Details({ data, setData, cart, setCart }) {
                     <div
                       className="detailed-product-card"
                       id={`detailed-product-card-` + list.id}
-                      style={{ color: "black" }}
+                      style={{
+                        background: data.website.websiteDetailedOptionsColor,
+                        color: data.website.websiteDetailedOptionsFont,
+                      }}
                       onClick={(e) => {
                         for (let i = 0; i < produto[0].options.length; i++) {
                           window.document.getElementById(
@@ -156,7 +179,7 @@ function Details({ data, setData, cart, setCart }) {
                         }
                         window.document.getElementById(
                           `detailed-product-card-` + list.id
-                        ).style.boxShadow = "1px 1px 20px rgba(0,0,0,0.3)";
+                        ).style.boxShadow = `0.5px 0.5px 10px ${data.website.websiteDetailedOptionsColor}`;
                         list.selected = true;
                         setSelected({
                           type: list.type,
@@ -173,26 +196,50 @@ function Details({ data, setData, cart, setCart }) {
               : "Loading..."}
           </div>
           <div className="detailed-product-quantity">
-            <div className="detailed-product-quantity-quantities">
-              <p className="detailed-product-quantity-title">Quantidade:</p>
-              <input
-                type="number"
-                className="detailed-product-quantity-quantities-input"
-                min={1}
-                max={10}
-                placeholder="1"
-                onChange={(e) => {
-                  setQuantity(e.target.value);
-                }}
-              />
+            <div className="row">
+              <div className="col">
+                <div className="col">
+                  <p
+                    className="detailed-product-quantity-title"
+                    style={{
+                      color: data != null ? data.websiteDetailedHeartColor : "",
+                    }}
+                  >
+                    Add wishlist:
+                  </p>
+                  <BsHeartFill />
+                </div>
+              </div>
+              <div className="col">
+                <div className="detailed-product-quantity-quantities">
+                  <p className="detailed-product-quantity-title">Quantidade:</p>
+                  <input
+                    type="number"
+                    className="detailed-product-quantity-quantities-input"
+                    min={1}
+                    max={10}
+                    placeholder="1"
+                    onChange={(e) => {
+                      setQuantity(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
+
             <div className="detailed-product-quantity-price">
               <div className="row">
                 <div className="col">
                   <p className="detailed-product-quantity-title">
                     Valor Original:
                   </p>
-                  <h5 className="detailed-original-value">
+                  <h5
+                    className="detailed-original-value"
+                    style={{
+                      color:
+                        data != null ? data.websiteDetailedDiscountColor : "",
+                    }}
+                  >
                     <s>
                       R$
                       {produto.length > 0
@@ -202,7 +249,12 @@ function Details({ data, setData, cart, setCart }) {
                   </h5>
                 </div>
                 <div className="col">
-                  <p className="detailed-product-quantity-title">
+                  <p
+                    className="detailed-product-quantity-title"
+                    style={{
+                      color: data != null ? data.websiteDetailedPriceColor : "",
+                    }}
+                  >
                     Valor Total:
                   </p>
                   <h5>
@@ -212,17 +264,16 @@ function Details({ data, setData, cart, setCart }) {
                       : "Loading..."}
                   </h5>
                 </div>
-                <div className="col">
-                  <p className="detailed-product-quantity-title">
-                    Add wishlist:
-                  </p>
-                  <BsHeartFill />
-                </div>
               </div>
             </div>
           </div>
           <div className="detailed-product-button">
-            <div className="detailed-button-row">
+            <div
+              className="detailed-button-row"
+              style={{
+                background: data != null ? data.websiteDetailedBackground : "",
+              }}
+            >
               <div className="col" id="detailed-button-col-1">
                 <Link
                   to={`/${data == null ? "" : data._id}/cart`}
@@ -230,14 +281,41 @@ function Details({ data, setData, cart, setCart }) {
                     await setCart([...cart, produto[0]]);
                   }}
                   id="detailed-product-button-element"
-                  className="btn btn-large btn-success"
+                  className="btn btn-large "
+                  style={{
+                    color:
+                      data != null
+                        ? data.website.websiteDetailedButtonFontBuy
+                        : "",
+                    background:
+                      data != null
+                        ? data.website.websiteDetailedButtonCart
+                        : "",
+                  }}
                 >
                   COMPRAR
                 </Link>
               </div>
               <div className="col" id="detailed-button-col-2">
-                <button className="btn btn-success">
+                <button
+                  className="btn"
+                  style={{
+                    background:
+                      data != null
+                        ? data.website.websiteDetailedButtonCart
+                        : "",
+                    color:
+                      data != null
+                        ? data.website.websiteDetailedButtonFontCart
+                        : "",
+                  }}
+                >
                   <BsCart4
+                    color={
+                      data != null
+                        ? data.website.websiteDetailedButtonFontCart
+                        : ""
+                    }
                     onClick={() => {
                       setCart([...cart, produto[0]]);
                     }}

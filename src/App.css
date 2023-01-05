@@ -347,10 +347,12 @@ body::-webkit-scrollbar-thumb {
 /*detailed product*/
 .detailed-product{
   display: flex;
-  margin:10%;
+  margin:7%;
   margin-top: 15%;
   align-items: center;
   background-color: rgba(0,0,0,0.03);
+  padding: 30px;
+  border-radius: 10px;
 }
 
 #detailed-product-column-1{
@@ -1010,5 +1012,8 @@ cursor: pointer;
 
   #detailed-button-col-2{
     max-width: 30%;
+  }
+  .detailed-product-quantity-quantities-input{
+    margin-left: 55%;
   }
 }
