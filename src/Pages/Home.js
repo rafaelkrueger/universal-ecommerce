@@ -7,10 +7,10 @@ import Api from "../Api";
 import "../App.css";
 
 function Home({ data, setData, cart, setCart }) {
-  let { tamarinId } = useParams();
+  let { tamarinSite } = useParams();
 
   useEffect(() => {
-    Api.get(`/empresa/${tamarinId}`)
+    Api.get(`/empresa/${tamarinSite}`)
       .then((res) => {
         setData(res.data);
         document.querySelector("title").textContent = res.data.name;

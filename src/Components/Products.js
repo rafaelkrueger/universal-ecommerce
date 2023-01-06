@@ -7,10 +7,10 @@ import { BsFilterCircleFill, BsFilterCircle } from "react-icons/bs";
 import Api from "../Api";
 
 function Products({ data, setData, cart, setCart, handleSetCart }) {
-  let { tamarinId } = useParams();
+  let { tamarinSite } = useParams();
   let { categoria } = useParams();
   useEffect(() => {
-    Api.get(`/empresa/${tamarinId}`)
+    Api.get(`/empresa/${tamarinSite}`)
       .then((res) => {
         setData(res.data);
         document.querySelector("title").textContent = res.data.name;
@@ -193,7 +193,7 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                           textDecoration: "none",
                           color: "black",
                         }}
-                        to={`/produto/${list._id}/${data._id}`}
+                        to={`/produto/${list._id}/${data.site}`}
                       >
                         <img
                           id="product-image"

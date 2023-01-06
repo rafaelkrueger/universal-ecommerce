@@ -13,14 +13,14 @@ import Api from "../Api";
 import { BsCart4, BsHeartFill } from "react-icons/bs";
 
 function Details({ data, setData, cart, setCart }) {
-  let { tamarinId } = useParams();
+  let { tamarinSite } = useParams();
   const [screen, setScreen] = useState(window.outerWidth);
   const [shortDescription, setShortDescription] = useState(false);
   let { id } = useParams();
 
   useEffect(() => {
     if (data == null) {
-      Api.get(`/empresa/${tamarinId}`)
+      Api.get(`/empresa/${tamarinSite}`)
         .then((res) => {
           setData(res.data);
           document.querySelector("title").textContent = res.data.name;
@@ -329,7 +329,7 @@ function Details({ data, setData, cart, setCart }) {
             >
               <div className="col" id="detailed-button-col-1">
                 <Link
-                  to={`/${data == null ? "" : data._id}/cart`}
+                  to={`/${data == null ? "" : data.site}/cart`}
                   onClick={async () => {
                     await setCart([...cart, produto[0]]);
                   }}

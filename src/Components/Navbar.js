@@ -68,7 +68,7 @@ function Navbar({
             <Link
               class="navbar-brand"
               style={{ color: "white" }}
-              to={`${data == null ? "" : data._id}`}
+              to={`${data == null ? "" : data.site}`}
               onClick={(e) => {
                 e.preventDefault();
               }}
@@ -113,7 +113,7 @@ function Navbar({
             >
               <Link
                 style={{ color: navbarStyle.color }}
-                to={`${data == null ? "" : data._id}`}
+                to={`${data == null ? "" : data.site}`}
                 id="nav-link-home"
                 class="nav-link active"
                 aria-current="page"
@@ -121,7 +121,7 @@ function Navbar({
                 Home
               </Link>
               <Link
-                to={`${data == null ? "" : data._id}/produtos/all`}
+                to={`${data == null ? "" : data.site}/produtos/all`}
                 id="nav-link-valores"
                 class="nav-link"
                 style={{ color: navbarStyle.color }}
@@ -138,7 +138,7 @@ function Navbar({
                 }}
                 onChange={(e) => {
                   navigate(
-                    `/${data == null ? "" : data._id}/produtos/${
+                    `/${data == null ? "" : data.site}/produtos/${
                       e.target.value
                     }`
                   );
@@ -180,7 +180,7 @@ function Navbar({
                 onClick={(e) => {
                   e.preventDefault();
                   if (costumer.logged) {
-                    navigate(`${data == null ? "" : data._id}/profile`);
+                    navigate(`${data == null ? "" : data.site}/profile`);
                   } else {
                     setModal("visible");
                   }
@@ -275,7 +275,7 @@ function Navbar({
           <div className="col" id={`last-navbar-fields-${navbar}`}>
             <div className="navbar-cart">
               <Link
-                to={`${data == null ? "" : data._id}/cart`}
+                to={`${data == null ? "" : data.site}/cart`}
                 id="nav-link-cart"
                 class="nav-link"
               >

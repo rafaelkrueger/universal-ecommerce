@@ -16,11 +16,11 @@ function CartPage({
   filled,
   setFilled,
 }) {
-  let { tamarinId } = useParams();
+  let { tamarinSite } = useParams();
   const [valortotal, setValorTotal] = useState(0);
 
   useEffect(() => {
-    Api.get(`/empresa/${tamarinId}`)
+    Api.get(`/empresa/${tamarinSite}`)
       .then((res) => {
         setData(res.data);
         document.querySelector("title").textContent = res.data.name;

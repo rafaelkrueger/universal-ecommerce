@@ -50,7 +50,7 @@ function App() {
           />
           <Routes>
             <Route
-              path="/:tamarinId"
+              path="/:tamarinSite"
               element={
                 <Home
                   data={data}
@@ -63,7 +63,7 @@ function App() {
               }
             />
             <Route
-              path="/:tamarinId/produtos/:categoria"
+              path="/:tamarinSite/produtos/:categoria"
               element={
                 <Products
                   data={data}
@@ -76,7 +76,7 @@ function App() {
               }
             />
             <Route
-              path="/produto/:id/:tamarinId"
+              path="/produto/:id/:tamarinSite"
               element={
                 <Details
                   data={data}
@@ -89,7 +89,7 @@ function App() {
               }
             />
             <Route
-              path="/:tamarinId/cart"
+              path="/:tamarinSite/cart"
               element={
                 <CartPage
                   data={data}

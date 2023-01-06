@@ -67,7 +67,7 @@ function Footer({ data }) {
               <p className="footer-link">
                 <Link
                   style={notStyled}
-                  to={data !== null ? `/${data._id}` : ""}
+                  to={data !== null ? `/${data.site}` : ""}
                 >
                   Home
                 </Link>
@@ -75,7 +75,7 @@ function Footer({ data }) {
               <p className="footer-link">
                 <Link
                   style={notStyled}
-                  to={data !== null ? `/${data._id}/produtos/all` : ""}
+                  to={data !== null ? `/${data.site}/produtos/all` : ""}
                 >
                   Produtos
                 </Link>
@@ -92,7 +92,7 @@ function Footer({ data }) {
                   }}
                   onChange={(e) => {
                     navigate(
-                      `/${data == null ? "" : data._id}/produtos/${
+                      `/${data == null ? "" : data.site}/produtos/${
                         e.target.value
                       }`
                     );
@@ -121,7 +121,7 @@ function Footer({ data }) {
               <p className="footer-link">
                 <Link
                   style={notStyled}
-                  to={data !== null ? `/${data._id}` : ""}
+                  to={data !== null ? `/${data.site}` : ""}
                 >
                   Perfil
                 </Link>

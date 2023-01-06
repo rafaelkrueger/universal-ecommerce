@@ -112,7 +112,7 @@ function Costumer({
                         wishList: profile.wishList,
                         myPurchase: profile.myPurchase,
                       });
-                      navigate(`/${data._id}/profile`);
+                      navigate(`/${data.site}/profile`);
                       setCostumer({ ...costumer, logged: true });
                       setModal("hidden");
                     }
@@ -178,7 +178,7 @@ function Costumer({
                         ? response.data[0].myPurchase
                         : [],
                     });
-                    navigate(`/${data._id}/profile`);
+                    navigate(`/${data.site}/profile`);
                     setCostumer({ ...costumer, logged: true });
                     setModal("hidden");
                   })
@@ -265,7 +265,7 @@ function Costumer({
                       }
                     )
                       .then((res) => {
-                        navigate(`/${data._id}/profile`);
+                        navigate(`/${data.site}/profile`);
                         setCostumer({ ...costumer, logged: true });
                         setModal("hidden");
                       })
