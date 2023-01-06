@@ -93,8 +93,9 @@ function Costumer({
                   password: costumer.password,
                 })
                   .then((res) => {
+                    console.log(res.data);
                     const profile = res.data[0];
-                    if (res.data == "logado") {
+                    if (res.data.length > 0) {
                       setCostumer({
                         profileImage: profile.profileImage,
                         name: profile.name,
