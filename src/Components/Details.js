@@ -177,6 +177,9 @@ function Details({ data, setData, cart, setCart }) {
               />
             </div>
             <div className="col" id="detailed-product-image-col-2">
+              <br />
+              <br />
+              <br />
               <img
                 className="detailed-product-image"
                 src={selectedImage !== "" ? selectedImage : firstLoadImage()}
@@ -377,6 +380,8 @@ function Details({ data, setData, cart, setCart }) {
           </div>
         </div>
       </div>
+      <h3 style={{ textAlign: "center" }}>Mais Vendidos!</h3>
+      <hr style={{ marginLeft: "20%", marginRight: "20%" }} />
       <div className="container-fluid">
         <div className="similar-products">
           <div className="similar-products-item">

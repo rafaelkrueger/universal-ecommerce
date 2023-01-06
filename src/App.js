@@ -18,6 +18,7 @@ function App() {
   const [logged, setLogged] = useState(false);
 
   const [costumer, setCostumer] = useState({
+    profileImage: "",
     name: "",
     email: "",
     password: "",
@@ -28,6 +29,10 @@ function App() {
     city: "",
     street: "",
     adressNumber: "",
+    savedCart: [],
+    wishList: [],
+    myPurchase: [],
+    logged: false,
   });
 
   return (

@@ -179,7 +179,7 @@ function Navbar({
                 class="nav-link"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (logged) {
+                  if (costumer.logged) {
                     navigate(`${data == null ? "" : data._id}/profile`);
                   } else {
                     setModal("visible");

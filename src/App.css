@@ -702,6 +702,7 @@ cursor: pointer;
   z-index: 500000;
   align-items: center;
   background-color: rgba(0,0,0,0.3);
+  margin-top: -5%;
 }
 
 .costumer-modal-content{
@@ -716,12 +717,18 @@ cursor: pointer;
 #modal-area{
   text-align: left;
   margin-left: 3%;
+  max-width: 100%;
   margin-bottom: 10%;
   margin-top: 5%;
   padding: 30px;
   border-radius: 10px;
 }
+#modal-area-login{
+  max-width: 100%;
+  margin-left: -2%;
+}
 #modal-register{
+  max-width: 100%;
   margin-left: -2%;
   margin-top: 5%;
 }
