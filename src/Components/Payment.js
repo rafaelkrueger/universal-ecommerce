@@ -13,7 +13,7 @@ function Payment({
   valortotal,
   setValorTotal,
 }) {
-  const [chosen, setChosen] = useState(2);
+  const [chosen, setChosen] = useState(1);
   return (
     <div className="purchase">
       <div className="row" id="purchase-join-pages">

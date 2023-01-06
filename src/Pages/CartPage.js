@@ -64,6 +64,7 @@ function CartPage({
         />
       ) : (
         <User
+          data={data}
           costumer={costumer}
           setCostumer={setCostumer}
           filled={filled}

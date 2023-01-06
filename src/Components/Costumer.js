@@ -29,9 +29,7 @@ function Costumer({
       <div className="costumer-modal-content">
         <div classname="costumer-modal-header">
           <div className="row" id="costumer-modal-responsive">
-            <div className="col">
-              <h1>Bem Vindo a Área do Cliente</h1>
-            </div>
+            <div className="col"></div>
             <div className="col">
               <h4
                 style={{
@@ -123,14 +121,6 @@ function Costumer({
               }}
               className="btn "
             >
-              <img
-                src={data != null ? data.logo : ""}
-                style={{
-                  marginRight: "2.5%",
-                  maxWidth: "16%",
-                  borderRadius: "10px",
-                }}
-              />
               {`Logar com ${data != null ? data.name : ""}`}
             </button>
             <br />

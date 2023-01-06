@@ -8,6 +8,7 @@ import Details from "./Components/Details";
 import CartPage from "./Pages/CartPage";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import Profile from "./Components/Profile";
 
 const apiip = require("apiip.net")("555e720f-072c-4174-ac6c-0a58e40933c8");
 
@@ -75,6 +76,19 @@ function App() {
                 />
               }
             />
+            <Route
+              path="/:tamarinSite/profile"
+              element={
+                <Profile
+                  costumer={costumer}
+                  setCostumer={setCostumer}
+                  data={data}
+                  cart={cart}
+                  setCart={setCart}
+                />
+              }
+            />
+
             <Route
               path="/produto/:id/:tamarinSite"
               element={

@@ -6,7 +6,7 @@ import { FaCity } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
 import Api from "../Api";
 
-function User({ costumer, setCostumer, filled, setFilled }) {
+function User({ data, costumer, setCostumer, filled, setFilled }) {
   const cep = () => {
     Api.get(`https://viacep.com.br/ws/${costumer.cep}/json/`).then((res) => {
       setCostumer({
@@ -237,7 +237,30 @@ function User({ costumer, setCostumer, filled, setFilled }) {
                   costumer.street !== "" &&
                   costumer.adressnumber !== ""
                 ) {
-                  setFilled(true);
+                  Api.post("/create-costumer", {
+                    empresa: data._id,
+                    name: costumer.name,
+                    email: costumer.email,
+                    password: costumer.password,
+                    number: costumer.number,
+                    cpf: costumer.identification,
+                    cep: costumer.cep,
+                    state: costumer.state,
+                    city: costumer.city,
+                    street: costumer.street,
+                    streetNumber: costumer.streetNumber,
+                  }).then((res) => {
+                    if (res.data == "success") {
+                      setCostumer({ ...costumer, logged: true });
+                      setFilled(true);
+                    } else {
+                      if (costumer.logged) {
+                        setFilled(true);
+                      } else {
+                        window.alert(res.data + " - Faça login para continuar");
+                      }
+                    }
+                  });
                 }
               }}
             >

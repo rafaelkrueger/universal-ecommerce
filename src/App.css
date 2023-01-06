@@ -742,6 +742,26 @@ cursor: pointer;
   align-self: center;
   width: 100%;
 }
+
+/*profile page*/
+.profile{
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
+}
+
+#profile-infos-image{
+  max-width: 38%;
+  border-radius: 50%;
+  margin-left: 25%;
+  margin-top: 4%;
+}
+
+#profile-products{
+  text-align: center;
+  margin-top: 10%;
+}
+
 /*Footer*/
 #footer-style{
   box-shadow: 1px 1px 20px rgba(0,0,0,0.2);
@@ -998,11 +1018,16 @@ cursor: pointer;
     width: 100%;
     margin-right: 15%;
   }
+  #modal-area{
+    min-width: 100%;
+    max-width: 100%;
+  }
   .costumer-modal-content{
     width: 105%;
     height: 100%;
     margin: 0%;
     margin-top: -5%;
+    overflow-y: scroll;
   }
   /*detailed*/
   .detailed-product{
