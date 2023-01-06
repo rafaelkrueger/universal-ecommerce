@@ -30,7 +30,7 @@ function ProductSlider({ data, cart, setCart, size }) {
                     <SwiperSlide key={list._id}>
                       <Link
                         style={{ textDecoration: "none", color: "black" }}
-                        to={`/produto/${list._id}/${data._id}`}
+                        to={`/produto/${list._id}/${data.site}`}
                       >
                         <div
                           className="card-swiper"
