@@ -1,14 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EmptyProfile from "../images/empty-profile.png";
+import { useParams } from "react-router-dom";
+import Api from "../Api";
 import "../App.css";
 
-function Profile({ data, costumer, setCostumer, cart, setCart }) {
+function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
+  let { tamarinSite } = useParams();
+
+  useEffect(() => {
+    if (data == null) {
+      Api.get(`/empresa/${tamarinSite}`)
+        .then((res) => {
+          setData(res.data);
+          document.querySelector("title").textContent = res.data.name;
+          document.getElementsByTagName("body")[0].style.backgroundColor =
+            res.data.website.websiteColor;
+          document.getElementsByTagName("body")[0].style.color =
+            res.data.website.websiteFontColor;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    // apiip
+    //   .getLocation()
+    //   .then((results) => console.log(results))
+    //   .catch((error) => console.error(error));
+  });
   return (
     <>
       <div className="profile">
         <div classname="container-fuild">
-          <div className="row">
+          <div className="row" id="responsive-profile">
             <div className="col" id="profile-infos">
               <h3>Suas Informações</h3>
               <div className="row">
@@ -111,7 +135,6 @@ function Profile({ data, costumer, setCostumer, cart, setCart }) {
               </div>
             </div>
             <div className="col">
-              <h3>Seus Produtos e Desejados</h3>
               <div id="profile-products" className="row">
                 <div
                   className="col"
@@ -152,35 +175,23 @@ function Profile({ data, costumer, setCostumer, cart, setCart }) {
                   <p>Carrinho</p>
                 </div>
                 <div className="row">
-                  <table class="table table-light table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">Imagem</th>
-                        <th scope="col">Produto</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Tamanho</th>
-                        <th scope="col">Enviado</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                    {active == 0
-                      ? costumer.myPurchase.map((list) => {
-                          if (list.length > 0) {
-                            return (
-                              <>
-                                <td>dsa</td>
-                                <td>dsadas</td>
-                                <td>dsadas</td>
-                                <td>dasdas</td>
-                                <td>dsd</td>
-                              </>
-                            );
-                          } else {
-                            return <td>Você não comprou produtos ainda...</td>;
-                          }
-                        })
-                      : ""}
-                  </table>
+                  {active == 0
+                    ? costumer.myPurchase.map((list) => {
+                        if (list.length > 0) {
+                          return (
+                            <>
+                              <td>dsa</td>
+                              <td>dsadas</td>
+                              <td>dsadas</td>
+                              <td>dasdas</td>
+                              <td>dsd</td>
+                            </>
+                          );
+                        } else {
+                          return <td>Você não comprou produtos ainda...</td>;
+                        }
+                      })
+                    : ""}
                 </div>
               </div>
             </div>

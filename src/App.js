@@ -80,9 +80,10 @@ function App() {
               path="/:tamarinSite/profile"
               element={
                 <Profile
+                  data={data}
+                  setData={setData}
                   costumer={costumer}
                   setCostumer={setCostumer}
-                  data={data}
                   cart={cart}
                   setCart={setCart}
                 />

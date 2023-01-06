@@ -747,7 +747,8 @@ cursor: pointer;
 .profile{
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 10%;
+  margin-top: 15%;
+  margin-bottom: 20%;
 }
 
 #profile-infos-image{
@@ -759,7 +760,8 @@ cursor: pointer;
 
 #profile-products{
   text-align: center;
-  margin-top: 10%;
+  margin-top: -10%;
+  margin-left: 5%;
 }
 
 /*Footer*/
@@ -1067,4 +1069,19 @@ cursor: pointer;
   #detailed-product-image-col-2{
     margin-left: -5%;
   }
+  .profile{
+    margin-top: 43%;
+  }
+  #responsive-profile{
+    display: flex;
+    flex-direction: column;
+  }
+  #profile-products{
+    margin-top: 10%;
+    margin-left: -10% !important;
+  }
+  #profile-infos-image{
+    margin-top: 30%;
+  }
 }
+

@@ -91,28 +91,30 @@ function Costumer({
                   password: costumer.password,
                 })
                   .then((res) => {
-                    console.log(res.data);
-                    const profile = res.data[0];
                     if (res.data.length > 0) {
                       setCostumer({
-                        profileImage: profile.profileImage,
-                        name: profile.name,
-                        email: profile.email,
-                        password: profile.password,
-                        number: profile.number,
-                        identification: profile.cpf,
-                        cep: profile.cep,
-                        state: profile.state,
-                        city: profile.city,
-                        street: profile.street,
-                        adressNumber: profile.streetNumber,
-                        savedCart: profile.savedCart,
-                        wishList: profile.wishList,
-                        myPurchase: profile.myPurchase,
+                        ...costumer,
+                        profileImage: res.data[0].profileImage,
+                        name: res.data[0].name,
+                        email: res.data[0].email,
+                        password: res.data[0].password,
+                        number: res.data[0].number,
+                        identification: res.data[0].identification,
+                        cep: res.data[0].cep,
+                        state: res.data[0].state,
+                        city: res.data[0].city,
+                        street: res.data[0].street,
+                        adressNumber: res.data[0].adressNumber,
+                        savedCart: res.data[0],
+                        wishList: res.data[0],
+                        myPurchase: res.data[0],
                       });
+                      console.log(costumer);
                       navigate(`/${data.site}/profile`);
                       setCostumer({ ...costumer, logged: true });
                       setModal("hidden");
+                    } else {
+                      window.alert("Usuário não encontrado");
                     }
                   })
                   .catch((err) => {
@@ -137,36 +139,21 @@ function Costumer({
                   number: costumer.number,
                 })
                   .then((response) => {
-                    console.log(response.data[0]);
                     setCostumer({
                       ...costumer,
                       profileImage: response.data[0].profileImage,
                       name: response.data[0].name,
                       email: response.data[0].email,
                       number: response.data.number,
-                      identification: response.data[0].cpf
-                        ? response.data[0].cpf
-                        : "",
-                      cep: response.data[0].cep ? response.data[0].cep : "",
-                      state: response.data[0].state
-                        ? response.data[0].state
-                        : "",
-                      city: response.data[0].city ? response.data[0].city : "",
-                      street: response.data.street
-                        ? response.data[0].street
-                        : "",
-                      streetNumber: response.data[0].streetNumber
-                        ? response.data[0].streetNumber
-                        : "",
-                      savedCart: response.data[0].savedCart
-                        ? response.data[0].savedCart
-                        : [],
-                      wishList: response.data[0].wishList
-                        ? response.data[0].wishList
-                        : [],
-                      myPurchase: response.data[0].myPurchase
-                        ? response.data[0].myPurchase
-                        : [],
+                      identification: response.data[0].cpf,
+                      cep: response.data[0].cep,
+                      state: response.data[0].state,
+                      city: response.data[0].city,
+                      street: response.data.street,
+                      streetNumber: response.data[0].streetNumber,
+                      savedCart: response.data[0].savedCart,
+                      wishList: response.data[0].wishList,
+                      myPurchase: response.data[0].myPurchase,
                     });
                     navigate(`/${data.site}/profile`);
                     setCostumer({ ...costumer, logged: true });
