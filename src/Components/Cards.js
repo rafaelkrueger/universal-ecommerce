@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css";
 import ProductSlider from "./ProductSlider";
 
-function Cards({ data, cart, setCart }) {
+function Cards({ data, cart, setCart, costumer }) {
   return (
     <>
       <div id="section-style">
@@ -16,7 +16,13 @@ function Cards({ data, cart, setCart }) {
               <hr />
             </>
           ) : (
-            <ProductSlider data={data} cart={cart} setCart={setCart} size={3} />
+            <ProductSlider
+              data={data}
+              cart={cart}
+              setCart={setCart}
+              size={3}
+              costumer={costumer}
+            />
           )}
         </div>
       </div>

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Api from "../Api";
 import "../App.css";
 
-function Home({ data, setData, cart, setCart }) {
+function Home({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Home({ data, setData, cart, setCart }) {
   return (
     <>
       <Carousel data={data} />
-      <Cards data={data} cart={cart} setCart={setCart} />
+      <Cards data={data} cart={cart} setCart={setCart} costumer={costumer} />
       <Contact data={data} />
     </>
   );

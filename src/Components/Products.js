@@ -7,9 +7,10 @@ import { useParams } from "react-router-dom";
 import { BsFilterCircleFill, BsFilterCircle } from "react-icons/bs";
 import Api from "../Api";
 
-function Products({ data, setData, cart, setCart, handleSetCart }) {
+function Products({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
   let { categoria } = useParams();
+  const [activeWishlist, setActiveWishlist] = useState(0);
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)
       .then((res) => {
@@ -200,6 +201,15 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                           <AiFillHeart
                             color={data.website.websiteHeartTagColor}
                             size={20}
+                            onClick={() => {
+                              if (costumer.logged) {
+                                setActiveWishlist(1);
+                              } else {
+                                window.alert(
+                                  "Logue em sua conta para adicionar na wishlist"
+                                );
+                              }
+                            }}
                           />
                         </div>
                         <div

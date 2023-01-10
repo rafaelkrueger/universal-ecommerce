@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function ProductSlider({ data, cart, setCart, size }) {
+function ProductSlider({ data, cart, setCart, size, costumer }) {
   const [off, setOff] = useState(1.3);
   return (
     <div className="product-slider">

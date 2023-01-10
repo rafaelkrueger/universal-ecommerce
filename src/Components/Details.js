@@ -12,7 +12,7 @@ import Star6 from "../images/stars/star-6.png";
 import Api from "../Api";
 import { BsCart4, BsHeartFill } from "react-icons/bs";
 
-function Details({ data, setData, cart, setCart }) {
+function Details({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
   const [screen, setScreen] = useState(window.outerWidth);
   const [shortDescription, setShortDescription] = useState(false);
@@ -270,7 +270,15 @@ function Details({ data, setData, cart, setCart }) {
                   </p>
                   <BsHeartFill
                     style={{ marginLeft: "10%" }}
-                    onClick={() => setActiveWishlist(1)}
+                    onClick={() => {
+                      if (costumer.logged) {
+                        setActiveWishlist(1);
+                      } else {
+                        window.alert(
+                          "Logue em sua conta para adicionar na wishlist"
+                        );
+                      }
+                    }}
                     className="heart-wishlist"
                     color={
                       activeWishlist == 0 && data !== null
