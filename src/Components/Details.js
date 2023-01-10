@@ -16,6 +16,7 @@ function Details({ data, setData, cart, setCart }) {
   let { tamarinSite } = useParams();
   const [screen, setScreen] = useState(window.outerWidth);
   const [shortDescription, setShortDescription] = useState(false);
+  const [activeWishlist, setActiveWishlist] = useState(0);
   let { id } = useParams();
 
   useEffect(() => {
@@ -267,7 +268,16 @@ function Details({ data, setData, cart, setCart }) {
                   >
                     Wishlist:
                   </p>
-                  <BsHeartFill style={{ marginLeft: "10%" }} />
+                  <BsHeartFill
+                    style={{ marginLeft: "10%" }}
+                    onClick={() => setActiveWishlist(1)}
+                    className="heart-wishlist"
+                    color={
+                      activeWishlist == 0 && data !== null
+                        ? data.websiteDetailedHeartColor
+                        : "red"
+                    }
+                  />
                 </div>
               </div>
               <div className="col">
@@ -380,8 +390,11 @@ function Details({ data, setData, cart, setCart }) {
           </div>
         </div>
       </div>
-      <h3 style={{ textAlign: "center" }}>Mais Vendidos!</h3>
-      <hr style={{ marginLeft: "20%", marginRight: "20%" }} />
+      <div style={{ marginBottom: "7%" }}>
+        <h3 style={{ textAlign: "center" }}>Mais Vendidos!</h3>
+        <br />
+        <hr style={{ marginLeft: "20%", marginRight: "20%" }} />
+      </div>
       <div className="container-fluid">
         <div className="similar-products">
           <div className="similar-products-item">

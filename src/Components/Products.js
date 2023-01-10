@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiCategoryAlt } from "react-icons/bi";
+import { AiFillHeart } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { BsFilterCircleFill, BsFilterCircle } from "react-icons/bs";
 import Api from "../Api";
@@ -195,6 +196,22 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                         }}
                         to={`/produto/${list._id}/${data.site}`}
                       >
+                        <div className="wishlist-products-part">
+                          <AiFillHeart
+                            color={data.website.websiteHeartTagColor}
+                            size={20}
+                          />
+                        </div>
+                        <div
+                          className="discount-products-part"
+                          style={{
+                            background: data.website.websiteHeartTagColor,
+                            color: data.website.websiteHeartColor,
+                          }}
+                        >
+                          <p>{off * 100 - 100}%</p>
+                        </div>
+
                         <img
                           id="product-image"
                           src={list.image}
@@ -202,8 +219,20 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                           alt="..."
                         />
                         <div class="card-body">
-                          <h6 id="card-title-style">{list.produto}</h6>
-                          <p class="card-text">
+                          <h6
+                            id="card-title-style"
+                            style={{
+                              color: data.website.websiteCardFontColor,
+                            }}
+                          >
+                            {list.produto}
+                          </h6>
+                          <p
+                            class="card-text"
+                            style={{
+                              color: data.website.websiteCardFontColor,
+                            }}
+                          >
                             {list.product.slice(0, 30)}...
                           </p>
                           <hr />
@@ -246,7 +275,6 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                           <br />
                           <div className="card-category-text">
                             <p className="card-category-text-p">
-                              {" "}
                               <BiCategoryAlt
                                 color="black"
                                 style={{ marginRight: "5%" }}
@@ -260,6 +288,7 @@ function Products({ data, setData, cart, setCart, handleSetCart }) {
                   </>
                 );
               })
+              .reverse()
           )}
         </div>
       </div>
