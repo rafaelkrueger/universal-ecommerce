@@ -326,7 +326,10 @@ function Details({ data, setData, cart, setCart, costumer }) {
                   <s>
                     R$
                     {produto.length > 0
-                      ? (1.3 * changePrice()).toFixed(2)
+                      ? (
+                          (produto[0].discount * changePrice()) / 100 +
+                          changePrice()
+                        ).toFixed(2)
                       : "Loading..."}
                   </s>
                 </h5>

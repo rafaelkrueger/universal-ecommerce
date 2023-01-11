@@ -12,7 +12,7 @@ function Cart({
   valortotal,
   setValorTotal,
 }) {
-  const freteTotal = () => {
+  const cupomTotal = () => {
     return 0;
   };
 
@@ -38,7 +38,7 @@ function Cart({
   };
 
   useEffect(() => {
-    setValorTotal(valorTotalCart(cart, 0));
+    setValorTotal(valorTotalCart(cart, cupomTotal()));
   });
 
   const optionShowed = (list) => {
@@ -160,16 +160,25 @@ function Cart({
               <tr>
                 <td className="purchase-table-row"></td>
                 <td className="purchase-table-row">
-                  <h6>Valor Entrega:</h6>
+                  <h6>Cupom:</h6>
                 </td>
                 <td className="purchase-table-row">
-                  R${freteTotal().toFixed(2)}
+                  <input
+                    type="text"
+                    style={{
+                      height: "20%",
+                      width: "60%",
+                      borderTopLeftRadius: 5,
+                      borderBottomLeftRadius: 5,
+                    }}
+                  />
+                  <button clasName="btn btn-success">OK</button>
                 </td>
                 <td className="purchase-table-row">
                   <h6>Valor Total:</h6>
                 </td>
                 <td className="purchase-table-row">
-                  R${valorTotalCart(cart, 0).toFixed(2)}
+                  R${valorTotalCart(cart, cupomTotal()).toFixed(2)}
                 </td>
                 <td className="purchase-table-row"></td>
               </tr>

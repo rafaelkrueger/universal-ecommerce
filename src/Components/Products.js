@@ -226,7 +226,7 @@ function Products({ data, setData, cart, setCart, costumer }) {
                             color: data.website.websiteHeartColor,
                           }}
                         >
-                          <p>{off * 100 - 100}%</p>
+                          <p>{list.discount}%</p>
                         </div>
 
                         <img
@@ -262,7 +262,13 @@ function Products({ data, setData, cart, setCart, costumer }) {
                                   fontSize: "18pt",
                                 }}
                               >
-                                <s>R${(list.value * off).toFixed(2)}</s>
+                                <s>
+                                  R$
+                                  {(
+                                    (list.value * list.discount) / 100 +
+                                    list.value
+                                  ).toFixed(2)}
+                                </s>
                               </p>
 
                               <p

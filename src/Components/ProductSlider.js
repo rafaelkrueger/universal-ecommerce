@@ -74,7 +74,7 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
                                 color: data.website.websiteHeartColor,
                               }}
                             >
-                              <p>{off * 100 - 100}%</p>
+                              <p>{list.discount}%</p>
                             </div>
 
                             <img
@@ -101,7 +101,13 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
                                       fontSize: "20pt",
                                     }}
                                   >
-                                    <s>R${(list.value * off).toFixed(2)}</s>
+                                    <s>
+                                      R$
+                                      {(
+                                        (list.value * list.discount) / 100 +
+                                        list.value
+                                      ).toFixed(2)}
+                                    </s>
                                   </h5>
                                   <h5
                                     className="card-swiper-price"
