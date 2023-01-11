@@ -102,8 +102,8 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                     <input
                       type="text"
                       class="form-control"
-                      value={costumer.street}
-                      placeholder="Número de sua rua"
+                      value={costumer.city}
+                      placeholder="Sua cidade"
                     />
                   </div>
                 </div>
