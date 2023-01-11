@@ -223,48 +223,54 @@ function Navbar({
                   ? data.produto.map((list, key) => {
                       if (list.product.includes(search) && search !== "") {
                         return (
-                          <div className="navbar-list-item">
-                            <div className="row">
-                              <div className="navbar-search-image">
-                                <img
-                                  style={{
-                                    border: "white",
-                                  }}
-                                  src={list.image}
-                                  className="navbar-search-image-content"
-                                />
-                              </div>
-                              <div
-                                className="col"
-                                id="navbar-search-name-content"
-                              >
-                                <p
-                                  className="navbar-search-name-content-p"
-                                  key={key}
-                                  style={{
-                                    color: data.website.websiteFontFooterColor,
-                                  }}
+                          <Link
+                            style={{ textDecoration: "none", color: "black" }}
+                            to={`/produto/${list._id}/${data.site}`}
+                          >
+                            <div className="navbar-list-item">
+                              <div className="row">
+                                <div className="navbar-search-image">
+                                  <img
+                                    style={{
+                                      border: "white",
+                                    }}
+                                    src={list.image}
+                                    className="navbar-search-image-content"
+                                  />
+                                </div>
+                                <div
+                                  className="col"
+                                  id="navbar-search-name-content"
                                 >
-                                  {list.product}
-                                </p>
-                              </div>
-                              <div
-                                className="col"
-                                id="navbar-search-add-content"
-                              >
-                                <button
-                                  className="btn btn-success"
-                                  id="navbar-search-name-content-button"
-                                  onClick={() => {
-                                    setCart([...cart, list]);
-                                  }}
+                                  <p
+                                    className="navbar-search-name-content-p"
+                                    key={key}
+                                    style={{
+                                      color:
+                                        data.website.websiteFontFooterColor,
+                                    }}
+                                  >
+                                    {list.product}
+                                  </p>
+                                </div>
+                                <div
+                                  className="col"
+                                  id="navbar-search-add-content"
                                 >
-                                  <BsCart4 color="white" />+
-                                </button>
+                                  <button
+                                    className="btn btn-success"
+                                    id="navbar-search-name-content-button"
+                                    onClick={() => {
+                                      setCart([...cart, list]);
+                                    }}
+                                  >
+                                    <BsCart4 color="white" />+
+                                  </button>
+                                </div>
                               </div>
+                              <hr />
                             </div>
-                            <hr />
-                          </div>
+                          </Link>
                         );
                       }
                     })
