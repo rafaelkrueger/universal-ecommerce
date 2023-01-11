@@ -1134,9 +1134,11 @@ cursor: pointer;
     margin-top: 1.3%;
     width: 100%;
     border-radius: 10px;
-    left: 207px;
+    left: 165px;
     height: 3.9%;
   }
-
+  #detailed-heart-responsive{
+    margin-left: -23%;
+  }
 }
 

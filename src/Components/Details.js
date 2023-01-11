@@ -259,7 +259,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
           <div className="detailed-product-quantity">
             <div className="row" id="details-sub-footers">
               <div className="col">
-                <div className="col">
+                <div className="col" id="detailed-heart-responsive">
                   <p
                     className="detailed-product-quantity-title"
                     style={{
@@ -272,6 +272,15 @@ function Details({ data, setData, cart, setCart, costumer }) {
                     style={{ marginLeft: "10%" }}
                     onClick={() => {
                       if (costumer.logged) {
+                        Api.post(
+                          "https://tamarintec.herokuapp.com/set-wishlist-costumer",
+                          {
+                            empresa: data._id,
+                            email: costumer.email,
+                            product: produto[0],
+                          }
+                        );
+
                         setActiveWishlist(1);
                       } else {
                         window.alert(
@@ -395,18 +404,6 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div style={{ marginBottom: "7%" }}>
-        <h3 style={{ textAlign: "center" }}>Mais Vendidos!</h3>
-        <br />
-        <hr style={{ marginLeft: "20%", marginRight: "20%" }} />
-      </div>
-      <div className="container-fluid">
-        <div className="similar-products">
-          <div className="similar-products-item">
-            <ProductSlider data={data} cart={cart} setCart={setCart} size={4} />
           </div>
         </div>
       </div>

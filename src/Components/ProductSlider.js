@@ -43,24 +43,26 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
                                 data.website.websiteCardBackgroundColor,
                             }}
                           >
-                            <div className="wishlist-slider-part">
+                            <div
+                              className="wishlist-slider-part"
+                              onClick={() => {
+                                if (costumer.logged) {
+                                  Api.post(
+                                    "https://tamarintec.herokuapp.com/set-wishlist-costumer",
+                                    {
+                                      empresa: data._id,
+                                      email: costumer.email,
+                                      product: list,
+                                    }
+                                  );
+                                } else {
+                                  window.alert(
+                                    "Entre em seu perfil para criar wishlist"
+                                  );
+                                }
+                              }}
+                            >
                               <AiFillHeart
-                                onClick={() => {
-                                  if (costumer.logged) {
-                                    Api.post(
-                                      "https://tamarintec.herokuapp.com/set-wishlist-costumer",
-                                      {
-                                        empresa: data._id,
-                                        email: costumer.email,
-                                        product: list,
-                                      }
-                                    );
-                                  } else {
-                                    window.alert(
-                                      "Entre em seu perfil para criar wishlist"
-                                    );
-                                  }
-                                }}
                                 color={data.website.websiteHeartTagColor}
                                 size={20}
                               />
