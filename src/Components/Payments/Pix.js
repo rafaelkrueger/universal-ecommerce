@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PixImage from "../../images/payment/pix-checkout.png";
 import Api from "../../Api";
 import "../../App.css";
@@ -83,7 +84,9 @@ function Pix({ data, costumer, valortotal, cart }) {
                   Clique no botão para mais informações sobre suas compras
                 </p>
 
-                <button className="btn btn-success">Meu Perfil</button>
+                <button className="btn btn-success">
+                  <Link to={`/${data.name}/profile`}>Meu Perfil</Link>
+                </button>
               </div>
             )}
           </div>

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Api from "../Api";
 
 function ProductSlider({ data, cart, setCart, size, costumer }) {
   const [off, setOff] = useState(1.3);
@@ -44,6 +45,22 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
                           >
                             <div className="wishlist-slider-part">
                               <AiFillHeart
+                                onClick={() => {
+                                  if (costumer.logged) {
+                                    Api.post(
+                                      "https://tamarintec.herokuapp.com/set-wishlist-costumer",
+                                      {
+                                        empresa: data._id,
+                                        email: costumer.email,
+                                        product: list,
+                                      }
+                                    );
+                                  } else {
+                                    window.alert(
+                                      "Entre em seu perfil para criar wishlist"
+                                    );
+                                  }
+                                }}
                                 color={data.website.websiteHeartTagColor}
                                 size={20}
                               />

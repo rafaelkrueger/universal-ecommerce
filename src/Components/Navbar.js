@@ -5,6 +5,8 @@ import { AiOutlineMenu, AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Costumer from "./Costumer";
+import Api from "../Api";
+import { AiFillHeart } from "react-icons/ai";
 
 function Navbar({
   data,
@@ -266,6 +268,30 @@ function Navbar({
                                   >
                                     <BsCart4 color="white" />+
                                   </button>
+                                  <AiFillHeart
+                                    color={data.website.websiteHeartTagColor}
+                                    size={20}
+                                    style={{
+                                      marginLeft: "47%",
+                                      marginTop: "15%",
+                                    }}
+                                    onClick={() => {
+                                      if (costumer.logged) {
+                                        Api.post(
+                                          "https://tamarintec.herokuapp.com",
+                                          {
+                                            empresa: data._id,
+                                            email: costumer.email,
+                                            product: list,
+                                          }
+                                        );
+                                      } else {
+                                        window.alert(
+                                          "Entre em seu perfil para criar wishlist"
+                                        );
+                                      }
+                                    }}
+                                  />
                                 </div>
                               </div>
                               <hr />

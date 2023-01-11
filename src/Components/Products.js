@@ -203,10 +203,17 @@ function Products({ data, setData, cart, setCart, costumer }) {
                             size={20}
                             onClick={() => {
                               if (costumer.logged) {
-                                setActiveWishlist(1);
+                                Api.post(
+                                  "https://tamarintec.herokuapp.com/set-wishlist-costumer",
+                                  {
+                                    empresa: data._id,
+                                    email: costumer.email,
+                                    product: list,
+                                  }
+                                );
                               } else {
                                 window.alert(
-                                  "Logue em sua conta para adicionar na wishlist"
+                                  "Entre em seu perfil para criar wishlist"
                                 );
                               }
                             }}
