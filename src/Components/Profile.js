@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EmptyProfile from "../images/empty-profile.png";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Api from "../Api";
 import "../App.css";
@@ -7,7 +8,6 @@ import "../App.css";
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
   let { tamarinSite } = useParams();
-  console.log(costumer);
   useEffect(() => {
     if (data == null) {
       Api.get(`/empresa/${tamarinSite}`)
@@ -155,6 +155,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                   style={{
                     background: active === 1 ? "#141a66" : "rgba(0,0,0,0.045)",
                     color: active === 1 ? "white" : "black",
+                    borderTopRightRadius: "20px",
                   }}
                   onClick={() => {
                     setActive(1);
@@ -162,7 +163,10 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                 >
                   <p>Wishlist</p>
                 </div>
-                <div className="row">
+                <div
+                  className="row"
+                  style={{ background: "rgba(0,0,0,0.07)", marginLeft: "0.2%" }}
+                >
                   {active == 0 && typeof costumer.myPurchase == Array
                     ? costumer.myPurchase.map((list) => {
                         return (
@@ -181,35 +185,51 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                     ? costumer.wishList.map((list) => {
                         return (
                           <>
-                            <div
-                              className="row"
-                              style={{ marginTop: "10%", marginLeft: "4%" }}
+                            <Link
+                              id="link-to-details"
+                              style={{ textDecoration: "none", color: "black" }}
+                              to={`/produto/${list._id}/${data.site}`}
                             >
-                              <hr />
-                              <div className="col">
-                                <img
-                                  src={list.image}
-                                  style={{
-                                    maxWidth: "110%",
-                                  }}
-                                />
+                              <div
+                                className="row"
+                                style={{ marginTop: "10%", marginLeft: "4%" }}
+                              >
+                                <hr />
+                                <div className="col">
+                                  <img
+                                    src={list.image}
+                                    style={{
+                                      maxWidth: "110%",
+                                    }}
+                                  />
+                                </div>
+                                <div className="col">
+                                  <p>{list.product.slice(0, 4)}...</p>
+                                </div>
+                                <div className="col">
+                                  <p>R${list.value}</p>
+                                </div>
+                                <div className="col">
+                                  <button
+                                    className="btn btn-large btn-danger"
+                                    onClick={() => {
+                                      Api.put("/remove-wishlist-costumer", {
+                                        empresa: data._id,
+                                        email: costumer.email,
+                                        product: list._id,
+                                      });
+                                    }}
+                                  >
+                                    Remover
+                                  </button>
+                                </div>
                               </div>
-                              <div className="col">
-                                <p>{list.product.slice(0, 4)}...</p>
-                              </div>
-                              <div className="col">
-                                <p>R${list.value}</p>
-                              </div>
-                              <div className="col">
-                                <button className="btn btn-large btn-danger">
-                                  Remover
-                                </button>
-                              </div>
-                            </div>
+                            </Link>
                           </>
                         );
                       })
                     : ""}
+                  <br />
                 </div>
               </div>
             </div>
