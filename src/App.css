@@ -918,6 +918,7 @@ cursor: pointer;
 
   #filter-product-style{
     margin-top: 35%;
+    min-width: 110%;
   }
 
   .swiper-wrapper{
