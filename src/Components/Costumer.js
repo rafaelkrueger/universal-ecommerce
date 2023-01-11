@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import Api from "../Api";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,42 @@ function Costumer({
   costumer,
   setCostumer,
 }) {
+  const [loginResponse, setLoginResponse] = useState({
+    profileImage: "",
+    name: "",
+    email: "",
+    password: "",
+    number: "",
+    identification: "",
+    cep: "",
+    state: "",
+    city: "",
+    street: "",
+    adressNumber: "",
+    savedCart: "",
+    wishList: "",
+    myPurchase: "",
+  });
+  useEffect(() => {
+    setCostumer({
+      ...costumer,
+      profileImage: loginResponse.profileImage,
+      name: loginResponse.name,
+      email: loginResponse.email,
+      password: loginResponse.password,
+      number: loginResponse.number,
+      identification: loginResponse.identification,
+      cep: loginResponse.cep,
+      state: loginResponse.state,
+      city: loginResponse.city,
+      street: loginResponse.street,
+      adressNumber: loginResponse.adressNumber,
+      savedCart: loginResponse.savedCart,
+      wishList: loginResponse.wishList,
+      myPurchase: loginResponse.myPurchase,
+    });
+  }, [loginResponse]);
+
   const navigate = useNavigate();
   return (
     <div
@@ -90,29 +126,12 @@ function Costumer({
                   email: costumer.email,
                   password: costumer.password,
                 })
-                  .then((res) => {
+                  .then(async (res) => {
                     if (res.data.length > 0) {
-                      setCostumer({
-                        ...costumer,
-                        profileImage: res.data[0].profileImage,
-                        name: res.data[0].name,
-                        email: res.data[0].email,
-                        password: res.data[0].password,
-                        number: res.data[0].number,
-                        identification: res.data[0].identification,
-                        cep: res.data[0].cep,
-                        state: res.data[0].state,
-                        city: res.data[0].city,
-                        street: res.data[0].street,
-                        adressNumber: res.data[0].adressNumber,
-                        savedCart: res.data[0],
-                        wishList: res.data[0],
-                        myPurchase: res.data[0],
-                      });
-                      console.log(costumer);
+                      setLoginResponse(res.data[0]);
                       navigate(`/${data.site}/profile`);
-                      setCostumer({ ...costumer, logged: true });
                       setModal("hidden");
+                      setCostumer({ ...costumer, logged: true });
                     } else {
                       window.alert("Usuário não encontrado");
                     }

@@ -85,7 +85,7 @@ function Pix({ data, costumer, valortotal, cart }) {
                 </p>
 
                 <button className="btn btn-success">
-                  <Link to={`/${data.name}/profile`}>Meu Perfil</Link>
+                  <Link to={`/${data.site}/profile`}>Meu Perfil</Link>
                 </button>
               </div>
             )}

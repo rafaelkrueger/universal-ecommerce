@@ -7,7 +7,7 @@ import "../App.css";
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
   let { tamarinSite } = useParams();
-
+  console.log(costumer);
   useEffect(() => {
     if (data == null) {
       Api.get(`/empresa/${tamarinSite}`)
@@ -39,7 +39,8 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                 <div className="col">
                   <img
                     src={
-                      costumer.profileImage !== ""
+                      costumer.profileImage !== "" &&
+                      costumer.profileImage !== "empty"
                         ? costumer.profileImage
                         : EmptyProfile
                     }
@@ -112,7 +113,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                       type="text"
                       class="form-control"
                       value={costumer.streetNumber}
-                      placeholder="Sua Rua"
+                      placeholder="Número da casa"
                     />
                   </div>
                   <div class="input-group mb-3">
@@ -161,35 +162,52 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                 >
                   <p>Wishlist</p>
                 </div>
-                <div
-                  className="col"
-                  style={{
-                    background: active === 2 ? "#141a66" : "rgba(0,0,0,0.045)",
-                    color: active === 2 ? "white" : "black",
-                    borderTopRightRadius: "20px",
-                  }}
-                  onClick={() => {
-                    setActive(2);
-                  }}
-                >
-                  <p>Carrinho</p>
-                </div>
                 <div className="row">
-                  {active == 0
+                  {active == 0 && typeof costumer.myPurchase == Array
                     ? costumer.myPurchase.map((list) => {
-                        if (list.length > 0) {
-                          return (
-                            <>
-                              <td>dsa</td>
-                              <td>dsadas</td>
-                              <td>dsadas</td>
-                              <td>dasdas</td>
-                              <td>dsd</td>
-                            </>
-                          );
-                        } else {
-                          return <td>Você não comprou produtos ainda...</td>;
-                        }
+                        return (
+                          <>
+                            <div className="row" style={{ marginTop: "10%" }}>
+                              <img src={list.image} />
+                              <p>{list.product}</p>
+                              <p>{list.value}</p>
+                              <p>{list.product}</p>
+                            </div>
+                          </>
+                        );
+                      })
+                    : ""}
+                  {active == 1
+                    ? costumer.wishList.map((list) => {
+                        return (
+                          <>
+                            <div
+                              className="row"
+                              style={{ marginTop: "10%", marginLeft: "4%" }}
+                            >
+                              <hr />
+                              <div className="col">
+                                <img
+                                  src={list.image}
+                                  style={{
+                                    maxWidth: "110%",
+                                  }}
+                                />
+                              </div>
+                              <div className="col">
+                                <p>{list.product.slice(0, 4)}...</p>
+                              </div>
+                              <div className="col">
+                                <p>R${list.value}</p>
+                              </div>
+                              <div className="col">
+                                <button className="btn btn-large btn-danger">
+                                  Remover
+                                </button>
+                              </div>
+                            </div>
+                          </>
+                        );
                       })
                     : ""}
                 </div>
