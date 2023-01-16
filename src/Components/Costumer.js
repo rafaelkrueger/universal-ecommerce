@@ -42,7 +42,7 @@ function Costumer({
       email: loginResponse.email,
       password: loginResponse.password,
       number: loginResponse.number,
-      identification: loginResponse.identification,
+      identification: loginResponse.cpf,
       cep: loginResponse.cep,
       state: loginResponse.state,
       city: loginResponse.city,

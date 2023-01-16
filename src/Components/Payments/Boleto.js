@@ -4,6 +4,7 @@ import Boletoimg from "../../images/payment/boleto-icon.png";
 import Api from "../../Api";
 
 function Boleto({ data, costumer, valorTotal, cart }) {
+  console.log(valorTotal);
   return (
     <div className="boleto-component">
       <div className="header-commponent-image">
@@ -26,7 +27,7 @@ function Boleto({ data, costumer, valorTotal, cart }) {
         </p>
         <button
           onClick={() => {
-            Api.post("https://tamarintec.herokuapp.com/boleto", {
+            Api.post("/boleto", {
               empresa: data._id,
               name: costumer.name,
               email: costumer.email,
@@ -40,15 +41,8 @@ function Boleto({ data, costumer, valorTotal, cart }) {
               streetNumber: costumer.adressnumber,
               valor: valorTotal,
               products: cart,
-            })
-              .then((res) => {
-                if (res.status == 200) {
-                  window.alert("Boleto enviado em seu email!");
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+            });
+            window.alert("Boleto enviado em seu email!");
           }}
           className="btn btn-large btn-success"
         >
