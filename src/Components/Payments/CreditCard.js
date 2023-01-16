@@ -8,7 +8,7 @@ import Visa from "../../images/payment/visa-icon.png";
 import "../../App.css";
 import Api from "../../Api";
 
-function CreditCard() {
+function CreditCard({ valortotal }) {
   const [card, setCard] = useState({
     number: "",
     expMonth: "",
@@ -20,7 +20,6 @@ function CreditCard() {
   const promise = loadStripe(
     "pk_live_51LzOmQEkjDX4g4TkJU6CEnKN1AGYeieNmmypnnYkQh3rd2eLMvfYsGTwuwJMtIhrPDdWibGlIIXBMdpUnKcKOrKP00TH0anRih"
   );
-
   return (
     <div className="card-component">
       <div className="header-commponent-image">
@@ -32,7 +31,7 @@ function CreditCard() {
         <h4>Cartão de Crédito/Débito</h4>
         <span className="header-commponent-span">Pague pelo seu cartão</span>
         <Elements stripe={promise}>
-          <CardForm card={card} setCard={setCard} />
+          <CardForm card={card} setCard={setCard} valortotal={valortotal} />
         </Elements>
       </div>
     </div>
