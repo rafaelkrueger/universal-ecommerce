@@ -168,15 +168,20 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                   className="row"
                   style={{ background: "rgba(0,0,0,0.07)", marginLeft: "0.2%" }}
                 >
-                  {active == 0 && typeof costumer.myPurchase == Array
+                  {active == 0 && costumer.myPurchase !== []
                     ? costumer.myPurchase.map((list) => {
                         return (
                           <>
                             <div className="row" style={{ marginTop: "10%" }}>
-                              <img src={list.image} />
-                              <p>{list.product}</p>
-                              <p>{list.value}</p>
-                              <p>{list.product}</p>
+                              <p>ID da compra:{list[0]._id}</p>
+                              <p>
+                                Destino:{list[0].state} - {list[0].state} -{" "}
+                                {list[0].street} -{list[0].streetNumber}
+                              </p>
+                              <p>
+                                Cliente: {list[0].name} - {list[0].number}
+                              </p>
+                              <p>Valor total de compra: {list[0].valorTotal}</p>
                             </div>
                           </>
                         );

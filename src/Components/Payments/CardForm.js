@@ -13,6 +13,11 @@ function CardForm({
   status,
   setStatus,
 }) {
+  const [disabled, setDisabled] = useState(false);
+  const normilizeCardNumber = (value) => {
+    return value.replace(/\s/g, "").join(" ").substr(0, 19);
+  };
+
   return (
     <>
       <div className="row">
@@ -23,6 +28,7 @@ function CardForm({
                 type="text"
                 class="form-control"
                 onChange={(e) => {
+                  e.target.value = normilizeCardNumber(e.target.value);
                   setCard({ ...card, number: e.target.value });
                 }}
               />
@@ -87,7 +93,7 @@ function CardForm({
           <button
             className="btn btn-success"
             onClick={() => {
-              console.log("Fui acessado!");
+              setDisabled(true);
               Api.post("/card-payment", {
                 empresa: data._id,
                 name: costumer.name,
@@ -114,6 +120,7 @@ function CardForm({
                   window.alert(err);
                 });
             }}
+            disabled={disabled}
           >
             Realizar Pagamento!
           </button>

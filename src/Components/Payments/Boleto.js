@@ -4,6 +4,8 @@ import Boletoimg from "../../images/payment/boleto-icon.png";
 import Api from "../../Api";
 
 function Boleto({ data, costumer, valorTotal, cart }) {
+  const [disabled, setDisabled] = useState(false);
+
   const [status, setStatus] = useState(false);
   console.log(valorTotal);
   return (
@@ -28,6 +30,7 @@ function Boleto({ data, costumer, valorTotal, cart }) {
         </p>
         <button
           onClick={() => {
+            setDisabled(true);
             Api.post("/boleto", {
               empresa: data._id,
               name: costumer.name,
@@ -46,6 +49,7 @@ function Boleto({ data, costumer, valorTotal, cart }) {
             window.alert("Boleto enviado em seu email!");
           }}
           className="btn btn-large btn-success"
+          disabled={disabled}
         >
           Gerar Boleto
         </button>

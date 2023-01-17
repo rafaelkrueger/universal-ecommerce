@@ -5,6 +5,7 @@ import Api from "../../Api";
 import "../../App.css";
 
 function Pix({ data, costumer, valortotal, cart }) {
+  const [disabled, setDisabled] = useState(false);
   const [qrcode, setQrcode] = useState("");
   const [txid, setTxId] = useState("");
   const [status, setStatus] = useState(false);
@@ -40,6 +41,7 @@ function Pix({ data, costumer, valortotal, cart }) {
               </p>
               <button
                 onClick={() => {
+                  setDisabled(true);
                   Api.post(`/pix`, {
                     empresa: data._id,
                     name: costumer.name,
@@ -65,6 +67,7 @@ function Pix({ data, costumer, valortotal, cart }) {
                     });
                 }}
                 className="btn btn-large btn-success"
+                disabled={disabled}
               >
                 Gerar QRcode
               </button>
