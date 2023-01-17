@@ -26,7 +26,8 @@ function Home({ data, setData, cart, setCart, costumer }) {
     //   .getLocation()
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
-  });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <>

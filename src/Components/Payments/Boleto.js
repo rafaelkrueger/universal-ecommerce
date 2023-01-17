@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../App.css";
 import Boletoimg from "../../images/payment/boleto-icon.png";
 import Api from "../../Api";
 
 function Boleto({ data, costumer, valorTotal, cart }) {
+  const [status, setStatus] = useState(false);
   console.log(valorTotal);
   return (
     <div className="boleto-component">

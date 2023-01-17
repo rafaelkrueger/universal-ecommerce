@@ -28,7 +28,8 @@ function Products({ data, setData, cart, setCart, costumer }) {
     //   .getLocation()
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
-  });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   const [filtering, setFilter] = useState([]);
   const [search, setSearch] = useState("");
   const [screen, setScreen] = useState(window.outerWidth);

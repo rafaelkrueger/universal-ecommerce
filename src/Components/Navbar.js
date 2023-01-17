@@ -103,7 +103,14 @@ function Navbar({
               )}
             </Link>
           </div>
-          <div class="collapse navbar-collapse" id={`navbar-content${navbar}`}>
+          <div
+            class="collapse navbar-collapse"
+            id={`navbar-content${navbar}`}
+            style={{
+              background:
+                data !== null ? data.website.websiteNavbarFooterColor : "white",
+            }}
+          >
             <div
               class="navbar-nav"
               id="nav-links"

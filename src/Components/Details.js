@@ -38,7 +38,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
     //   .getLocation()
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
-  });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   const [quantity, setQuantity] = useState(1);
   const [produto, setProduto] = useState([]);
@@ -299,7 +300,14 @@ function Details({ data, setData, cart, setCart, costumer }) {
               </div>
               <div className="col">
                 <div className="detailed-product-quantity-quantities">
-                  <p className="detailed-product-quantity-title">Quantidade:</p>
+                  <p
+                    className="detailed-product-quantity-title"
+                    style={{
+                      color: data != null ? data.websiteDetailedFont : "white",
+                    }}
+                  >
+                    Quantidade:
+                  </p>
                   <input
                     type="number"
                     className="detailed-product-quantity-quantities-input"
@@ -399,8 +407,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
                         ? data.website.websiteDetailedButtonFontCart
                         : ""
                     }
-                    onClick={() => {
-                      setCart([...cart, produto[0]]);
+                    onClick={async () => {
+                      await setCart([...cart, produto[0]]);
                     }}
                   />
                   +

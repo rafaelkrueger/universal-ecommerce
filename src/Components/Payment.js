@@ -62,7 +62,7 @@ function Payment({
                   }}
                 />
                 <p style={{ marginTop: "2.5%", marginLeft: "2.6%" }}>
-                  <s>Cartão de Crédito/Débito</s>
+                  Cartão de Crédito/Débito
                 </p>
               </div>
             </div>
@@ -99,7 +99,16 @@ function Payment({
             ) : (
               ""
             )}
-            {chosen == 2 ? <CreditCard valortotal={valortotal} /> : ""}
+            {chosen == 2 ? (
+              <CreditCard
+                data={data}
+                costumer={costumer}
+                valortotal={valortotal}
+                cart={cart}
+              />
+            ) : (
+              ""
+            )}
             {chosen == 3 ? (
               <Boleto
                 data={data}

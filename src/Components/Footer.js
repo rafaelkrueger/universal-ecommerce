@@ -59,7 +59,11 @@ function Footer({ data }) {
               <h2 class="footer-title">Mapa do Site</h2>
               <SlArrowDown
                 onClick={(e) => colapsable(1)}
-                style={{ marginLeft: "40%", marginTop: "-10%" }}
+                style={{
+                  marginLeft: "20%",
+                  marginTop: "-10%",
+                  maxWidth: "100%",
+                }}
               />
             </div>
             <hr />
@@ -132,7 +136,11 @@ function Footer({ data }) {
             <h2 class="footer-title">Sobre Nós</h2>
             <SlArrowDown
               onClick={(e) => colapsable(2)}
-              style={{ marginLeft: "90.2%", marginTop: "-24%" }}
+              style={{
+                marginLeft: "70.2%",
+                marginTop: "-24%",
+                maxWidth: "100%",
+              }}
             />
 
             <hr />
@@ -182,7 +190,7 @@ function Footer({ data }) {
             <h2 class="footer-title">Suporte</h2>
             <SlArrowDown
               onClick={(e) => colapsable(3)}
-              style={{ marginLeft: "90%", marginTop: "-20%" }}
+              style={{ marginLeft: "70%", marginTop: "-20%" }}
             />
             <hr />
             <div id="footer-colapsable-3">

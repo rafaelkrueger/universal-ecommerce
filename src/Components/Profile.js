@@ -182,7 +182,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                       })
                     : ""}
                   {active == 1
-                    ? costumer.wishList.map((list) => {
+                    ? costumer?.wishList?.map((list) => {
                         return (
                           <>
                             <Link
@@ -212,7 +212,8 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                 <div className="col">
                                   <button
                                     className="btn btn-large btn-danger"
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                      e.stopPropagation();
                                       Api.put("/remove-wishlist-costumer", {
                                         empresa: data._id,
                                         email: costumer.email,
