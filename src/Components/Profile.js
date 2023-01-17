@@ -8,6 +8,7 @@ import "../App.css";
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
   let { tamarinSite } = useParams();
+  console.log(costumer);
   useEffect(() => {
     if (data == null) {
       Api.get(`/empresa/${tamarinSite}`)
@@ -182,7 +183,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                       })
                     : ""}
                   {active == 1
-                    ? costumer?.wishList?.map((list) => {
+                    ? costumer.wishList?.map((list) => {
                         return (
                           <>
                             <Link

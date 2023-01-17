@@ -25,18 +25,18 @@ function CreditCard({ data, costumer, valortotal, cart }) {
   return (
     <>
       <div className="card-component-card">
-        {status ? (
+        {!status ? (
           <>
             <div className="header-commponent-image">
+              <br />
+              <br />
               <img src={Visa} />
               <img src={Master} />
               <img src={Hiper} />
             </div>
             <div className="body-component">
               <h4>Cartão de Crédito/Débito</h4>
-              <span className="header-commponent-span-card">
-                Pague pelo seu cartão
-              </span>
+              <br />
               <Elements stripe={promise}>
                 <CardForm
                   cata={data}
