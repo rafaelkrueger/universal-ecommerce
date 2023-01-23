@@ -9,7 +9,7 @@ import CartPage from "./Pages/CartPage";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import Profile from "./Components/Profile";
-
+import { Helmet } from "react-helmet";
 const apiip = require("apiip.net")("555e720f-072c-4174-ac6c-0a58e40933c8");
 
 function App() {
@@ -36,10 +36,23 @@ function App() {
     logged: false,
   });
 
+  useEffect(() => {}, [data]);
+
   return (
     <>
       <Router>
         <div>
+          <Helmet>
+            <link rel="icon" type="image/png" href={data?.logo} />
+            <link rel="apple-touch-icon" href={data?.logo} />
+            <meta
+              name={data?.name}
+              content={data?.produto.map((list) => {
+                return list.product + " ";
+              })}
+            />
+            <title>{data?.name}</title>
+          </Helmet>
           <Navbar
             data={data}
             cart={cart}

@@ -14,11 +14,6 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
       Api.get(`/empresa/${tamarinSite}`)
         .then((res) => {
           setData(res.data);
-          document.querySelector("title").textContent = res.data.name;
-          document.getElementsByTagName("body")[0].style.backgroundColor =
-            res.data.website.websiteColor;
-          document.getElementsByTagName("body")[0].style.color =
-            res.data.website.websiteFontColor;
         })
         .catch((err) => {
           console.log(err);
@@ -29,6 +24,9 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
   });
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <div className="profile">

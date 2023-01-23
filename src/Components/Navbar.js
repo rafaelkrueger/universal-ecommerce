@@ -319,7 +319,10 @@ function Navbar({
                 id="nav-link-cart"
                 class="nav-link"
               >
-                <BsCart4 color={navbarStyle.color} />
+                <BsCart4
+                  id="cart-navbar-content-icon"
+                  color={navbarStyle.color}
+                />
                 <span
                   className="cart-navbar-content-number"
                   style={{
