@@ -127,14 +127,6 @@ function Navbar({
                 id="nav-link-home"
                 class="nav-link active"
                 aria-current="page"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (navbar == "responsive") {
-                    setNavbar("");
-                  } else {
-                    setNavbar("responsive");
-                  }
-                }}
               >
                 Home
               </Link>
@@ -143,14 +135,6 @@ function Navbar({
                 id="nav-link-valores"
                 class="nav-link"
                 style={{ color: navbarStyle.color }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (navbar == "responsive") {
-                    setNavbar("");
-                  } else {
-                    setNavbar("responsive");
-                  }
-                }}
               >
                 Produtos
               </Link>
@@ -335,10 +319,7 @@ function Navbar({
                 id="nav-link-cart"
                 class="nav-link"
               >
-                <BsCart4
-                  id="cart-navbar-content-icon"
-                  color={navbarStyle.color}
-                />
+                <BsCart4 color={navbarStyle.color} />
                 <span
                   className="cart-navbar-content-number"
                   style={{

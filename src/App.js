@@ -17,6 +17,7 @@ function App() {
   const [data, setData] = useState(null);
   const [cart, setCart] = useState([]);
   const [logged, setLogged] = useState(false);
+  const [shaking, setShaking] = useState(false);
 
   const [costumer, setCostumer] = useState({
     profileImage: "",
@@ -61,6 +62,7 @@ function App() {
             setCostumer={setCostumer}
             logged={logged}
             setLogged={setLogged}
+            shaking={shaking}
           />
           <Routes>
             <Route
