@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import ProductSlider from "./ProductSlider";
 import Star1 from "../images/stars/star-1.png";
 import Star2 from "../images/stars/star-2.png";
 import Star3 from "../images/stars/star-3.png";
@@ -17,10 +14,11 @@ function Details({ data, setData, cart, setCart, costumer }) {
   const [screen, setScreen] = useState(window.outerWidth);
   const [shortDescription, setShortDescription] = useState(false);
   const [activeWishlist, setActiveWishlist] = useState(0);
+  const top = useRef(0);
   let { id } = useParams();
 
   useEffect(() => {
-    if (data == null) {
+    if (data === null) {
       Api.get(`/empresa/${tamarinSite}`)
         .then((res) => {
           setData(res.data);
@@ -38,8 +36,17 @@ function Details({ data, setData, cart, setCart, costumer }) {
     //   .getLocation()
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
+    if (!top) {
+      var link = document.createElement("link");
+      link.rel = "icon";
+      link.href = data.logo;
+      var head = document.getElementsByTagName("head")[0];
+      var oldLink = head.querySelector("link[rel='icon']");
+      head.replaceChild(link, oldLink);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      top.current = true;
+    }
+  });
 
   const [quantity, setQuantity] = useState(1);
   const [produto, setProduto] = useState([]);
@@ -50,7 +57,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
   });
 
   useEffect(() => {
-    if (data == null) {
+    if (data === null) {
       console.log(null);
     } else {
       load();
@@ -58,7 +65,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
   });
   const load = () => {
     const produto = data.produto.filter((list) => {
-      return list._id == id;
+      return list._id === id;
     });
     setProduto(produto);
   };
@@ -111,8 +118,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
         className="detailed-product"
         style={{
           background:
-            data != null ? data.website.websiteDetailedBackground : "",
-          color: data != null ? data.website.websiteDetailedFont : "",
+            data !== null ? data.website.websiteDetailedBackground : "",
+          color: data !== null ? data.website.websiteDetailedFont : "",
         }}
       >
         <div className="col" id="detailed-product-columns-1">
@@ -120,9 +127,10 @@ function Details({ data, setData, cart, setCart, costumer }) {
             <div className="col" id="detailed-product-image-col-1">
               <img
                 className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0].product : "Loading..."}
                 src={
                   produto.length > 0 &&
-                  produto[0].subImages.subImage1 != undefined
+                  produto[0].subImages.subImage1 !== undefined
                     ? produto[0].subImages.subImage1
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
@@ -132,9 +140,10 @@ function Details({ data, setData, cart, setCart, costumer }) {
               />
               <img
                 className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0].product : "Loading..."}
                 src={
                   produto.length > 0 &&
-                  produto[0].subImages.subImage2 != undefined
+                  produto[0].subImages.subImage2 !== undefined
                     ? produto[0].subImages.subImage2
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
@@ -144,8 +153,9 @@ function Details({ data, setData, cart, setCart, costumer }) {
               />
               <img
                 className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0].product : "Loading..."}
                 src={
-                  produto.length > 0 && produto[0].image != undefined
+                  produto.length > 0 && produto[0].image !== undefined
                     ? produto[0].image
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
@@ -155,9 +165,10 @@ function Details({ data, setData, cart, setCart, costumer }) {
               />
               <img
                 className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0].product : "Loading..."}
                 src={
                   produto.length > 0 &&
-                  produto[0].subImages.subImage3 != undefined
+                  produto[0].subImages.subImage3 !== undefined
                     ? produto[0].subImages.subImage3
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
@@ -167,9 +178,10 @@ function Details({ data, setData, cart, setCart, costumer }) {
               />
               <img
                 className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0].product : "Loading..."}
                 src={
                   produto.length > 0 &&
-                  produto[0].subImages.subImage4 != undefined
+                  produto[0].subImages.subImage4 !== undefined
                     ? produto[0].subImages.subImage4
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
@@ -193,7 +205,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
           <h3
             id="detailed-product-title"
             style={{
-              color: data != null ? data.website.websiteDetailedTitleFont : "",
+              color: data !== null ? data.website.websiteDetailedTitleFont : "",
             }}
           >
             {produto.length > 0 ? produto[0].product : "Loading..."}
@@ -203,7 +215,9 @@ function Details({ data, setData, cart, setCart, costumer }) {
             id="detailed-product-description"
             style={{
               color:
-                data != null ? data.website.websiteDetailedDescriptionFont : "",
+                data !== null
+                  ? data.website.websiteDetailedDescriptionFont
+                  : "",
             }}
           >
             {produto.length > 0 ? descriptionResponsive() : "Loading..."}
@@ -250,7 +264,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                       }}
                     >
                       <p id="detailed-product-type">
-                        {list.type == undefined ? "" : list.type}
+                        {list.type === undefined ? "" : list.type}
                       </p>
                     </div>
                   );
@@ -264,7 +278,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
                   <p
                     className="detailed-product-quantity-title"
                     style={{
-                      color: data != null ? data.websiteDetailedHeartColor : "",
+                      color:
+                        data !== null ? data.websiteDetailedHeartColor : "",
                     }}
                   >
                     Wishlist:
@@ -291,7 +306,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                     }}
                     className="heart-wishlist"
                     color={
-                      activeWishlist == 0 && data !== null
+                      activeWishlist === 0 && data !== null
                         ? data.websiteDetailedHeartColor
                         : "red"
                     }
@@ -303,7 +318,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                   <p
                     className="detailed-product-quantity-title"
                     style={{
-                      color: data != null ? data.websiteDetailedFont : "white",
+                      color: data !== null ? data.websiteDetailedFont : "white",
                     }}
                   >
                     Quantidade:
@@ -328,7 +343,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                   className="detailed-original-value"
                   style={{
                     color:
-                      data != null ? data.websiteDetailedDiscountColor : "",
+                      data !== null ? data.websiteDetailedDiscountColor : "",
                   }}
                 >
                   <s>
@@ -346,7 +361,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 <p
                   className="detailed-product-quantity-title"
                   style={{
-                    color: data != null ? data.websiteDetailedPriceColor : "",
+                    color: data !== null ? data.websiteDetailedPriceColor : "",
                   }}
                 >
                   Total:
@@ -362,12 +377,12 @@ function Details({ data, setData, cart, setCart, costumer }) {
             <div
               className="detailed-button-row"
               style={{
-                background: data != null ? data.websiteDetailedBackground : "",
+                background: data !== null ? data.websiteDetailedBackground : "",
               }}
             >
               <div className="col" id="detailed-button-col-1">
                 <Link
-                  to={`/${data == null ? "" : data.site}/cart`}
+                  to={`/${data === null ? "" : data.site}/cart`}
                   onClick={async () => {
                     await setCart([...cart, produto[0]]);
                   }}
@@ -375,11 +390,11 @@ function Details({ data, setData, cart, setCart, costumer }) {
                   className="btn btn-large "
                   style={{
                     color:
-                      data != null
+                      data !== null
                         ? data.website.websiteDetailedButtonFontBuy
                         : "",
                     background:
-                      data != null
+                      data !== null
                         ? data.website.websiteDetailedButtonCart
                         : "",
                   }}
@@ -392,18 +407,18 @@ function Details({ data, setData, cart, setCart, costumer }) {
                   className="btn"
                   style={{
                     background:
-                      data != null
+                      data !== null
                         ? data.website.websiteDetailedButtonCart
                         : "",
                     color:
-                      data != null
+                      data !== null
                         ? data.website.websiteDetailedButtonFontCart
                         : "",
                   }}
                 >
                   <BsCart4
                     color={
-                      data != null
+                      data !== null
                         ? data.website.websiteDetailedButtonFontCart
                         : ""
                     }

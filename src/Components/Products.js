@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiCategoryAlt } from "react-icons/bi";
@@ -11,6 +11,7 @@ function Products({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
   let { categoria } = useParams();
   const [activeWishlist, setActiveWishlist] = useState(0);
+  const top = useRef(0);
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)
       .then((res) => {
@@ -28,13 +29,21 @@ function Products({ data, setData, cart, setCart, costumer }) {
     //   .getLocation()
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
+    if (!top) {
+      var link = document.createElement("link");
+      link.rel = "icon";
+      link.href = data.logo;
+      var head = document.getElementsByTagName("head")[0];
+      var oldLink = head.querySelector("link[rel='icon']");
+      head.replaceChild(link, oldLink);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      top.current = true;
+    }
+  });
   const [filtering, setFilter] = useState([]);
   const [search, setSearch] = useState("");
   const [screen, setScreen] = useState(window.outerWidth);
   const [filterActive, setFilterActive] = useState(false);
-  const [off, setOff] = useState(1.3);
 
   return (
     <>
@@ -98,7 +107,7 @@ function Products({ data, setData, cart, setCart, costumer }) {
               </h3>
               <hr />
               <div className="filter-list-categories">
-                {data == null
+                {data === null
                   ? ""
                   : data.categorias.map((list) => {
                       return (
@@ -116,7 +125,7 @@ function Products({ data, setData, cart, setCart, costumer }) {
                                   let permission = true;
                                   let index;
                                   for (let i = 0; i < filtering.length; i++) {
-                                    if (filtering[i] == e.target.value) {
+                                    if (filtering[i] === e.target.value) {
                                       permission = false;
                                       index = i;
                                     }
@@ -145,12 +154,11 @@ function Products({ data, setData, cart, setCart, costumer }) {
         <div
           class="card-deck"
           style={{
-            display: "flex",
             flexWrap: "wrap",
             display: screen > 600 || !filterActive ? "flex" : "none",
           }}
         >
-          {data == null ? (
+          {data === null ? (
             <>
               <h3>Não há produtos no momento!</h3>
               <br />
@@ -161,20 +169,20 @@ function Products({ data, setData, cart, setCart, costumer }) {
 
               .filter((list) => {
                 if (
-                  filtering.length != 0 ||
+                  filtering.length !== 0 ||
                   (categoria &&
                     categoria !== "all" &&
-                    categoria != "Categorias")
+                    categoria !== "Categorias")
                 ) {
                   return (
-                    filtering == list.category || categoria == list.category
+                    filtering === list.category || categoria === list.category
                   );
                 } else {
                   return list;
                 }
               })
               .filter((list) => {
-                if (search != "") {
+                if (search !== "") {
                   if (list.product.includes(search)) return list.product;
                 } else {
                   return list;

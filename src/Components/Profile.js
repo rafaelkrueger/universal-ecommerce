@@ -39,6 +39,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
               <div className="row">
                 <div className="col">
                   <img
+                    alt="profile-pic"
                     src={
                       costumer.profileImage !== "" &&
                       costumer.profileImage !== "empty"
@@ -168,7 +169,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                   className="row"
                   style={{ background: "rgba(0,0,0,0.07)", marginLeft: "0.2%" }}
                 >
-                  {active == 0 && costumer.myPurchase !== []
+                  {active === 0 && costumer.myPurchase !== []
                     ? costumer.myPurchase.map((list) => {
                         return (
                           <>
@@ -187,7 +188,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                         );
                       })
                     : ""}
-                  {active == 1
+                  {active === 1
                     ? costumer.wishList?.map((list) => {
                         return (
                           <>
@@ -204,6 +205,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                 <div className="col">
                                   <img
                                     src={list.image}
+                                    alt={list.product}
                                     style={{
                                       maxWidth: "110%",
                                     }}

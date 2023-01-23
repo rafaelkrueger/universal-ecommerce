@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BsFillPersonFill, BsTelephone } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
 import { GrDocumentUser } from "react-icons/gr";
 import { FaCity } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
+import {
+  normalizeCpf,
+  normalizePhone,
+  normalizeCep,
+} from "../Services/inputMask.service";
+import { motion } from "framer-motion";
 import Api from "../Api";
 
 function User({ data, costumer, setCostumer, filled, setFilled }) {
+  const inputName = useRef(null);
   const cep = () => {
     Api.get(`https://viacep.com.br/ws/${costumer.cep}/json/`).then((res) => {
       setCostumer({
@@ -19,8 +26,14 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
   };
   return (
     <>
-      <div className="user-information">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="user-information"
+      >
         <h3 className="user-information-title">Complete Suas Informações</h3>
+
         <div className="row" id="user-information-inputs">
           <div className="col">
             <div class="input-group has-validation">
@@ -34,6 +47,7 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
                   id="floatingInputGroup2"
                   placeholder="Nome completo"
                   value={costumer.name}
+                  ref={inputName.current}
                   onChange={(e) => {
                     setCostumer({ ...costumer, name: e.target.value });
                   }}
@@ -93,6 +107,7 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
                   placeholder="Numero"
                   value={costumer.number}
                   onChange={(e) => {
+                    e.target.value = normalizePhone(e);
                     setCostumer({ ...costumer, number: e.target.value });
                   }}
                 />
@@ -112,6 +127,7 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
                   placeholder="CPF"
                   value={costumer.identification}
                   onChange={(e) => {
+                    e.target.value = normalizeCpf(e);
                     setCostumer({
                       ...costumer,
                       identification: e.target.value,
@@ -135,6 +151,7 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
                   id="floatingInputGroup2"
                   placeholder="CEP"
                   onChange={(e) => {
+                    e.target.value = normalizeCep(e);
                     setCostumer({ ...costumer, cep: e.target.value });
                   }}
                   onBlur={() => {
@@ -250,7 +267,7 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
                     street: costumer.street,
                     streetNumber: costumer.streetNumber,
                   }).then((res) => {
-                    if (res.data == "success") {
+                    if (res.data === "success") {
                       setCostumer({ ...costumer, logged: true });
                       setFilled(true);
                     } else {
@@ -268,7 +285,7 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Carousel from "../Components/Carousel";
 import Cards from "../Components/Cards";
 import Contact from "../Components/Contact";
@@ -8,6 +8,7 @@ import "../App.css";
 
 function Home({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
+  const top = useRef(0);
 
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)
@@ -26,8 +27,17 @@ function Home({ data, setData, cart, setCart, costumer }) {
     //   .getLocation()
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
+    if (!top) {
+      var link = document.createElement("link");
+      link.rel = "icon";
+      link.href = data.logo;
+      var head = document.getElementsByTagName("head")[0];
+      var oldLink = head.querySelector("link[rel='icon']");
+      head.replaceChild(link, oldLink);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      top.current = true;
+    }
+  });
 
   return (
     <>

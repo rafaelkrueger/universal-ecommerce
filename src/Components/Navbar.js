@@ -6,6 +6,7 @@ import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Costumer from "./Costumer";
 import Api from "../Api";
+import { motion } from "framer-motion";
 import { AiFillHeart } from "react-icons/ai";
 
 function Navbar({

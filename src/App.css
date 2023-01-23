@@ -818,6 +818,16 @@ cursor: pointer;
   margin-left: 5%;
 }
 
+.product-list-style-x-list{
+    display: flex;
+    list-style: none;
+    height: 300px;
+    overflow-x: scroll;
+    padding: 20px 0;
+    flex: 0 0 600px;
+    margin: 0 auto;
+}
+
 /*Footer*/
 #footer-style{
   box-shadow: 1px 1px 20px rgba(0,0,0,0.2);

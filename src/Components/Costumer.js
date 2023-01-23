@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import Api from "../Api";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import { InstagramLoginButton } from "react-social-login-buttons";
@@ -62,7 +63,12 @@ function Costumer({
         visibility: modal,
       }}
     >
-      <div className="costumer-modal-content">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="costumer-modal-content"
+      >
         <div classname="costumer-modal-header">
           <div className="row" id="costumer-modal-responsive">
             <div className="col"></div>
@@ -278,7 +284,7 @@ function Costumer({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
