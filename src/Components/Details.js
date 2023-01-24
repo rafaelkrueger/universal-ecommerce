@@ -244,7 +244,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                         }
                         window.document.getElementById(
                           `detailed-product-card-` + list.id
-                        ).style.boxShadow = `7px 7px 30px ${data.website.websiteDetailedOptionsFont}`;
+                        ).style.boxShadow = `1px 1px 20px ${data.website.websiteDetailedOptionsFont}`;
                         list.selected = true;
                         setSelected({
                           type: list.type,

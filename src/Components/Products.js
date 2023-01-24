@@ -155,6 +155,8 @@ function Products({ data, setData, cart, setCart, costumer }) {
             data.produto
 
               .filter((list) => {
+                console.log(list);
+                console.log(filtering);
                 if (
                   filtering.length !== 0 ||
                   (categoria &&
