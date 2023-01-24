@@ -10,15 +10,17 @@ function Pix({ data, costumer, valortotal, cart }) {
   const [txid, setTxId] = useState("");
   const [status, setStatus] = useState(false);
   useEffect(() => {
-    setInterval(() => {
-      Api.get(`https://tamarintec.herokuapp.com/pix-status/${txid}`).then(
-        (res) => {
-          if (res.data == "CONCLUIDA") {
-            setStatus(true);
+    if (txid !== "") {
+      setInterval(() => {
+        Api.get(`https://tamarintec.herokuapp.com/pix-status/${txid}`).then(
+          (res) => {
+            if (res.data == "CONCLUIDA") {
+              setStatus(true);
+            }
           }
-        }
-      );
-    }, 5000);
+        );
+      }, 5000);
+    }
   }, [txid]);
 
   return (

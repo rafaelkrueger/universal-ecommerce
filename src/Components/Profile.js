@@ -7,18 +7,16 @@ import "../App.css";
 
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
+  const [status, setStatus] = useState(false);
   let { tamarinSite } = useParams();
-  console.log(costumer);
   useEffect(() => {
-    if (data == null) {
-      Api.get(`/empresa/${tamarinSite}`)
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    Api.get(`/empresa/${tamarinSite}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // apiip
     //   .getLocation()
     //   .then((results) => console.log(results))
@@ -165,28 +163,98 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                 </div>
                 <div
                   className="row"
-                  style={{ background: "rgba(0,0,0,0.07)", marginLeft: "0.2%" }}
+                  style={{
+                    background: "rgba(0,0,0,0.07)",
+                    marginLeft: "0.2%",
+                  }}
                 >
-                  {active === 0 && costumer.myPurchase !== []
-                    ? costumer.myPurchase.map((list) => {
-                        return (
-                          <>
-                            <div className="row" style={{ marginTop: "10%" }}>
-                              <p>ID da compra:{list[0]._id}</p>
-                              <p>
-                                Destino:{list[0].state} - {list[0].state} -{" "}
-                                {list[0].street} -{list[0].streetNumber}
-                              </p>
-                              <p>
-                                Cliente: {list[0].name} - {list[0].number}
-                              </p>
-                              <p>Valor total de compra: {list[0].valorTotal}</p>
-                            </div>
-                          </>
-                        );
+                  {active === 0 && Array.isArray(costumer.myPurchase)
+                    ? costumer.myPurchase?.map((list) => {
+                        if (!status) {
+                          return (
+                            <>
+                              <div
+                                className="row"
+                                style={{ marginTop: "5%", marginBottom: "5%" }}
+                                key={list[0]._id}
+                              >
+                                <div className="row">
+                                  <div className="col">
+                                    <p>ID da compra:</p>
+                                    <p>{list[0]._id}</p>
+                                  </div>
+                                  <div className="col" style={{ width: "80%" }}>
+                                    <p>
+                                      Destino:{list[0].state} - {list[0].state}{" "}
+                                      - {list[0].street} -{list[0].streetNumber}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="row">
+                                  <div className="col">
+                                    <p>
+                                      Cliente: {list[0].name} - {list[0].number}
+                                    </p>
+                                  </div>
+                                  <div className="col">
+                                    <p>
+                                      Valor total de compra: R$
+                                      {list[0].valorTotal.toFixed(2)}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="row">
+                                  <div className="col">
+                                    <button className="btn btn-danger">
+                                      Cancelar
+                                    </button>
+                                  </div>
+                                  <div className="col">
+                                    <button
+                                      className="btn btn-success"
+                                      onClick={() => {
+                                        setStatus(true);
+                                      }}
+                                    >
+                                      Mais Informações
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <hr />
+                            </>
+                          );
+                        } else {
+                          return (
+                            <>
+                              <div
+                                className="row"
+                                style={{ marginTop: "7%", marginBottom: "7%" }}
+                                key={list[0]._id}
+                              >
+                                <div className="col">
+                                  <p>ID da compra:</p>
+                                  <p>{list[0]._id}</p>
+                                  <button
+                                    onClick={() => {
+                                      setStatus(false);
+                                    }}
+                                    className="btn btn-success"
+                                  >
+                                    Voltar
+                                  </button>
+                                </div>
+                                <div className="col" style={{ width: "80%" }}>
+                                  <p>Codigo de rastreio:</p>
+                                  <p>DASD1FAFAVBR</p>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        }
                       })
                     : ""}
-                  {active === 1
+                  {active === 1 && Array.isArray(costumer.wishList)
                     ? costumer.wishList?.map((list) => {
                         return (
                           <>
