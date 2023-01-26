@@ -8,6 +8,26 @@ import "../App.css";
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
   const [status, setStatus] = useState(false);
+  const selectedOption = (option) => {
+    for (let i = 0; i < option.length; i++) {
+      if (option[i].selected)
+        return (
+          <>
+            <td>{option[i].type}</td>
+          </>
+        );
+    }
+  };
+  const getTrackCode = (id) => {
+    let trackcode;
+    data.pedidos.filter((pedido) => {
+      if (pedido._id === id) {
+        trackcode = pedido.trackcode;
+      }
+    });
+    return <p>{trackcode}</p>;
+  };
+
   let { tamarinSite } = useParams();
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)
@@ -229,12 +249,138 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                             <>
                               <div
                                 className="row"
-                                style={{ marginTop: "7%", marginBottom: "7%" }}
+                                style={{ marginTop: "5%", marginBottom: "7%" }}
                                 key={list[0]._id}
                               >
                                 <div className="col">
-                                  <p>ID da compra:</p>
-                                  <p>{list[0]._id}</p>
+                                  <p>
+                                    <b>ID da compra:</b> {list[0]._id}
+                                  </p>
+                                  <table
+                                    id="pedido-table"
+                                    className="table table-striped table-light"
+                                  >
+                                    <thead>
+                                      <tr>
+                                        <th
+                                          scope="col"
+                                          id="pedido-th"
+                                          style={{ width: "20%" }}
+                                        >
+                                          Imagem
+                                        </th>
+                                        <th
+                                          scope="col"
+                                          id="pedido-th"
+                                          style={{
+                                            maxWidth: "10%",
+                                            minWidth: "10%",
+                                          }}
+                                        >
+                                          ID do Produto
+                                        </th>
+                                        <th scope="col" id="pedido-th">
+                                          Produto
+                                        </th>
+                                        <th scope="col" id="pedido-th">
+                                          Categoria
+                                        </th>
+                                        <th scope="col" id="pedido-th">
+                                          Opção
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody style={{ color: "black" }}>
+                                      {data !== null
+                                        ? list[0]?.products.map(
+                                            (val, index) => {
+                                              const row = [];
+                                              for (
+                                                let i = 0;
+                                                i < val.length;
+                                                i++
+                                              ) {
+                                                row.push(
+                                                  <>
+                                                    <tr>
+                                                      <td>
+                                                        <img
+                                                          src={val[i].image}
+                                                          style={{
+                                                            width: "100%",
+                                                          }}
+                                                        />
+                                                      </td>
+                                                      <td
+                                                        style={{
+                                                          maxWidth: "10%",
+                                                          minWidth: "10%",
+                                                        }}
+                                                      >
+                                                        {val[i]._id.slice(
+                                                          0,
+                                                          20
+                                                        )}
+                                                        ...
+                                                      </td>
+                                                      <td>
+                                                        {val[i].product.slice(
+                                                          0,
+                                                          20
+                                                        )}
+                                                        ...
+                                                      </td>
+                                                      <td>{val[i].category}</td>
+                                                      <td
+                                                        style={{
+                                                          marginLeft: "5%",
+                                                        }}
+                                                      >
+                                                        {selectedOption(
+                                                          val[i].options
+                                                        )}
+                                                      </td>
+                                                    </tr>
+                                                  </>
+                                                );
+                                              }
+                                              return row;
+                                            }
+                                          )
+                                        : ""}
+                                    </tbody>
+                                  </table>
+                                  <br />
+                                </div>
+                                <div className="col" style={{ width: "80%" }}>
+                                  <p>
+                                    <b>Codigo de rastreio:</b>
+                                  </p>
+                                  <p>
+                                    {getTrackCode(list[0]._id)
+                                      ? getTrackCode(list[0]._id)
+                                      : "Estamos aguardando para enviar seu produto"}
+                                  </p>
+                                  {/* {getTrackCode(list[0]._id) ? (
+                                    <button
+                                      onClick={() => {
+                                        Api.get(
+                                          `https://localhost:8080/rastreio/${getTrackCode(
+                                            list[0]._id
+                                          )}`
+                                        )
+                                          .then((res) => {
+                                            console.log(res);
+                                          })
+                                          .catch((err) => {
+                                            console.log(err);
+                                          });
+                                      }}
+                                      className="btn btn-warning"
+                                    >
+                                      Rastrear Objeto!
+                                    </button>
+                                   ) : ( "" )} */}
                                   <button
                                     onClick={() => {
                                       setStatus(false);
@@ -244,11 +390,8 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                     Voltar
                                   </button>
                                 </div>
-                                <div className="col" style={{ width: "80%" }}>
-                                  <p>Codigo de rastreio:</p>
-                                  <p>DASD1FAFAVBR</p>
-                                </div>
                               </div>
+                              <hr />
                             </>
                           );
                         }

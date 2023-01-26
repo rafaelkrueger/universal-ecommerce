@@ -6,7 +6,7 @@ function Cards({ data, cart, setCart, costumer }) {
   return (
     <>
       <div id="section-style">
-        <h1 id="title-section">Os Mais Vendidos!</h1>
+        <h1 id="title-section">Os Produtos Mais Recentes!</h1>
         <div class="row">
           {data == null ? (
             <>
