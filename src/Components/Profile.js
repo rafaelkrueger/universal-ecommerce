@@ -8,6 +8,7 @@ import "../App.css";
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
   const [status, setStatus] = useState(false);
+  const [pedidoLocation, setPedidoLocation] = useState(null);
   const selectedOption = (option) => {
     for (let i = 0; i < option.length; i++) {
       if (option[i].selected)
@@ -25,7 +26,19 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
         trackcode = pedido.trackcode;
       }
     });
-    return <p>{trackcode}</p>;
+    return trackcode;
+  };
+
+  const getProductLocation = (trackcode) => {
+    console.log(trackcode);
+    Api.get(`http://localhost:8080/rastreio/${trackcode}`)
+      .then((res) => {
+        setPedidoLocation(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   let { tamarinSite } = useParams();
@@ -158,8 +171,14 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                 <div
                   className="col"
                   style={{
-                    background: active === 0 ? "#141a66" : "rgba(0,0,0,0.045)",
-                    color: active === 0 ? "white" : "black",
+                    background:
+                      active === 0 && data !== null
+                        ? data.website.websiteNavbarFooterColor
+                        : "rgba(0,0,0,0.045)",
+                    color:
+                      active === 0 && data !== null
+                        ? data.website.websiteFontFooterColor
+                        : "black",
                     borderTopLeftRadius: "20px",
                   }}
                   onClick={() => {
@@ -171,8 +190,14 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                 <div
                   className="col"
                   style={{
-                    background: active === 1 ? "#141a66" : "rgba(0,0,0,0.045)",
-                    color: active === 1 ? "white" : "black",
+                    background:
+                      active === 1 && data !== null
+                        ? data.website.websiteNavbarFooterColor
+                        : "rgba(0,0,0,0.045)",
+                    color:
+                      active === 1 && data !== null
+                        ? data.website.websiteFontFooterColor
+                        : "black",
                     borderTopRightRadius: "20px",
                   }}
                   onClick={() => {
@@ -361,26 +386,6 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                       ? getTrackCode(list[0]._id)
                                       : "Estamos aguardando para enviar seu produto"}
                                   </p>
-                                  {/* {getTrackCode(list[0]._id) ? (
-                                    <button
-                                      onClick={() => {
-                                        Api.get(
-                                          `https://localhost:8080/rastreio/${getTrackCode(
-                                            list[0]._id
-                                          )}`
-                                        )
-                                          .then((res) => {
-                                            console.log(res);
-                                          })
-                                          .catch((err) => {
-                                            console.log(err);
-                                          });
-                                      }}
-                                      className="btn btn-warning"
-                                    >
-                                      Rastrear Objeto!
-                                    </button>
-                                   ) : ( "" )} */}
                                   <button
                                     onClick={() => {
                                       setStatus(false);
@@ -390,6 +395,61 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                     Voltar
                                   </button>
                                 </div>
+                                {getTrackCode(list[0]._id) ? (
+                                  <div className="col" style={{ width: "80%" }}>
+                                    <p>
+                                      <b>Status do Pedido: </b>
+                                    </p>
+                                    <button
+                                      onClick={() => {
+                                        getProductLocation(
+                                          getTrackCode(list[0]._id)
+                                        );
+                                      }}
+                                      className="btn btn-success"
+                                    >
+                                      localizar
+                                    </button>
+                                  </div>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
+                              <div>
+                                {pedidoLocation ? (
+                                  <>
+                                    <div className="row">
+                                      <div className="row">
+                                        <div className="col">
+                                          <p>
+                                            {
+                                              pedidoLocation[0]?.unidade
+                                                .endereco.uf
+                                            }
+                                          </p>
+                                        </div>
+
+                                        <div className="col">
+                                          <p>
+                                            {
+                                              pedidoLocation[0]?.unidade
+                                                .endereco.cidade
+                                            }
+                                          </p>
+                                        </div>
+                                        <p>
+                                          <b>{pedidoLocation[0]?.descricao}</b>
+                                        </p>
+                                      </div>
+                                      <p>{pedidoLocation[0]?.unidade.tipo}</p>
+                                      <p>
+                                        {String(pedidoLocation[0]?.dtHrCriado)}
+                                      </p>
+                                    </div>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
                               </div>
                               <hr />
                             </>
