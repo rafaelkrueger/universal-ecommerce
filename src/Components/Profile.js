@@ -30,7 +30,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   };
 
   const getProductLocation = (trackcode) => {
-    console.log(trackcode);
+    setPedidoLocation();
     Api.get(`/rastreio/${trackcode}`)
       .then((res) => {
         setPedidoLocation(res.data);
@@ -281,9 +281,15 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                   <p>
                                     <b>ID da compra:</b> {list[0]._id}
                                   </p>
+                                  <br />
                                   <table
                                     id="pedido-table"
                                     className="table table-striped table-light"
+                                    style={{
+                                      border:
+                                        "0.3px rgba(255,255,255,0.4) solid",
+                                      borderRadius: 20,
+                                    }}
                                   >
                                     <thead>
                                       <tr>
@@ -293,16 +299,6 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                           style={{ width: "20%" }}
                                         >
                                           Imagem
-                                        </th>
-                                        <th
-                                          scope="col"
-                                          id="pedido-th"
-                                          style={{
-                                            maxWidth: "10%",
-                                            minWidth: "10%",
-                                          }}
-                                        >
-                                          ID do Produto
                                         </th>
                                         <th scope="col" id="pedido-th">
                                           Produto
@@ -336,18 +332,6 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                                           }}
                                                         />
                                                       </td>
-                                                      <td
-                                                        style={{
-                                                          maxWidth: "10%",
-                                                          minWidth: "10%",
-                                                        }}
-                                                      >
-                                                        {val[i]._id.slice(
-                                                          0,
-                                                          20
-                                                        )}
-                                                        ...
-                                                      </td>
                                                       <td>
                                                         {val[i].product.slice(
                                                           0,
@@ -377,50 +361,74 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                   </table>
                                   <br />
                                 </div>
-                                <div className="col" style={{ width: "80%" }}>
-                                  <p>
-                                    <b>Codigo de rastreio:</b>
-                                  </p>
-                                  <p>
-                                    {getTrackCode(list[0]._id)
-                                      ? getTrackCode(list[0]._id)
-                                      : "Estamos aguardando para enviar seu produto"}
-                                  </p>
-                                  <button
-                                    onClick={() => {
-                                      setStatus(false);
-                                    }}
-                                    className="btn btn-success"
-                                  >
-                                    Voltar
-                                  </button>
-                                </div>
-                                {getTrackCode(list[0]._id) ? (
-                                  <div className="col" style={{ width: "80%" }}>
+                                <div className="row">
+                                  <div className="col">
                                     <p>
-                                      <b>Status do Pedido: </b>
+                                      <b>Codigo de rastreio:</b>
+                                    </p>
+                                    <p>
+                                      {getTrackCode(list[0]._id)
+                                        ? getTrackCode(list[0]._id)
+                                        : "Estamos aguardando para enviar seu produto"}
                                     </p>
                                     <button
                                       onClick={() => {
-                                        getProductLocation(
-                                          getTrackCode(list[0]._id)
-                                        );
+                                        setStatus(false);
                                       }}
                                       className="btn btn-success"
                                     >
-                                      localizar
+                                      Voltar
                                     </button>
                                   </div>
-                                ) : (
-                                  ""
-                                )}
+                                  <div className="col">
+                                    {getTrackCode(list[0]._id) ? (
+                                      <div
+                                        className="col"
+                                        style={{ width: "80%" }}
+                                      >
+                                        <p>
+                                          <b>Status do Pedido: </b>
+                                        </p>
+                                        <br />
+                                        <button
+                                          onClick={() => {
+                                            getProductLocation(
+                                              getTrackCode(list[0]._id)
+                                            );
+                                          }}
+                                          style={{ marginTop: "5%" }}
+                                          className="btn btn-success"
+                                        >
+                                          localizar
+                                        </button>
+                                      </div>
+                                    ) : (
+                                      ""
+                                    )}
+                                  </div>
+                                </div>
                               </div>
-                              <div>
+                              <div
+                                style={{
+                                  background:
+                                    active === 0 && data && pedidoLocation
+                                      ? data.website.websiteNavbarFooterColor
+                                      : "rgba(0,0,0,0.045)",
+                                  color:
+                                    active === 0 && data && pedidoLocation
+                                      ? data.website.websiteFontFooterColor
+                                      : "black",
+                                  borderRadius: "20px",
+                                  paddingTop: "20px",
+                                  paddingBottom: "20px",
+                                }}
+                              >
                                 {pedidoLocation ? (
                                   <>
                                     <div className="row">
                                       <div className="row">
                                         <div className="col">
+                                          <p>Estado de Localização:</p>
                                           <p>
                                             {
                                               pedidoLocation[0]?.unidade
@@ -428,8 +436,8 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                             }
                                           </p>
                                         </div>
-
                                         <div className="col">
+                                          <p>Cidade de Localização:</p>
                                           <p>
                                             {
                                               pedidoLocation[0]?.unidade
