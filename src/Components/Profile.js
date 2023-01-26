@@ -31,7 +31,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
 
   const getProductLocation = (trackcode) => {
     console.log(trackcode);
-    Api.get(`http://localhost:8080/rastreio/${trackcode}`)
+    Api.get(`/rastreio/${trackcode}`)
       .then((res) => {
         setPedidoLocation(res.data);
         console.log(res.data);
