@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Star1 from "../images/stars/star-1.png";
 import Star2 from "../images/stars/star-2.png";
@@ -6,37 +6,17 @@ import Star3 from "../images/stars/star-3.png";
 import Star4 from "../images/stars/star-4.png";
 import Star5 from "../images/stars/star-5.png";
 import Star6 from "../images/stars/star-6.png";
+import EmptyProfile from "../images/empty-profile.png";
 import Api from "../Api";
+import ProductSlider from "./ProductSlider";
 import { BsCart4, BsHeartFill } from "react-icons/bs";
-import { motion } from "framer-motion";
 
 function Details({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
+  let { id } = useParams();
   const [screen, setScreen] = useState(window.outerWidth);
   const [shortDescription, setShortDescription] = useState(false);
   const [activeWishlist, setActiveWishlist] = useState(0);
-  const top = useRef(0);
-  let { id } = useParams();
-
-  useEffect(() => {
-    if (data === null) {
-      Api.get(`/empresa/${tamarinSite}`)
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    // apiip
-    //   .getLocation()
-    //   .then((results) => console.log(results))
-    //   .catch((error) => console.error(error));
-  });
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
   const [quantity, setQuantity] = useState(1);
   const [produto, setProduto] = useState([]);
   const [firstLoad, setFirstLoad] = useState(true);
@@ -52,6 +32,27 @@ function Details({ data, setData, cart, setCart, costumer }) {
       load();
     }
   });
+
+  useEffect(() => {
+    if (data === null) {
+      Api.get(`/empresa/${tamarinSite}`)
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    // apiip
+    //   .getLocation()
+    //   .then((results) => console.log(results))
+    //   .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
+
   const load = () => {
     const produto = data.produto.filter((list) => {
       return list._id === id;
@@ -77,7 +78,6 @@ function Details({ data, setData, cart, setCart, costumer }) {
   };
 
   const descriptionResponsive = () => {
-    console.log();
     if (screen > 600) {
       return produto[0].description;
     } else {
@@ -113,18 +113,65 @@ function Details({ data, setData, cart, setCart, costumer }) {
       >
         <div className="col" id="detailed-product-columns-1">
           <div className="row" id="detailed-responsive-images-row">
+            <div className="col" id="detailed-product-image-col-2">
+              <img
+                alt="main image"
+                className="detailed-product-image"
+                src={selectedImage !== "" ? selectedImage : firstLoadImage()}
+              />
+            </div>
+            <br />
+
             <div className="col" id="detailed-product-image-col-1">
               <img
                 className="detailed-product-image-sub"
-                alt={produto.length > 0 ? produto[0].product : "Loading..."}
+                alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
                 src={
                   produto.length > 0 &&
-                  produto[0].subImages.subImage1 !== undefined
-                    ? produto[0].subImages.subImage1
+                  produto[0]?.subImages.subImage1 !== undefined
+                    ? produto[0]?.subImages.subImage1
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
                 onClick={() => {
-                  setSelectedImage(produto[0].subImages.subImage1);
+                  setSelectedImage(produto[0]?.subImages.subImage1);
+                }}
+              />
+              <img
+                className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
+                src={
+                  produto.length > 0 &&
+                  produto[0]?.subImages.subImage2 !== undefined
+                    ? produto[0]?.subImages.subImage2
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+                onClick={() => {
+                  setSelectedImage(produto[0]?.subImages.subImage2);
+                }}
+              />
+              <img
+                className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
+                src={
+                  produto.length > 0 && produto[0]?.image !== undefined
+                    ? produto[0]?.image
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+                onClick={() => {
+                  setSelectedImage(produto[0]?.image);
+                }}
+              />
+              <img
+                className="detailed-product-image-sub"
+                alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
+                src={
+                  produto.length > 0 &&
+                  produto[0]?.subImages.subImage3 !== undefined
+                    ? produto[0]?.subImages.subImage3
+                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+                }
+                onClick={() => {
+                  setSelectedImage(produto[0]?.subImages.subImage3);
                 }}
               />
               <img
@@ -132,60 +179,13 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 alt={produto.length > 0 ? produto[0].product : "Loading..."}
                 src={
                   produto.length > 0 &&
-                  produto[0].subImages.subImage2 !== undefined
-                    ? produto[0].subImages.subImage2
-                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
-                }
-                onClick={() => {
-                  setSelectedImage(produto[0].subImages.subImage2);
-                }}
-              />
-              <img
-                className="detailed-product-image-sub"
-                alt={produto.length > 0 ? produto[0].product : "Loading..."}
-                src={
-                  produto.length > 0 && produto[0].image !== undefined
-                    ? produto[0].image
-                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
-                }
-                onClick={() => {
-                  setSelectedImage(produto[0].image);
-                }}
-              />
-              <img
-                className="detailed-product-image-sub"
-                alt={produto.length > 0 ? produto[0].product : "Loading..."}
-                src={
-                  produto.length > 0 &&
-                  produto[0].subImages.subImage3 !== undefined
-                    ? produto[0].subImages.subImage3
-                    : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
-                }
-                onClick={() => {
-                  setSelectedImage(produto[0].subImages.subImage3);
-                }}
-              />
-              <img
-                className="detailed-product-image-sub"
-                alt={produto.length > 0 ? produto[0].product : "Loading..."}
-                src={
-                  produto.length > 0 &&
-                  produto[0].subImages.subImage4 !== undefined
-                    ? produto[0].subImages.subImage4
+                  produto[0]?.subImages.subImage4 !== undefined
+                    ? produto[0]?.subImages.subImage4
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
                 onClick={() => {
                   setSelectedImage(produto[0].subImages.subImage4);
                 }}
-              />
-            </div>
-            <div className="col" id="detailed-product-image-col-2">
-              <br />
-              <br />
-              <br />
-              <img
-                className="detailed-product-image"
-                src={selectedImage !== "" ? selectedImage : firstLoadImage()}
               />
             </div>
           </div>
@@ -421,6 +421,65 @@ function Details({ data, setData, cart, setCart, costumer }) {
             </div>
           </div>
         </div>
+      </div>
+      <div id="comments-section">
+        {produto.length > 0 && produto[0].comments !== undefined
+          ? produto[0].comments?.map((list) => {
+              return (
+                <>
+                  <div
+                    className="comment-card"
+                    style={{
+                      background:
+                        data !== null
+                          ? data.website.websiteDetailedBackground
+                          : "",
+                      color:
+                        data !== null ? data.website.websiteDetailedFont : "",
+                    }}
+                  >
+                    <div
+                      className="col"
+                      id="comment-card-left-side"
+                      style={{
+                        textAlign: "center",
+                      }}
+                    >
+                      <img
+                        alt={`Comentário: ${list.title}`}
+                        src={list.image !== "" ? list.image : EmptyProfile}
+                        className="comment-profile-image"
+                      />
+                      <h6 style={{ marginTop: "30%" }}>{list.name}</h6>
+                    </div>
+                    <div className="col">
+                      <div className="row">
+                        <h5>
+                          {list.title} -{" "}
+                          <img
+                            style={{ maxWidth: "35%", marginBottom: "5%" }}
+                            src={Star6}
+                            alt="star-icon"
+                          />
+                        </h5>
+                        <hr />
+                        <p>{list.comment}</p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              );
+            })
+          : ""}
+      </div>
+      <div className="row">
+        <ProductSlider
+          data={data}
+          cart={cart}
+          setCart={setCart}
+          size={4}
+          costumer={costumer}
+        />
       </div>
     </>
   );

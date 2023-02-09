@@ -3,11 +3,8 @@ import "../../App.css";
 import Boletoimg from "../../images/payment/boleto-icon.png";
 import Api from "../../Api";
 
-function Boleto({ data, costumer, valorTotal, cart }) {
+function Boleto({ data, costumer, valorTotal, cart, realCupom, setRealCupom }) {
   const [disabled, setDisabled] = useState(false);
-
-  const [status, setStatus] = useState(false);
-  console.log(valorTotal);
   return (
     <div className="boleto-component">
       <div className="header-commponent-image">
@@ -31,7 +28,7 @@ function Boleto({ data, costumer, valorTotal, cart }) {
         <button
           onClick={() => {
             setDisabled(true);
-            Api.post("/boleto", {
+            Api.post("http://localhost:8083/boleto", {
               empresa: data._id,
               name: costumer.name,
               email: costumer.email,

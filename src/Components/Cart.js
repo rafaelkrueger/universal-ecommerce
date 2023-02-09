@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Api from "../Api";
 import "../App.css";
 
 function Cart({
@@ -11,15 +12,19 @@ function Cart({
   setFilled,
   valortotal,
   setValorTotal,
+  realCupom,
+  setRealCupom,
 }) {
-  const cupomTotal = () => {
-    return 0;
-  };
+  const [cupom, setCupom] = useState(0);
 
-  const valorTotalCart = (cart, frete = 0) => {
+  const valorTotalCart = (cart, cupom, frete = 0) => {
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
       total = total + parseFloat(cart[0].totalPrice);
+    }
+    if (cupom !== 0) {
+      let discount = (total * cupom[0]?.percentage) / 100;
+      total = total - discount;
     }
     total = total + frete;
     return total;
@@ -38,7 +43,7 @@ function Cart({
   };
 
   useEffect(() => {
-    setValorTotal(valorTotalCart(cart, cupomTotal()));
+    setValorTotal(valorTotalCart(cart, realCupom, 0));
   });
 
   const optionShowed = (list) => {
@@ -86,6 +91,7 @@ function Cart({
                             <img
                               src={list.image}
                               className="purchase-table-image"
+                              alt={list.product}
                             />
                           </td>
                           <td className="purchase-table-row">
@@ -114,7 +120,7 @@ function Cart({
                               }}
                             >
                               <option>{optionShowed(list)}</option>
-                              {list == undefined
+                              {list === undefined
                                 ? ""
                                 : list.options.map((val) => {
                                     return (
@@ -165,6 +171,10 @@ function Cart({
                 <td className="purchase-table-row">
                   <input
                     type="text"
+                    maxLength={11}
+                    onChange={(e) => {
+                      setCupom(e.target.value);
+                    }}
                     style={{
                       height: "20%",
                       width: "60%",
@@ -172,13 +182,27 @@ function Cart({
                       borderBottomLeftRadius: 5,
                     }}
                   />
-                  <button clasName="btn btn-success">OK</button>
+                  <button
+                    onClick={() => {
+                      Api.get(`/get-cupom/${data._id}/${cupom}`).then((res) => {
+                        console.log(res.data);
+                        if (res.data.length > 0) {
+                          setRealCupom(res.data);
+                        } else {
+                          window.alert("Codigo Inválido!");
+                        }
+                      });
+                    }}
+                    clasName="btn btn-success"
+                  >
+                    OK
+                  </button>
                 </td>
                 <td className="purchase-table-row">
                   <h6>Valor Total:</h6>
                 </td>
                 <td className="purchase-table-row">
-                  R${valorTotalCart(cart, cupomTotal()).toFixed(2)}
+                  R${valorTotalCart(cart, realCupom, 0).toFixed(2)}
                 </td>
                 <td className="purchase-table-row"></td>
               </tr>

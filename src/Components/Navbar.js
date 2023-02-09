@@ -92,6 +92,9 @@ function Navbar({
                 <AiOutlineMenu
                   className="menu-navbar"
                   color={navbarStyle.color}
+                  style={{
+                    marginBottom: navbar === "responsive" ? "-0%" : "-15%",
+                  }}
                   onClick={(e) => {
                     e.preventDefault();
                     if (navbar == "responsive") {
@@ -201,7 +204,13 @@ function Navbar({
               </Link>
             </div>
           </div>
-          <div className="navbar-search">
+          <div
+            className="navbar-search"
+            style={{
+              display: navbar === "responsive" ? "none" : "block",
+              visibility: navbar === "responsive" ? "hidden" : "visible",
+            }}
+          >
             <div class="input-group input-group-sm mb-3">
               <span class="input-group-text" id="inputGroup-sizing-sm">
                 <AiOutlineSearch />

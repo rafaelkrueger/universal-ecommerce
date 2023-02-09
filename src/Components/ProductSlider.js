@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "swiper/css";
@@ -9,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Api from "../Api";
 
 function ProductSlider({ data, cart, setCart, size, costumer }) {
-  const [off, setOff] = useState(1.3);
   return (
     <div className="product-slider">
       <div
@@ -19,7 +17,7 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
         <Swiper
           freeMode={true}
           grabCursor={true}
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          draggable={true}
           className="mySwiper"
           slidesPerView={size}
           spaceBetween={50}
@@ -81,6 +79,13 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
                               src={list.image}
                               className="card-swiper-image"
                               id="product-slider-swiper-image"
+                              alt={list.product}
+                              onMouseOver={(e) => {
+                                e.target.src = list.subImages.subImage1;
+                              }}
+                              onMouseLeave={(e) => {
+                                e.target.src = list.image;
+                              }}
                             />
                             <div className="card-swiper-footer">
                               <h5

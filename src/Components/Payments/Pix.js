@@ -4,7 +4,7 @@ import PixImage from "../../images/payment/pix-checkout.png";
 import Api from "../../Api";
 import "../../App.css";
 
-function Pix({ data, costumer, valortotal, cart }) {
+function Pix({ data, costumer, valortotal, cart, realCupom, setRealCupom }) {
   const [disabled, setDisabled] = useState(false);
   const [qrcode, setQrcode] = useState("");
   const [txid, setTxId] = useState("");
@@ -44,7 +44,7 @@ function Pix({ data, costumer, valortotal, cart }) {
               <button
                 onClick={() => {
                   setDisabled(true);
-                  Api.post(`/pix`, {
+                  Api.post(`http://localhost:8083/pix`, {
                     empresa: data._id,
                     name: costumer.name,
                     email: costumer.email,
@@ -58,9 +58,10 @@ function Pix({ data, costumer, valortotal, cart }) {
                     streetNumber: costumer.adressNumber,
                     valor: valortotal,
                     products: [cart],
+                    idCupom: realCupom[0]._id,
+                    avaible: realCupom[0].avaible,
                   })
                     .then((res) => {
-                      console.log(res.data);
                       setQrcode(res.data.qrcode);
                       setTxId(res.data.txid);
                     })

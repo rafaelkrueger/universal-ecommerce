@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Api from "../Api";
 import "../App.css";
+import ModalComment from "./ModalComment";
 
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
   const [status, setStatus] = useState(false);
+  const [pedidoStatus, setPedidoStatus] = useState(true);
   const [pedidoLocation, setPedidoLocation] = useState(null);
+  let { tamarinSite } = useParams();
   const selectedOption = (option) => {
     for (let i = 0; i < option.length; i++) {
       if (option[i].selected)
@@ -19,6 +22,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
         );
     }
   };
+
   const getTrackCode = (id) => {
     let trackcode;
     data.pedidos.filter((pedido) => {
@@ -30,7 +34,6 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   };
 
   const getProductLocation = (trackcode) => {
-    setPedidoLocation();
     Api.get(`/rastreio/${trackcode}`)
       .then((res) => {
         setPedidoLocation(res.data);
@@ -41,7 +44,6 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
       });
   };
 
-  let { tamarinSite } = useParams();
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)
       .then((res) => {
@@ -55,13 +57,16 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
   });
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
+
   return (
     <>
       <div className="profile">
         <div classname="container-fuild">
+          <ModalComment pedidoStatus={pedidoStatus} />
           <div className="row" id="responsive-profile">
             <div className="col" id="profile-infos">
               <h3>Suas Informações</h3>
@@ -256,12 +261,36 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                   </div>
                                   <div className="col">
                                     <button
+                                      id="profile-info-purchase-button"
                                       className="btn btn-success"
                                       onClick={() => {
                                         setStatus(true);
                                       }}
                                     >
-                                      Mais Informações
+                                      Ver Tudo
+                                    </button>
+                                    <button
+                                      style={{ marginLeft: "10%" }}
+                                      className="btn btn-warning"
+                                      onClick={() => {
+                                        Api.get(
+                                          `http://localhost:8083/pedido-status/${list[0]._id}/${data._id}`
+                                        )
+                                          .then((res) => {
+                                            if (!res.data) {
+                                              setPedidoStatus(res.data);
+                                            } else {
+                                              window.alert(
+                                                "Seu produto não chegou ainda para você enviar a avaliação"
+                                              );
+                                            }
+                                          })
+                                          .catch((err) => {
+                                            console.log(err);
+                                          });
+                                      }}
+                                    >
+                                      Avalie!
                                     </button>
                                   </div>
                                 </div>
@@ -380,6 +409,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                       Voltar
                                     </button>
                                   </div>
+
                                   <div className="col">
                                     {getTrackCode(list[0]._id) ? (
                                       <div
@@ -408,23 +438,24 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                   </div>
                                 </div>
                               </div>
-                              <div
-                                style={{
-                                  background:
-                                    active === 0 && data && pedidoLocation
-                                      ? data.website.websiteNavbarFooterColor
-                                      : "rgba(0,0,0,0.045)",
-                                  color:
-                                    active === 0 && data && pedidoLocation
-                                      ? data.website.websiteFontFooterColor
-                                      : "black",
-                                  borderRadius: "20px",
-                                  paddingTop: "20px",
-                                  paddingBottom: "20px",
-                                }}
-                              >
-                                {pedidoLocation ? (
-                                  <>
+                              {pedidoLocation !== null ? (
+                                <>
+                                  <div
+                                    style={{
+                                      background:
+                                        active === 0 && data && pedidoLocation
+                                          ? data.website
+                                              .websiteNavbarFooterColor
+                                          : "rgba(0,0,0,0.045)",
+                                      color:
+                                        active === 0 && data && pedidoLocation
+                                          ? data.website.websiteFontFooterColor
+                                          : "black",
+                                      borderRadius: "20px",
+                                      paddingTop: "20px",
+                                      paddingBottom: "20px",
+                                    }}
+                                  >
                                     <div className="row">
                                       <div className="row">
                                         <div className="col">
@@ -454,11 +485,11 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                         {String(pedidoLocation[0]?.dtHrCriado)}
                                       </p>
                                     </div>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                              </div>
+                                  </div>
+                                </>
+                              ) : (
+                                ""
+                              )}
                               <hr />
                             </>
                           );
@@ -471,7 +502,17 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                           <>
                             <Link
                               id="link-to-details"
-                              style={{ textDecoration: "none", color: "black" }}
+                              style={{
+                                textDecoration: "none",
+                                background:
+                                  data !== null
+                                    ? data.website.websiteNavbarFooterColor
+                                    : "rgba(0,0,0,0.045)",
+                                color:
+                                  data !== null
+                                    ? data.website.websiteFontFooterColor
+                                    : "black",
+                              }}
                               to={`/produto/${list._id}/${data.site}`}
                             >
                               <div
@@ -498,7 +539,6 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                   <button
                                     className="btn btn-large btn-danger"
                                     onClick={(e) => {
-                                      e.stopPropagation();
                                       Api.put("/remove-wishlist-costumer", {
                                         empresa: data._id,
                                         email: costumer.email,

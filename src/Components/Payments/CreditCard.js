@@ -9,7 +9,14 @@ import { Link } from "react-router-dom";
 import "../../App.css";
 import Api from "../../Api";
 
-function CreditCard({ data, costumer, valortotal, cart }) {
+function CreditCard({
+  data,
+  costumer,
+  valortotal,
+  cart,
+  realCupom,
+  setRealCupom,
+}) {
   const [status, setStatus] = useState(false);
   const [card, setCard] = useState({
     number: "",

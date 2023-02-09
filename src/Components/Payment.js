@@ -12,6 +12,8 @@ function Payment({
   setFilled,
   valortotal,
   setValorTotal,
+  realCupom,
+  setRealCupom,
 }) {
   const [chosen, setChosen] = useState(1);
 
@@ -89,32 +91,38 @@ function Payment({
         </div>
         <div className="col">
           <div className="purchase-selected">
-            {chosen == 1 ? (
+            {chosen === 1 ? (
               <Pix
                 data={data}
                 costumer={costumer}
                 valortotal={valortotal}
                 cart={cart}
+                realCupom={realCupom}
+                setRealCupom={setRealCupom}
               />
             ) : (
               ""
             )}
-            {chosen == 2 ? (
+            {chosen === 2 ? (
               <CreditCard
                 data={data}
                 costumer={costumer}
                 valortotal={valortotal}
                 cart={cart}
+                realCupom={realCupom}
+                setRealCupom={setRealCupom}
               />
             ) : (
               ""
             )}
-            {chosen == 3 ? (
+            {chosen === 3 ? (
               <Boleto
                 data={data}
                 costumer={costumer}
                 valortotal={valortotal}
                 cart={cart}
+                realCupom={realCupom}
+                setRealCupom={setRealCupom}
               />
             ) : (
               ""

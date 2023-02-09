@@ -155,8 +155,6 @@ function Products({ data, setData, cart, setCart, costumer }) {
             data.produto
 
               .filter((list) => {
-                console.log(list);
-                console.log(filtering);
                 if (
                   filtering.length !== 0 ||
                   (categoria &&
@@ -230,10 +228,17 @@ function Products({ data, setData, cart, setCart, costumer }) {
                         <img
                           id="product-image"
                           src={list.image}
+                          onMouseOver={(e) => {
+                            e.target.src = list.subImages.subImage1;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.src = list.image;
+                          }}
                           class="card-img-top"
                           alt="..."
                         />
                         <div class="card-body">
+                          <br />
                           <h6
                             id="card-title-style"
                             style={{

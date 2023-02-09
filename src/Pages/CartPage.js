@@ -18,6 +18,7 @@ function CartPage({
 }) {
   let { tamarinSite } = useParams();
   const [valortotal, setValorTotal] = useState(0);
+  const [realCupom, setRealCupom] = useState(0);
 
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)
@@ -47,6 +48,8 @@ function CartPage({
         setFilled={setFilled}
         valortotal={valortotal}
         setValorTotal={setValorTotal}
+        realCupom={realCupom}
+        setRealCupom={setRealCupom}
       />
       {filled ? (
         <Payment
@@ -59,6 +62,8 @@ function CartPage({
           setFilled={setFilled}
           valortotal={valortotal}
           setValorTotal={setValorTotal}
+          realCupom={realCupom}
+          setRealCupom={setRealCupom}
         />
       ) : (
         <User

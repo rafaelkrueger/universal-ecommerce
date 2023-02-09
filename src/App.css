@@ -133,7 +133,6 @@ body::-webkit-scrollbar-thumb {
   width: 20%;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  box-shadow: 1px 1px 10px rgba(0,0,0,.5);
   overflow-x: hidden;
 }
 
@@ -242,7 +241,7 @@ body::-webkit-scrollbar-thumb {
 .card-body-description-style {
   color: #fff;
   padding: 0;
-  font-size: 12pt;
+  font-size: 15pt;
 }
 
 #section-title-product {
@@ -336,6 +335,7 @@ body::-webkit-scrollbar-thumb {
   min-height: 50%;
   max-width: 100%;
   max-height: 50%;
+  object-fit: cover;
 }
 .card-element-product{
   max-width: 27%;
@@ -409,8 +409,6 @@ body::-webkit-scrollbar-thumb {
 }
 #detailed-product-columns-2{
   margin: 2%;
-  margin-top: 7%;
-  margin-bottom: 7%;
   height: 110%;
   max-width: 50%;
   margin-left: 10%;
@@ -437,7 +435,7 @@ body::-webkit-scrollbar-thumb {
   max-height: 100%;
   max-width: 120%;
   min-width: 120%;
-
+  margin-left: 3%;
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(0,0,0,0.03);
 }
@@ -541,8 +539,13 @@ cursor: pointer;
 }
 
 #detailed-responsive-images-row{
-
+  display: flex;
+  flex-direction: column;
 }
+#detailed-product-image-col-1{
+  display: flex;
+}
+
 
 /*similar products*/
 .similar-products{
@@ -836,8 +839,9 @@ cursor: pointer;
 #profile-infos-image{
   max-width: 38%;
   border-radius: 50%;
-  margin-left: 25%;
+  margin-left: 22%;
   margin-top: 4%;
+  min-width: 40%;
 }
 
 #profile-products{
@@ -854,6 +858,52 @@ cursor: pointer;
     padding: 20px 0;
     flex: 0 0 600px;
     margin: 0 auto;
+}
+
+#comments-section{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 8.7%;
+  margin-right: 1.8%;
+  margin-bottom: 5%;
+}
+
+.comment-card{
+  margin:2%;
+  background-color: red;
+  display: flex;
+  width: 40%;
+  padding:50px;
+  border-radius: 13px;
+  box-shadow: 1px 1px 20px rgba(0,0,0,0.5);
+}
+
+.comment-profile-image{
+  max-width: 50%;
+  border-radius: 20px;
+}
+
+
+.modal-comment{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 30000;
+}
+
+.modal-comment-content{
+  margin-top: 7%;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: white;
+  padding:90px;
+  border-radius: 10px;
+  z-index: 30000;
 }
 
 /*Footer*/
@@ -989,7 +1039,7 @@ cursor: pointer;
   }
 
   .card-element-responsive{
-    max-width: 100%;
+    max-width: 90%;
     min-width: 90%;
     text-align: center;
     margin-top: 15%;
@@ -997,6 +1047,7 @@ cursor: pointer;
     box-shadow: 1px 1px 20px rgba(0,0,0,0.6);
     padding: 15px;
     border-radius: 10px;
+    margin-left: 5%;
   }
   #card-text-product > button{
     margin-right: 10%;
@@ -1047,7 +1098,7 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
     text-align:center;
-    padding-top: 150px;
+    padding-top: 90px;
   }
 
 
@@ -1139,7 +1190,7 @@ cursor: pointer;
     display: flex !important;
     flex-direction: row !important;
     margin-bottom: 1%;
-
+    margin-left: -3%;
   }
   #detailed-product-columns-2{
     margin-left: 0%;
@@ -1167,13 +1218,16 @@ cursor: pointer;
   .profile{
     margin-top: 43%;
   }
+  #profile-info-purchase-button{
+    font-size: 12pt;
+  }
   #responsive-profile{
     display: flex;
     flex-direction: column;
   }
   #profile-products{
     margin-top: 10%;
-    margin-left: -10% !important;
+    margin-left:0% !important;
   }
   #profile-infos-image{
     margin-top: 30%;
@@ -1181,7 +1235,7 @@ cursor: pointer;
   .discount-products-part{
     position: absolute;
     z-index: 2000;
-    margin-left: 65%;
+    margin-left: 60%;
     margin-top: 1.3%;
     width: 15%;
     text-align: center;
@@ -1200,5 +1254,20 @@ cursor: pointer;
   #detailed-heart-responsive{
     margin-left: -23%;
   }
-}
+  /*comment section*/
+  .comment-card{
+    min-width: 100%;
+    max-width: 100%;
+    margin-left: -5%;
+  }
+  #comment-card-left-side{
+    margin-left: -15%;
+  }
+  #pedido-table{
+    display: block !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    border: 0.5px rgba(0,0,0,0.2);
+  }
 
+}
