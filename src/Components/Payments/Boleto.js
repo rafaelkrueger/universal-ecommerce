@@ -28,7 +28,7 @@ function Boleto({ data, costumer, valorTotal, cart, realCupom, setRealCupom }) {
         <button
           onClick={() => {
             setDisabled(true);
-            Api.post("http://localhost:8083/boleto", {
+            Api.post("/boleto", {
               empresa: data._id,
               name: costumer.name,
               email: costumer.email,

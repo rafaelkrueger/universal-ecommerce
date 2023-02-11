@@ -897,7 +897,7 @@ cursor: pointer;
 }
 
 .modal-comment-content{
-  margin-top: 7%;
+  margin-top: 2%;
   margin-left: 20%;
   margin-right: 20%;
   background-color: white;
@@ -1269,5 +1269,14 @@ cursor: pointer;
     width: 100% !important;
     border: 0.5px rgba(0,0,0,0.2);
   }
-
+  #modal-content-responsive{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .modal-comment-content{
+    margin-right: 0%;
+    margin-left: 0%;
+    margin-top: 0%;
+    border-radius: 0px;
+  }
 }

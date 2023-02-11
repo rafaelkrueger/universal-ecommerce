@@ -281,6 +281,22 @@ function Costumer({
                   Se Registrar!
                 </button>
               </div>
+              <p
+                style={{
+                  textAlign: "center",
+                  color: "rgba(0,0,0,0.3)",
+                  marginTop: "10%",
+                }}
+              >
+                Ao se registrar você aceita os termos de uso passados ao usuário
+                que são, contando que cumpriremos com segurança:{" "}
+                <a
+                  href="https://sirros.net/politica-de-privacidade.pdf"
+                  target="_blanck"
+                >
+                  Política de privacidade
+                </a>
+              </p>
             </div>
           </div>
         </div>

@@ -9,7 +9,8 @@ import ModalComment from "./ModalComment";
 function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
   const [active, setActive] = useState(0);
   const [status, setStatus] = useState(false);
-  const [pedidoStatus, setPedidoStatus] = useState(true);
+  const [pedido, setPedido] = useState(null);
+  const [pedidoStatus, setPedidoStatus] = useState(false);
   const [pedidoLocation, setPedidoLocation] = useState(null);
   let { tamarinSite } = useParams();
   const selectedOption = (option) => {
@@ -66,7 +67,12 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
     <>
       <div className="profile">
         <div classname="container-fuild">
-          <ModalComment pedidoStatus={pedidoStatus} />
+          <ModalComment
+            data={data}
+            pedidoStatus={pedidoStatus}
+            costumer={costumer}
+            pedido={pedido}
+          />
           <div className="row" id="responsive-profile">
             <div className="col" id="profile-infos">
               <h3>Suas Informações</h3>
@@ -274,11 +280,13 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                       className="btn btn-warning"
                                       onClick={() => {
                                         Api.get(
-                                          `http://localhost:8083/pedido-status/${list[0]._id}/${data._id}`
+                                          `/pedido-status/${list[0]._id}/${data._id}`
                                         )
                                           .then((res) => {
                                             if (!res.data) {
-                                              setPedidoStatus(res.data);
+                                              setPedidoStatus(true);
+                                              console.log(pedidoStatus);
+                                              setPedido(list[0]);
                                             } else {
                                               window.alert(
                                                 "Seu produto não chegou ainda para você enviar a avaliação"
@@ -504,14 +512,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                               id="link-to-details"
                               style={{
                                 textDecoration: "none",
-                                background:
-                                  data !== null
-                                    ? data.website.websiteNavbarFooterColor
-                                    : "rgba(0,0,0,0.045)",
-                                color:
-                                  data !== null
-                                    ? data.website.websiteFontFooterColor
-                                    : "black",
+                                color: "black",
                               }}
                               to={`/produto/${list._id}/${data.site}`}
                             >

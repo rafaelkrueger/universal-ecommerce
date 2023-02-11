@@ -9,6 +9,7 @@ function Pix({ data, costumer, valortotal, cart, realCupom, setRealCupom }) {
   const [qrcode, setQrcode] = useState("");
   const [txid, setTxId] = useState("");
   const [status, setStatus] = useState(false);
+  console.log(realCupom);
   useEffect(() => {
     if (txid !== "") {
       setInterval(() => {
@@ -44,7 +45,7 @@ function Pix({ data, costumer, valortotal, cart, realCupom, setRealCupom }) {
               <button
                 onClick={() => {
                   setDisabled(true);
-                  Api.post(`http://localhost:8083/pix`, {
+                  Api.post(`/pix`, {
                     empresa: data._id,
                     name: costumer.name,
                     email: costumer.email,
@@ -58,8 +59,10 @@ function Pix({ data, costumer, valortotal, cart, realCupom, setRealCupom }) {
                     streetNumber: costumer.adressNumber,
                     valor: valortotal,
                     products: [cart],
-                    idCupom: realCupom[0]._id,
-                    avaible: realCupom[0].avaible,
+                    idCupom: realCupom[0]?._id ? realCupom[0]._id : null,
+                    avaible: realCupom[0]?.avaible
+                      ? realCupom[0].avaible
+                      : null,
                   })
                     .then((res) => {
                       setQrcode(res.data.qrcode);
