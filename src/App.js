@@ -6,9 +6,10 @@ import Api from "./Api";
 import Products from "./Components/Products";
 import Details from "./Components/Details";
 import CartPage from "./Pages/CartPage";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
 import Profile from "./Components/Profile";
+import Navbar from "./Components/Navbar";
+import Chat from "./Components/Chat";
+import Footer from "./Components/Footer";
 import { Helmet } from "react-helmet";
 const apiip = require("apiip.net")("555e720f-072c-4174-ac6c-0a58e40933c8");
 
@@ -47,7 +48,13 @@ function App() {
             <link rel="icon" type="image/png" href={data?.logo} />
             <link rel="apple-touch-icon" href={data?.logo} />
             <meta
-              name={data?.name}
+              name="keywords"
+              content={data?.categorias.map((list) => {
+                return list + ", ";
+              })}
+            />
+            <meta
+              name="description"
               content={data?.produto.map((list) => {
                 return list.product + " ";
               })}
@@ -134,6 +141,7 @@ function App() {
               }
             />
           </Routes>
+          <Chat />
           <Footer data={data} />
         </div>
       </Router>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import EmptyProfile from "../images/empty-profile.png";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import ToastMessage from "./ToastMessage";
 import Api from "../Api";
 import "../App.css";
 import ModalComment from "./ModalComment";
@@ -70,6 +71,7 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
           <ModalComment
             data={data}
             pedidoStatus={pedidoStatus}
+            setPedidoStatus={setPedidoStatus}
             costumer={costumer}
             pedido={pedido}
           />
@@ -283,13 +285,16 @@ function Profile({ data, setData, costumer, setCostumer, cart, setCart }) {
                                           `/pedido-status/${list[0]._id}/${data._id}`
                                         )
                                           .then((res) => {
-                                            if (!res.data) {
+                                            if (
+                                              !res.data &&
+                                              list[0]?.reviewd === false
+                                            ) {
                                               setPedidoStatus(true);
                                               console.log(pedidoStatus);
                                               setPedido(list[0]);
                                             } else {
                                               window.alert(
-                                                "Seu produto não chegou ainda para você enviar a avaliação"
+                                                "Seu produto não chegou ainda para você enviar a avaliação, ou você já avaliou seu pedido"
                                               );
                                             }
                                           })

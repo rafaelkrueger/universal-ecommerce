@@ -3,7 +3,17 @@ import "../../App.css";
 import Boletoimg from "../../images/payment/boleto-icon.png";
 import Api from "../../Api";
 
-function Boleto({ data, costumer, valorTotal, cart, realCupom, setRealCupom }) {
+function Boleto({
+  data,
+  costumer,
+  valorTotal,
+  cart,
+  realCupom,
+  setRealCupom,
+  setStatus,
+  setCode,
+  setMessage,
+}) {
   const [disabled, setDisabled] = useState(false);
   return (
     <div className="boleto-component">
@@ -43,7 +53,9 @@ function Boleto({ data, costumer, valorTotal, cart, realCupom, setRealCupom }) {
               valor: valorTotal,
               products: cart,
             });
-            window.alert("Boleto enviado em seu email!");
+            setMessage("O Boleto Ffoi enviado em seu email!");
+            setCode(200);
+            setStatus(true);
           }}
           className="btn btn-large btn-success"
           disabled={disabled}

@@ -11,15 +11,15 @@ function Footer({ data }) {
   useEffect(() => {
     if (footerStyle.color == "") {
       setFooterStyle({
-        color: "white",
-        backgroundColor: "black",
+        color: "black",
+        backgroundColor: "white",
       });
     } else {
       setTimeout(() => {
         setFooterStyle({
           backgroundColor:
-            data !== null ? data.website.websiteNavbarFooterColor : "black",
-          color: data !== null ? data.website.websiteFontFooterColor : "white",
+            data !== null ? data.website.websiteNavbarFooterColor : "white",
+          color: data !== null ? data.website.websiteFontFooterColor : "black",
         });
       }, 500);
     }
@@ -205,8 +205,12 @@ function Footer({ data }) {
           </div>
           <div class="col">
             <img
-              className="footer-logo"
-              src={data == null ? "..." : data.logo}
+              className={`footer-logo ${data === null ? "skeleton" : ""}`}
+              src={
+                data == null
+                  ? "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                  : data.logo
+              }
             />
           </div>
         </div>

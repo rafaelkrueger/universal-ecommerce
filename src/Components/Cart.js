@@ -14,6 +14,9 @@ function Cart({
   setValorTotal,
   realCupom,
   setRealCupom,
+  setStatus,
+  setCode,
+  setMessage,
 }) {
   const [cupom, setCupom] = useState(0);
 
@@ -187,9 +190,14 @@ function Cart({
                       Api.get(`/get-cupom/${data._id}/${cupom}`).then((res) => {
                         console.log(res.data);
                         if (res.data.length > 0) {
+                          setMessage("Seu cupom foi resgatado com sucesso!");
+                          setCode(200);
+                          setStatus(true);
                           setRealCupom(res.data);
                         } else {
-                          window.alert("Codigo Inválido!");
+                          setMessage("Código não encontrado!");
+                          setCode(404);
+                          setStatus(true);
                         }
                       });
                     }}

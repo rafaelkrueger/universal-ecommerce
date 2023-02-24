@@ -9,12 +9,18 @@ import Star5 from "../images/stars/star-5.png";
 import Star6 from "../images/stars/star-6.png";
 import Api from "../Api";
 
-function ModalComment({ data, pedidoStatus, costumer, pedido }) {
+function ModalComment({
+  data,
+  pedidoStatus,
+  setPedidoStatus,
+  costumer,
+  pedido,
+}) {
   const [comment, setComment] = useState({
     empresa: data?._id,
     name: costumer?.name,
     image: costumer?.profileImage,
-    productId: pedido?._id,
+    productId: pedido?.products[0]?._id,
     title: "",
     comment: "",
     imageComment: "empty",
@@ -46,7 +52,7 @@ function ModalComment({ data, pedidoStatus, costumer, pedido }) {
       <div className="modal-comment-content">
         <div
           className="modal-comment-icon"
-          style={{ position: "absolute", right: "90px", top: 100 }}
+          style={{ position: "absolute", right: "50px", top: 52.5 }}
         >
           <AiOutlineCloseCircle size={30} />
         </div>
@@ -126,6 +132,7 @@ function ModalComment({ data, pedidoStatus, costumer, pedido }) {
                       comment: comment.comment,
                       rating: 1,
                     });
+                    setPedidoStatus(false);
                   }}
                   className="btn btn-large btn-success"
                 >

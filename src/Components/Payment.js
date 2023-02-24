@@ -14,6 +14,9 @@ function Payment({
   setValorTotal,
   realCupom,
   setRealCupom,
+  setStatus,
+  setCode,
+  setMessage,
 }) {
   const [chosen, setChosen] = useState(1);
 
@@ -99,6 +102,9 @@ function Payment({
                 cart={cart}
                 realCupom={realCupom}
                 setRealCupom={setRealCupom}
+                setStatus={setStatus}
+                setCode={setCode}
+                setMessage={setMessage}
               />
             ) : (
               ""
@@ -111,6 +117,9 @@ function Payment({
                 cart={cart}
                 realCupom={realCupom}
                 setRealCupom={setRealCupom}
+                setStatus={setStatus}
+                setCode={setCode}
+                setMessage={setMessage}
               />
             ) : (
               ""
@@ -123,6 +132,9 @@ function Payment({
                 cart={cart}
                 realCupom={realCupom}
                 setRealCupom={setRealCupom}
+                setStatus={setStatus}
+                setCode={setCode}
+                setMessage={setMessage}
               />
             ) : (
               ""

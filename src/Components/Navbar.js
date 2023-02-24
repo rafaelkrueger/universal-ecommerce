@@ -6,7 +6,6 @@ import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Costumer from "./Costumer";
 import Api from "../Api";
-import { motion } from "framer-motion";
 import { AiFillHeart } from "react-icons/ai";
 
 function Navbar({
@@ -24,6 +23,8 @@ function Navbar({
   const [search, setSearch] = useState("");
   const [screen, setScreen] = useState(window.outerWidth);
   const [navbar, setNavbar] = useState("");
+  const skeletonImage =
+    "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
   const [navbarStyle, setNavbarStyle] = useState({
     color: "",
     backgroundColor: "",
@@ -78,14 +79,16 @@ function Navbar({
             >
               {screen > 600 ? (
                 <img
-                  src={data == null ? "..." : data.logo}
+                  src={data === null ? skeletonImage : data?.logo}
+                  className={data === null ? "skeleton" : ""}
+                  alt={data?.name}
                   id="navbar-logo"
                   style={{
                     borderRadius: "50%",
                     objectFit: "contain",
                     width: "10%",
                     height: "10%",
-                    borderRadius: "10px ",
+                    borderRadius: "10px",
                   }}
                 />
               ) : (
@@ -232,7 +235,7 @@ function Navbar({
                 backgroundColor:
                   data !== null
                     ? data.website.websiteNavbarFooterColor
-                    : "black",
+                    : "white",
                 color:
                   data !== null ? data.website.websiteFontFooterColor : "white",
               }}

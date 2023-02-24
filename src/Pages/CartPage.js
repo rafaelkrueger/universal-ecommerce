@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Cart from "../Components/Cart";
 import User from "../Components/User";
 import Payment from "../Components/Payment";
+import ToastMessage from "../Components/ToastMessage";
 import "../App.css";
 import Api from "../Api";
 import { useParams } from "react-router-dom";
@@ -19,6 +20,9 @@ function CartPage({
   let { tamarinSite } = useParams();
   const [valortotal, setValorTotal] = useState(0);
   const [realCupom, setRealCupom] = useState(0);
+  const [status, setStatus] = useState(false);
+  const [code, setCode] = useState(0);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)
@@ -50,7 +54,19 @@ function CartPage({
         setValorTotal={setValorTotal}
         realCupom={realCupom}
         setRealCupom={setRealCupom}
+        setStatus={setStatus}
+        setCode={setCode}
+        setMessage={setMessage}
       />
+      <ToastMessage
+        status={status}
+        code={code}
+        message={message}
+        setStatus={setStatus}
+        setCode={setCode}
+        setMessage={setMessage}
+      />
+
       {filled ? (
         <Payment
           data={data}
@@ -64,6 +80,9 @@ function CartPage({
           setValorTotal={setValorTotal}
           realCupom={realCupom}
           setRealCupom={setRealCupom}
+          setStatus={setStatus}
+          setCode={setCode}
+          setMessage={setMessage}
         />
       ) : (
         <User
@@ -72,6 +91,9 @@ function CartPage({
           setCostumer={setCostumer}
           filled={filled}
           setFilled={setFilled}
+          setStatus={setStatus}
+          setCode={setCode}
+          setMessage={setMessage}
         />
       )}
     </>

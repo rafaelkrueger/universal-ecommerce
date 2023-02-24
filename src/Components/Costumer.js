@@ -4,10 +4,9 @@ import Api from "../Api";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FacebookLoginButton } from "react-social-login-buttons";
-import { InstagramLoginButton } from "react-social-login-buttons";
 //login components
 import { LoginSocialFacebook } from "reactjs-social-login";
-import { LoginSocialInstagram } from "reactjs-social-login";
+import ToastMessage from "./ToastMessage";
 
 function Costumer({
   data,
@@ -19,6 +18,9 @@ function Costumer({
   costumer,
   setCostumer,
 }) {
+  const [status, setStatus] = useState(false);
+  const [code, setCode] = useState(0);
+  const [message, setMessage] = useState("");
   const [loginResponse, setLoginResponse] = useState({
     profileImage: "",
     name: "",
@@ -69,6 +71,14 @@ function Costumer({
         transition={{ duration: 0.5 }}
         className="costumer-modal-content"
       >
+        <ToastMessage
+          status={status}
+          code={code}
+          message={message}
+          setStatus={setStatus}
+          setCode={setCode}
+          setMessage={setMessage}
+        />
         <div classname="costumer-modal-header">
           <div className="row" id="costumer-modal-responsive">
             <div className="col"></div>
@@ -138,8 +148,15 @@ function Costumer({
                       navigate(`/${data.site}/profile`);
                       setModal("hidden");
                       setCostumer({ ...costumer, logged: true });
+                      setStatus(true);
+                      setCode(200);
+                      setMessage("usuário logado com sucesso!");
                     } else {
-                      window.alert("Usuário não encontrado");
+                      setStatus(true);
+                      setCode(412);
+                      setMessage(
+                        "Falha ao logar! Tente mudar a senha ou email"
+                      );
                     }
                   })
                   .catch((err) => {
@@ -183,9 +200,15 @@ function Costumer({
                     navigate(`/${data.site}/profile`);
                     setCostumer({ ...costumer, logged: true });
                     setModal("hidden");
+                    setStatus(true);
+                    setCode(200);
+                    setMessage("Usuário logado com sucesso!");
                   })
                   .catch((err) => {
                     console.log(err);
+                    setStatus(true);
+                    setCode(412);
+                    setMessage("Falha ao logar!");
                   });
               }}
             >
@@ -270,9 +293,14 @@ function Costumer({
                         navigate(`/${data.site}/profile`);
                         setCostumer({ ...costumer, logged: true });
                         setModal("hidden");
+                        setStatus(true);
+                        setCode(200);
+                        setMessage("Usuário registrado com sucesso!!");
                       })
                       .catch((err) => {
-                        window.alert(err);
+                        setStatus(true);
+                        setCode(412);
+                        setMessage("Falha ao registrar usuário!");
                       });
                   }}
                   id="modal-button-register"

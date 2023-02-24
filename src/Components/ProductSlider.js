@@ -68,8 +68,9 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
                             <div
                               className="discount-slider-part"
                               style={{
-                                background: data.website.websiteHeartTagColor,
-                                color: data.website.websiteHeartColor,
+                                background:
+                                  data.website.websiteDiscountTagColor,
+                                color: data.website.websiteCardFontColor,
                               }}
                             >
                               <p>{list.discount}%</p>

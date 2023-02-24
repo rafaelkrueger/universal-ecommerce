@@ -6,6 +6,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { BsFilterCircleFill, BsFilterCircle } from "react-icons/bs";
 import Api from "../Api";
+import SkeletonProducts from "./SkeletonProducts";
 
 function Products({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
@@ -147,9 +148,7 @@ function Products({ data, setData, cart, setCart, costumer }) {
         >
           {data === null ? (
             <>
-              <h3>Não há produtos no momento!</h3>
-              <br />
-              <p>Favor retorne mais tarde...</p>
+              <SkeletonProducts />
             </>
           ) : (
             data.produto

@@ -5,7 +5,7 @@ function Carousel({ data }) {
   useEffect(() => {
     if (carousel == null) {
       setCarousel(
-        "https://i.pinimg.com/originals/fa/6a/a8/fa6aa8b9f02691e42df56f1678e795fc.gif"
+        "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
       );
     } else {
       setTimeout(() => {
@@ -19,7 +19,12 @@ function Carousel({ data }) {
       <div id="carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src={carousel} class="d-block w-100" alt="..." />
+            <img
+              style={{ minHeight: "100%" }}
+              src={carousel}
+              class={`d-block w-100 ${data === null ? "skeleton" : ""}`}
+              alt="..."
+            />
           </div>
         </div>
       </div>

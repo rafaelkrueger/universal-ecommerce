@@ -12,7 +12,16 @@ import {
 import { motion } from "framer-motion";
 import Api from "../Api";
 
-function User({ data, costumer, setCostumer, filled, setFilled }) {
+function User({
+  data,
+  costumer,
+  setCostumer,
+  filled,
+  setFilled,
+  setStatus,
+  setCode,
+  setMessage,
+}) {
   const inputName = useRef(null);
   const cep = () => {
     Api.get(`https://viacep.com.br/ws/${costumer.cep}/json/`).then((res) => {
@@ -268,16 +277,28 @@ function User({ data, costumer, setCostumer, filled, setFilled }) {
                     streetNumber: costumer.streetNumber,
                   }).then((res) => {
                     if (res.data === "success") {
+                      setCode(200);
+                      setMessage("Usuário criado com sucesso!");
+                      setStatus(true);
                       setCostumer({ ...costumer, logged: true });
                       setFilled(true);
                     } else {
                       if (costumer.logged) {
+                        setCode(200);
+                        setMessage("Tudo pronto para seguirmos com a compra!");
+                        setStatus(true);
                         setFilled(true);
                       } else {
-                        window.alert(res.data + " - Faça login para continuar");
+                        setMessage("Usuário já existente!");
+                        setCode(409);
+                        setStatus(true);
                       }
                     }
                   });
+                } else {
+                  setStatus(true);
+                  setCode(412);
+                  setMessage("Preencha todos os campos para continuar!");
                 }
               }}
             >

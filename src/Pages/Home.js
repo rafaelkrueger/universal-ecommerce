@@ -8,7 +8,6 @@ import "../App.css";
 
 function Home({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
-  const top = useRef(0);
 
   useEffect(() => {
     Api.get(`/empresa/${tamarinSite}`)

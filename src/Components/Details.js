@@ -10,6 +10,7 @@ import EmptyProfile from "../images/empty-profile.png";
 import Api from "../Api";
 import ProductSlider from "./ProductSlider";
 import { BsCart4, BsHeartFill } from "react-icons/bs";
+import SkeletonSlider from "./SkeletonSlider";
 
 function Details({ data, setData, cart, setCart, costumer }) {
   let { tamarinSite } = useParams();
@@ -47,7 +48,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
     //   .getLocation()
     //   .then((results) => console.log(results))
     //   .catch((error) => console.error(error));
-  }, []);
+  });
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -59,6 +60,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
     });
     setProduto(produto);
   };
+
   const changePrice = () => {
     let totalPrice = 0;
     for (let i = 0; i < quantity; i++) {
@@ -70,8 +72,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
 
   const firstLoadImage = () => {
     setTimeout(() => {
-      if (firstLoad) {
-        setSelectedImage(produto[0].image);
+      if (firstLoad && produto[0]?.image !== undefined) {
+        setSelectedImage(produto[0]?.image);
         setFirstLoad(false);
       }
     }, 0);
@@ -116,7 +118,10 @@ function Details({ data, setData, cart, setCart, costumer }) {
             <div className="col" id="detailed-product-image-col-2">
               <img
                 alt="main image"
-                className="detailed-product-image"
+                style={{ minHeight: "100%", minWidth: "100%" }}
+                className={`detailed-product-image ${
+                  data === null ? "skeleton" : ""
+                }`}
                 src={selectedImage !== "" ? selectedImage : firstLoadImage()}
               />
             </div>
@@ -127,9 +132,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 className="detailed-product-image-sub"
                 alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
                 src={
-                  produto.length > 0 &&
-                  produto[0]?.subImages.subImage1 !== undefined
-                    ? produto[0]?.subImages.subImage1
+                  produto.length > 0 && produto[0]?.subImages?.subImage1
+                    ? produto[0]?.subImages?.subImage1
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
                 onClick={() => {
@@ -140,8 +144,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 className="detailed-product-image-sub"
                 alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
                 src={
-                  produto.length > 0 &&
-                  produto[0]?.subImages.subImage2 !== undefined
+                  produto.length > 0 && produto[0]?.subImages?.subImage2
                     ? produto[0]?.subImages.subImage2
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
@@ -153,7 +156,7 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 className="detailed-product-image-sub"
                 alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
                 src={
-                  produto.length > 0 && produto[0]?.image !== undefined
+                  produto.length > 0 && produto[0]?.image
                     ? produto[0]?.image
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
@@ -165,9 +168,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 className="detailed-product-image-sub"
                 alt={produto.length > 0 ? produto[0]?.product : "Loading..."}
                 src={
-                  produto.length > 0 &&
-                  produto[0]?.subImages.subImage3 !== undefined
-                    ? produto[0]?.subImages.subImage3
+                  produto.length > 0 && produto[0]?.subImages?.subImage3
+                    ? produto[0]?.subImages?.subImage3
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
                 onClick={() => {
@@ -178,9 +180,8 @@ function Details({ data, setData, cart, setCart, costumer }) {
                 className="detailed-product-image-sub"
                 alt={produto.length > 0 ? produto[0].product : "Loading..."}
                 src={
-                  produto.length > 0 &&
-                  produto[0]?.subImages.subImage4 !== undefined
-                    ? produto[0]?.subImages.subImage4
+                  produto.length > 0 && produto[0]?.subImages?.subImage4
+                    ? produto[0]?.subImages?.subImage4
                     : "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
                 }
                 onClick={() => {
@@ -371,10 +372,13 @@ function Details({ data, setData, cart, setCart, costumer }) {
             >
               <div className="col" id="detailed-button-col-1">
                 <Link
-                  to={`/${data === null ? "" : data.site}/cart`}
-                  onClick={async () => {
-                    await setCart([...cart, produto[0]]);
+                  onClick={() => {
+                    setCart([
+                      ...cart,
+                      ...Array(parseInt(quantity)).fill(produto[0]),
+                    ]);
                   }}
+                  to={`/${data === null ? "" : data.site}/cart`}
                   id="detailed-product-button-element"
                   className="btn btn-large "
                   style={{
@@ -473,13 +477,17 @@ function Details({ data, setData, cart, setCart, costumer }) {
           : ""}
       </div>
       <div className="row">
-        <ProductSlider
-          data={data}
-          cart={cart}
-          setCart={setCart}
-          size={4}
-          costumer={costumer}
-        />
+        {data !== null ? (
+          <ProductSlider
+            data={data}
+            cart={cart}
+            setCart={setCart}
+            size={4}
+            costumer={costumer}
+          />
+        ) : (
+          <SkeletonSlider />
+        )}
       </div>
     </>
   );
