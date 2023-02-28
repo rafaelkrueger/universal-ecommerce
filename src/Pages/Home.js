@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Carousel from "../Components/Carousel";
 import Cards from "../Components/Cards";
 import Contact from "../Components/Contact";
+import Chat from "../Components/Chat";
 import { useParams } from "react-router-dom";
 import Api from "../Api";
 import "../App.css";
@@ -25,6 +26,7 @@ function Home({ data, setData, cart, setCart, costumer }) {
 
   return (
     <>
+      <Chat data={data} costumer={costumer} />
       <Carousel data={data} />
       <Cards data={data} cart={cart} setCart={setCart} costumer={costumer} />
       <Contact data={data} />

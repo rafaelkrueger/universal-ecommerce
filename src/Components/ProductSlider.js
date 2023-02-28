@@ -23,8 +23,8 @@ function ProductSlider({ data, cart, setCart, size, costumer }) {
           spaceBetween={50}
         >
           {data != null
-            ? data.produto
-                .map((list, key) => {
+            ? data?.produto
+                ?.map((list, key) => {
                   return (
                     <>
                       <SwiperSlide key={list._id}>

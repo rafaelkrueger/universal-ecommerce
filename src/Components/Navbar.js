@@ -31,7 +31,7 @@ function Navbar({
   });
 
   useEffect(() => {
-    if (navbar.color == "") {
+    if (navbar.color === "") {
       setNavbarStyle({
         color: "white",
         backgroundColor: "black",
@@ -115,7 +115,9 @@ function Navbar({
             id={`navbar-content${navbar}`}
             style={{
               background:
-                data !== null ? data.website.websiteNavbarFooterColor : "white",
+                data !== null
+                  ? data?.website?.websiteNavbarFooterColor
+                  : "white",
             }}
           >
             <div
@@ -129,7 +131,7 @@ function Navbar({
             >
               <Link
                 style={{ color: navbarStyle.color }}
-                to={`${data == null ? "" : data.site}`}
+                to={`${data == null ? "" : data?.site}`}
                 id="nav-link-home"
                 class="nav-link active"
                 aria-current="page"
@@ -137,7 +139,7 @@ function Navbar({
                 Home
               </Link>
               <Link
-                to={`${data == null ? "" : data.site}/produtos/all`}
+                to={`${data == null ? "" : data?.site}/produtos/all`}
                 id="nav-link-valores"
                 class="nav-link"
                 style={{ color: navbarStyle.color }}
@@ -148,13 +150,13 @@ function Navbar({
                 className="select-category-modal"
                 id="select-category-modal-navbar"
                 style={{
-                  backgroundColor: navbarStyle.backgroundColor,
-                  color: navbarStyle.color,
+                  backgroundColor: navbarStyle?.backgroundColor,
+                  color: navbarStyle?.color,
                   border: "0px white solid",
                 }}
                 onChange={(e) => {
                   navigate(
-                    `/${data == null ? "" : data.site}/produtos/${
+                    `/${data == null ? "" : data?.site}/produtos/${
                       e.target.value
                     }`
                   );
@@ -162,21 +164,27 @@ function Navbar({
               >
                 <option
                   style={{
-                    color: navbarStyle.color,
-                    backgroundColor: navbarStyle.backgroundColor,
+                    color:
+                      navbarStyle?.color !== undefined
+                        ? navbarStyle?.color
+                        : "black",
+                    backgroundColor:
+                      navbarStyle?.backgroundColor !== undefined
+                        ? navbarStyle?.backgroundColor
+                        : "white",
                   }}
                 >
                   Categorias
                 </option>
                 {data == undefined
                   ? ""
-                  : data.categorias.map((list) => {
+                  : data?.categorias?.map((list) => {
                       return (
                         <>
                           <option
                             style={{
-                              color: navbarStyle.color,
-                              backgroundColor: navbarStyle.backgroundColor,
+                              color: navbarStyle?.color,
+                              backgroundColor: navbarStyle?.backgroundColor,
                             }}
                             onClick={() => {
                               setCategory(list);
@@ -196,7 +204,7 @@ function Navbar({
                 onClick={(e) => {
                   e.preventDefault();
                   if (costumer.logged) {
-                    navigate(`${data == null ? "" : data.site}/profile`);
+                    navigate(`${data == null ? "" : data?.site}/profile`);
                   } else {
                     setModal("visible");
                   }
@@ -234,20 +242,22 @@ function Navbar({
               style={{
                 backgroundColor:
                   data !== null
-                    ? data.website.websiteNavbarFooterColor
+                    ? data?.website?.websiteNavbarFooterColor
                     : "white",
                 color:
-                  data !== null ? data.website.websiteFontFooterColor : "white",
+                  data !== null
+                    ? data?.website?.websiteFontFooterColor
+                    : "white",
               }}
             >
               <ul className="navbar-search-result-list">
                 {data !== null
-                  ? data.produto.map((list, key) => {
-                      if (list.product.includes(search) && search !== "") {
+                  ? data?.produto?.map((list, key) => {
+                      if (list?.product?.includes(search) && search !== "") {
                         return (
                           <Link
                             style={{ textDecoration: "none", color: "black" }}
-                            to={`/produto/${list._id}/${data.site}`}
+                            to={`/produto/${list._id}/${data?.site}`}
                           >
                             <div className="navbar-list-item">
                               <div className="row">
@@ -337,11 +347,11 @@ function Navbar({
                   style={{
                     backgroundColor:
                       data !== null
-                        ? data.website.websiteNavbarFooterColor
+                        ? data?.website?.websiteNavbarFooterColor
                         : "black",
                     color:
                       data !== null
-                        ? data.website.websiteFontFooterColor
+                        ? data?.website?.websiteFontFooterColor
                         : "white",
                   }}
                 >

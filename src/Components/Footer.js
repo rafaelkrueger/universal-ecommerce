@@ -103,9 +103,9 @@ function Footer({ data }) {
                   }}
                 >
                   <option>Categorias</option>
-                  {data == undefined
+                  {data === undefined
                     ? ""
-                    : data.categorias.map((list) => {
+                    : data?.categorias?.map((list) => {
                         return (
                           <>
                             <option
