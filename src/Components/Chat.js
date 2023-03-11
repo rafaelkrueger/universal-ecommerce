@@ -8,6 +8,7 @@ function Chat({ data, costumer }) {
   const [socket, setSocket] = useState(null);
   const [activeChat, setActiveChat] = useState(false);
   const [message, setMessage] = useState("");
+  const [receivedMessage, setReceivedMessage] = useState();
 
   const sendMessage = (message, user, empresa) => {
     const completeMessage = {
@@ -21,23 +22,39 @@ function Chat({ data, costumer }) {
   };
 
   socket?.on("messageUpload", (message) => {
-    messageUpload(message);
+    setReceivedMessage(message);
   });
 
   const messageUpload = (message) => {
-    const bodyMessage =
-      window.document.getElementsByClassName("chat-active-body");
-    bodyMessage[0].innerHTML += `
-    <div className='chat-active-you-chat>
-      <p>${message?.message}</p>
-    <div>`;
+    const bodyMessage = window.document.getElementById("chat-body");
+    const newDiv = document.createElement("div");
+    newDiv.classList.add(
+      `chat-active-${message?.sender === "" ? "you" : "it"}-chat`
+    );
+    newDiv.style.background =
+      message?.sender !== ""
+        ? data?.website?.websiteNavbarFooterColor
+        : "white";
+    newDiv.style.color =
+      message?.sender !== "" ? data?.website?.websiteFontFooterColor : "black";
+    newDiv.innerHTML = `<p>${message?.message}</p>`;
+    bodyMessage?.appendChild(newDiv);
+    var scrollChat = document.getElementById("chat-body");
+    const divHeight = scrollChat?.scrollHeight;
+    if (scrollChat?.scrollTop) {
+      scrollChat.scrollTop = divHeight;
+    }
   };
 
   useEffect(() => {
-    const newSocket = socketIO.connect("http://localhost:8083");
+    const newSocket = socketIO.connect("hhttps://tamarintec.herokuapp.com");
     setSocket(newSocket);
     return socket?.disconnect();
   }, []);
+
+  useEffect(() => {
+    messageUpload(receivedMessage);
+  }, [receivedMessage]);
 
   return (
     <>
@@ -63,7 +80,7 @@ function Chat({ data, costumer }) {
               </div>
             </div>
             <hr />
-            <div class="chat-active-body">
+            <div class="chat-active-body" id="chat-body">
               <div
                 className="chat-active-it-chat"
                 style={{
